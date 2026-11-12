@@ -8,8 +8,8 @@ A JDK, version 21 or newer, from https://adoptium.net/. Nothing else: the Gradle
 
 ## Commands
 
-| What | macOS             | Windows               |
-| --- |-------------------|-----------------------|
+| What                     | macOS             | Windows               |
+|--------------------------|-------------------|-----------------------|
 | Build and run all testes | `./gradlew build` | `.\gradlew.bat build` |
-| Run the tests only | `./gradlew test` | `.\gradlew.bat test` |
-| Run the game | `./gradlew run` | `.\gradlew.bat run` |
+| Run the tests only       | `./gradlew test`  | `.\gradlew.bat test`  |
+| Run the game             | `./gradlew run`   | `.\gradlew.bat run`   |

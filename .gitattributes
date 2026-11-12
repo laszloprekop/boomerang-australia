@@ -10,3 +10,5 @@
 # Binary files should be left untouched
 *.jar           binary
 
+# The original exam code is kept byte for byte, with its Windows line endings
+app/src/main/java/BoomerangAustralia.java -text
