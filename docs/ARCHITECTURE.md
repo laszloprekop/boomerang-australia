@@ -198,7 +198,8 @@ class History(val rounds: List<RoundRecord> = emptyList()) {
     fun previousPoints(seat: Int, category: IScoringCategory): Int?  // points in the last finished round; null in round 1
     fun total(seat: Int): Int
     fun total(seat: Int, category: IScoringCategory): Int
-    fun result(edition: Edition): GameResult   // highest total, then each of edition.tieBreakers in order (R12)
+    /** Highest total, then each of edition.tieBreakers in order (R12). IllegalStateException if no round is finished. */
+    fun result(edition: Edition): GameResult
 }
 // game/Edition.kt
 /** An edition: its cards, its categories in score sheet order, and its tie-break order.
@@ -365,9 +366,9 @@ class ClientSession(private val connection: IConnection, private val player: IPl
 // net/SocketConnection.kt
 /** The transport of today: Java object streams over a TCP socket. */
 class SocketConnection(socket: java.net.Socket) : IConnection {
-    companion object { fun open(host: String, port: Int): SocketConnection }   // the client's end
+    companion object { fun open(host: String, port: Int): SocketConnection }   // the client's end; ConnectionLost if no server answers
 }
-/** The server's end. Port 0 takes any free port; `port` is the one in use. */
+/** The server's end. Port 0 takes any free port; `port` is the one in use. ConnectionLost if the port cannot be opened. */
 class SocketListener(port: Int) : AutoCloseable {
     val port: Int
     fun accept(): IConnection
@@ -545,7 +546,8 @@ Stance: the values of `game` carry the marker `java.io.Serializable`, so `game` 
 That is the smaller cost because the marker has no methods and changes no signature, and the alternative is
 a second set of classes or an encoder. The dependency rule says so exactly (section 2.3 rule 1) and a test
 holds it. The way out: delete `: Serializable` in four files of `game` and add a connection class in `net`
-that encodes `Message` itself.
+that encodes `Message` itself. A concrete cost: `DraftPhase` copies each dealt hand (`toList()`), because a
+`subList` view into the deck cannot be serialized.
 Defence: Client and server agree on types, never on words. The transport is one class behind
 `IConnection`, and the game's values travel as they are.
 
@@ -557,8 +559,10 @@ Defence: Client and server agree on types, never on words. The transport is one 
   `ConnectionLost`; `RemotePlayer` turns that into `PlayerLost`, the only failure `game` knows. `Game.play`
   shows `GameAborted(lostSeat)` to every other player and rethrows; a second loss while doing so is attached
   to the first (`addSuppressed`), not dropped. `main` reports it and closes all connections.
-- `main` catches `PlayerLost`, `ConnectionLost`, a port in use and an unreachable server, prints one
-  sentence each and exits with a non-zero status. Bad arguments are the value `Usage`.
+- A port in use and an unreachable server are turned into `ConnectionLost` inside `net`, each with its own
+  sentence. `main` therefore catches `PlayerLost` and `ConnectionLost` only and names no `java.net` type;
+  it prints a sentence and exits with a non-zero status. It cannot name the lost seat (`PlayerLost`
+  carries the player); the clients learn it through `GameAborted`. Bad arguments are the value `Usage`.
 - A broken invariant (`require`, `check`) is a programming error and crashes with its stack trace.
 - Known limit: a player who stays connected and silent makes the game wait, as in the original; no
   requirement names a time limit. One would be added in a connection class behind `IConnection`, with no
@@ -567,7 +571,7 @@ Defence: Client and server agree on types, never on words. The transport is one 
 Defence: A wrong answer is part of play, so it is a value and the player is asked again. A closed or
 broken connection ends the game for everyone with a message, and no catch block is empty.
 
-**D11. Who controls randomness.** `App.kt` creates one `kotlin.random.Random` and gives it to
+**D11. Who controls randomness.** `App.kt` takes `kotlin.random.Random.Default` and gives it to
 `RandomShuffler` and to each `BotPlayer`. `Game` asks the `IShuffler` once per round. Rejected: a `Random`
 passed into `Game` (a test could fix a deal only by searching for a seed) and a global generator.
 Defence: Chance enters at two named points, both handed in from outside. A test passes a shuffler that
@@ -587,8 +591,9 @@ players (R4 to R9); `ScoringPhase`, `History.result` and `Game` with scripted pl
 (R1, R3, R10e, R11, R12); `parseArguments` (R1); `ConsolePlayer` with strings; `RemotePlayer` and
 `ClientSession` over an in-memory connection pair. Two more: `DependencyRulesTest`, because a dependency
 rule that no test checks erodes; and one loopback test of `SocketConnection` on a free port, because that
-class is otherwise the only one no test runs. The doubles (`ScriptedPlayer`, `InMemoryConnection`) live in
-the test sources, in `boomerang/support/`.
+class is otherwise the only one no test runs. The doubles (`ScriptedPlayer`, `InMemoryConnection`,
+`FixedCategory`) and two helpers (`Table`, `AustraliaSheet`) live in the test sources, in
+`boomerang/support/`.
 Defence: Every rule is tested where it lives, without console, socket or chance. No production type
 exists for the tests' sake: the rules need `IPlayer` and `IShuffler` anyway.
 
@@ -610,8 +615,13 @@ a type in the design:
    outermost edge; a text method on the events would put wording into `game`. The compiler rejects it when
    an event is added and not handled.
 2. `main`: a `when` over `Start`. Choosing what to build is the job of the composition root.
-3. `RemotePlayer`: one checked cast per reply (`CardAnswer`, `ChoiceAnswer`). This is validation of input
-   from outside, not dispatch: anything else is `PlayerLost`. There is no other type test.
+3. Input validation where objects arrive from another process, never dispatch. `SocketConnection.receive`
+   checks that the object read is a `Message`, because a stream can deliver any object. `ClientSession`
+   checks that it is a `ServerMessage`, because only those can be delivered to a player. `RemotePlayer`
+   checks each reply (`CardAnswer`, `ChoiceAnswer`), because a client may answer the wrong question. Each
+   failure is `ConnectionLost` or `PlayerLost`.
+
+There is no other test on a type. `Direction.receiver` is a `when` on the enum's own two values.
 
 Defence: Behaviour that varies is behind interfaces. A `when` remains only where data meets the outside
 world, and the compiler checks it is complete.
@@ -744,7 +754,7 @@ touch the drafting sequence, and each is tested alone); one file per seam interf
 
 No question is open. Known limits, each stated where it is decided: a silent player makes the game wait,
 and a lost player is noticed when that seat is next awaited (D10, D8); `game` carries
-`java.io.Serializable` (D9); two `when`s on a sealed type and two checked casts remain (D15); "several
+`java.io.Serializable` (D9); two `when`s on a sealed type and four checks of arriving objects remain (D15); "several
 scores means the player chooses" is a contract, not a type, and a choice is always a symbol (D4); `kind`
 and the display names are strings (D3). Two more:
 
