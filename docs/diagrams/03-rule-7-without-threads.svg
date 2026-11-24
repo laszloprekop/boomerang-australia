@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">Rule 7 without threads: one step of the draft</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">Everyone selects at the same time means: nobody sees another selection before making their own. Ask all, collect all, then show.</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · diagram 3</text>
+<rect x="110" y="96" width="160" height="40" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="190.0" y="118" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">DraftPhase</text>
+<polyline points="190,136 190,690" fill="none" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="6 4"/>
+<rect x="390" y="96" width="160" height="40" rx="6" fill="#e8f0fe" stroke="#1a56c4" stroke-width="1.8"/>
+<text x="470.0" y="118" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">IPlayer, seat 0</text>
+<polyline points="470,136 470,690" fill="none" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="6 4"/>
+<rect x="580" y="96" width="160" height="40" rx="6" fill="#e8f0fe" stroke="#1a56c4" stroke-width="1.8"/>
+<text x="660.0" y="118" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">IPlayer, seat 1</text>
+<polyline points="660,136 660,690" fill="none" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="6 4"/>
+<rect x="770" y="96" width="160" height="40" rx="6" fill="#e8f0fe" stroke="#1a56c4" stroke-width="1.8"/>
+<text x="850.0" y="118" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">IPlayer, seat 2</text>
+<polyline points="850,136 850,690" fill="none" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="6 4"/>
+<rect x="60" y="150" width="880" height="150" rx="8" fill="#e8f0fe" fill-opacity="0.45" stroke="#1a56c4" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="70" y="168" font-size="13" fill="#1a56c4" font-weight="700" text-anchor="start" xml:space="preserve">1  Ask every player. Each call returns at once with an IAnswer.</text>
+<polyline points="190,200 470,200" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="470.0,200.0 461.8,196.3 461.8,203.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="238.72" y="182" width="162.56" height="17" fill="#ffffff"/>
+<text x="320" y="194" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">selectCard(hand, draft)</text>
+<polyline points="190,234 660,234" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="660.0,234.0 651.8,230.3 651.8,237.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="238.72" y="216" width="162.56" height="17" fill="#ffffff"/>
+<text x="320" y="228" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">selectCard(hand, draft)</text>
+<polyline points="190,268 850,268" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="850.0,268.0 841.8,264.3 841.8,271.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="238.72" y="250" width="162.56" height="17" fill="#ffffff"/>
+<text x="320" y="262" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">selectCard(hand, draft)</text>
+<rect x="60" y="312" width="880" height="180" rx="8" fill="#e6f4ea" fill-opacity="0.45" stroke="#137333" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="70" y="330" font-size="13" fill="#137333" font-weight="700" text-anchor="start" xml:space="preserve">2  Collect the answers, seat by seat, on one thread.</text>
+<polyline points="190,362 470,362" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="470.0,362.0 461.8,358.3 461.8,365.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="272.48" y="344" width="55.040000000000006" height="17" fill="#ffffff"/>
+<text x="300" y="356" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">await()</text>
+<polyline points="470,378 190,378" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="190.0,378.0 198.2,381.7 198.2,374.3" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="359.04" y="362" width="81.92" height="17" fill="#ffffff"/>
+<text x="400" y="374" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">site letter</text>
+<polyline points="190,406 660,406" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="660.0,406.0 651.8,402.3 651.8,409.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="272.48" y="388" width="55.040000000000006" height="17" fill="#ffffff"/>
+<text x="300" y="400" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">await()</text>
+<polyline points="660,422 190,422" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="190.0,422.0 198.2,425.7 198.2,418.3" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="549.04" y="406" width="81.92" height="17" fill="#ffffff"/>
+<text x="590" y="418" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">site letter</text>
+<polyline points="190,450 850,450" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="850.0,450.0 841.8,446.3 841.8,453.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="272.48" y="432" width="55.040000000000006" height="17" fill="#ffffff"/>
+<text x="300" y="444" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">await()</text>
+<polyline points="850,466 190,466" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="190.0,466.0 198.2,469.7 198.2,462.3" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="739.04" y="450" width="81.92" height="17" fill="#ffffff"/>
+<text x="780" y="462" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">site letter</text>
+<rect x="60" y="504" width="880" height="176" rx="8" fill="#fef7e0" fill-opacity="0.45" stroke="#b06000" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="70" y="522" font-size="13" fill="#b06000" font-weight="700" text-anchor="start" xml:space="preserve">3  Only now: move the cards, pass the hands, show.</text>
+<text x="204" y="548" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">each card to its draft;  hands = pass(hands, passing.hands)   (steps 1 to 5)</text>
+<polyline points="190,590 470,590" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="470.0,590.0 461.8,586.3 461.8,593.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="231.83999999999997" y="572" width="216.32000000000002" height="17" fill="#ffffff"/>
+<text x="340" y="584" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">show(CardsShown)   steps 2 to 6</text>
+<polyline points="190,618 660,618" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="660.0,618.0 651.8,614.3 651.8,621.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="231.83999999999997" y="600" width="216.32000000000002" height="17" fill="#ffffff"/>
+<text x="340" y="612" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">show(CardsShown)   steps 2 to 6</text>
+<polyline points="190,646 850,646" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="850.0,646.0 841.8,642.3 841.8,649.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="231.83999999999997" y="628" width="216.32000000000002" height="17" fill="#ffffff"/>
+<text x="340" y="640" font-size="12" fill="#5f6368" text-anchor="middle" xml:space="preserve">show(CardsShown)   steps 2 to 6</text>
+<rect x="955" y="150" width="150" height="150" rx="6" fill="#fffbe6" stroke="#c9a400" stroke-width="1.0"/>
+<text x="967" y="172" font-size="15" font-weight="700" fill="#1a1a1a">Why no thread</text>
+<text x="967" y="190" font-size="12" fill="#1a1a1a" xml:space="preserve">Asking does not</text>
+<text x="967" y="207" font-size="12" fill="#1a1a1a" xml:space="preserve">wait. A remote</text>
+<text x="967" y="224" font-size="12" fill="#1a1a1a" xml:space="preserve">player's question</text>
+<text x="967" y="241" font-size="12" fill="#1a1a1a" xml:space="preserve">is already on the</text>
+<text x="967" y="258" font-size="12" fill="#1a1a1a" xml:space="preserve">wire; the answer</text>
+<text x="967" y="275" font-size="12" fill="#1a1a1a" xml:space="preserve">waits in the</text>
+<text x="967" y="292" font-size="12" fill="#1a1a1a" xml:space="preserve">connection.</text>
+<rect x="955" y="312" width="150" height="180" rx="6" fill="#fffbe6" stroke="#c9a400" stroke-width="1.0"/>
+<text x="967" y="334" font-size="15" font-weight="700" fill="#1a1a1a">A refused answer</text>
+<text x="967" y="352" font-size="12" fill="#1a1a1a" xml:space="preserve">Not a card of the</text>
+<text x="967" y="369" font-size="12" fill="#1a1a1a" xml:space="preserve">hand: the same</text>
+<text x="967" y="386" font-size="12" fill="#1a1a1a" xml:space="preserve">player is asked</text>
+<text x="967" y="403" font-size="12" fill="#1a1a1a" xml:space="preserve">again, with</text>
+<text x="967" y="420" font-size="12" fill="#1a1a1a" xml:space="preserve">`refused` set.</text>
+<text x="967" y="437" font-size="12" fill="#1a1a1a" xml:space="preserve">The others were</text>
+<text x="967" y="454" font-size="12" fill="#1a1a1a" xml:space="preserve">already asked.</text>
+<text x="967" y="471" font-size="12" fill="#1a1a1a" xml:space="preserve">A value, not an</text>
+<text x="967" y="488" font-size="12" fill="#1a1a1a" xml:space="preserve">exception.</text>
+<rect x="955" y="504" width="150" height="176" rx="6" fill="#fce8e6" stroke="#b3261e" stroke-width="1.6"/>
+<text x="967" y="526" font-size="15" font-weight="700" fill="#1a1a1a">The original</text>
+<text x="967" y="544" font-size="12" fill="#1a1a1a" xml:space="preserve">lines 337 to 362:</text>
+<text x="967" y="561" font-size="12" fill="#1a1a1a" xml:space="preserve">a thread pool per</text>
+<text x="967" y="578" font-size="12" fill="#1a1a1a" xml:space="preserve">pick and a loop</text>
+<text x="967" y="595" font-size="12" fill="#1a1a1a" xml:space="preserve">that sleeps 100 ms,</text>
+<text x="967" y="612" font-size="12" fill="#1a1a1a" xml:space="preserve">because one call</text>
+<text x="967" y="629" font-size="12" fill="#1a1a1a" xml:space="preserve">asked and waited.</text>
+<text x="60" y="720" font-size="13" fill="#1a1a1a" text-anchor="start" xml:space="preserve">DraftPhase.selectCards: two loops. The first fills `answers`, the second reads them. Nothing is shown in between.</text>
+<text x="60" y="740" font-size="13" fill="#5f6368" text-anchor="start" xml:space="preserve">Step 1 selects the Throw card: it is never in CardsShown (Draft.shown drops the first card). Cost of no threads: a lost player is noticed when collected.</text>
+</svg>

@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">How it was built: stages, gates and locks</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">One agent role per stage, working from the files only. I approved each stage and read every diff. Tests were written first and only ever added to.</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · diagram 9</text>
+<rect x="40" y="100" width="122" height="118" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="50" y="120" font-size="12" fill="#1a56c4" font-weight="700" text-anchor="start" xml:space="preserve">B1</text>
+<text x="50" y="138" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">AGENTS.md</text>
+<text x="50" y="156" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">rules for the</text>
+<text x="50" y="170" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">agents</text>
+<text x="50" y="210" font-size="10.5" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">3275748</text>
+<rect x="66" y="234" width="70" height="26" rx="6" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="101" y="252" font-size="11.5" fill="#7b1fa2" font-weight="700" text-anchor="middle" xml:space="preserve">my gate</text>
+<polyline points="101.0,218 101.0,234" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<rect x="172" y="100" width="122" height="118" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="182" y="120" font-size="12" fill="#1a56c4" font-weight="700" text-anchor="start" xml:space="preserve">B2</text>
+<text x="182" y="138" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Requirements</text>
+<text x="182" y="156" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">R1 to R12, 20</text>
+<text x="182" y="170" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">questions decided</text>
+<text x="182" y="210" font-size="10.5" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">13287ad</text>
+<rect x="198" y="234" width="70" height="26" rx="6" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="233" y="252" font-size="11.5" fill="#7b1fa2" font-weight="700" text-anchor="middle" xml:space="preserve">my gate</text>
+<polyline points="233.0,218 233.0,234" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="162,159.0 172,159.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="172.0,159.0 163.8,155.3 163.8,162.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="304" y="100" width="122" height="118" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="314" y="120" font-size="12" fill="#1a56c4" font-weight="700" text-anchor="start" xml:space="preserve">B3</text>
+<text x="314" y="138" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Legacy tests</text>
+<text x="314" y="156" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">36 pass, 19 show</text>
+<text x="314" y="170" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">bugs</text>
+<text x="314" y="210" font-size="10.5" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">a591cc8</text>
+<rect x="330" y="234" width="70" height="26" rx="6" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="365" y="252" font-size="11.5" fill="#7b1fa2" font-weight="700" text-anchor="middle" xml:space="preserve">my gate</text>
+<polyline points="365.0,218 365.0,234" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="294,159.0 304,159.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="304.0,159.0 295.8,155.3 295.8,162.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="436" y="100" width="122" height="118" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="446" y="120" font-size="12" fill="#1a56c4" font-weight="700" text-anchor="start" xml:space="preserve">B4</text>
+<text x="446" y="138" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Architecture</text>
+<text x="446" y="156" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">2 send-backs, 17</text>
+<text x="446" y="170" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">decisions</text>
+<text x="446" y="210" font-size="10.5" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">0b7352a</text>
+<rect x="462" y="234" width="70" height="26" rx="6" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="497" y="252" font-size="11.5" fill="#7b1fa2" font-weight="700" text-anchor="middle" xml:space="preserve">my gate</text>
+<polyline points="497.0,218 497.0,234" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="426,159.0 436,159.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="436.0,159.0 427.8,155.3 427.8,162.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="568" y="100" width="122" height="118" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="578" y="120" font-size="12" fill="#1a56c4" font-weight="700" text-anchor="start" xml:space="preserve">B5</text>
+<text x="578" y="138" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Tests first</text>
+<text x="578" y="156" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">224 tests, 180</text>
+<text x="578" y="170" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">failing</text>
+<text x="578" y="210" font-size="10.5" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">de919fc</text>
+<rect x="594" y="234" width="70" height="26" rx="6" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="629" y="252" font-size="11.5" fill="#7b1fa2" font-weight="700" text-anchor="middle" xml:space="preserve">my gate</text>
+<polyline points="629.0,218 629.0,234" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="558,159.0 568,159.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="568.0,159.0 559.8,155.3 559.8,162.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="700" y="100" width="122" height="118" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="710" y="120" font-size="12" fill="#1a56c4" font-weight="700" text-anchor="start" xml:space="preserve">B6</text>
+<text x="710" y="138" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Implementation</text>
+<text x="710" y="156" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">4 rounds: 148, 102,</text>
+<text x="710" y="170" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">50, 0</text>
+<text x="710" y="210" font-size="10.5" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">5547637</text>
+<rect x="726" y="234" width="70" height="26" rx="6" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="761" y="252" font-size="11.5" fill="#7b1fa2" font-weight="700" text-anchor="middle" xml:space="preserve">my gate</text>
+<polyline points="761.0,218 761.0,234" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="690,159.0 700,159.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="700.0,159.0 691.8,155.3 691.8,162.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="832" y="100" width="122" height="118" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="842" y="120" font-size="12" fill="#1a56c4" font-weight="700" text-anchor="start" xml:space="preserve">B7</text>
+<text x="842" y="138" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Requirement 13</text>
+<text x="842" y="156" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">19 tests, then one</text>
+<text x="842" y="170" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">class</text>
+<text x="842" y="210" font-size="10.5" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">4abfca5</text>
+<rect x="858" y="234" width="70" height="26" rx="6" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="893" y="252" font-size="11.5" fill="#7b1fa2" font-weight="700" text-anchor="middle" xml:space="preserve">my gate</text>
+<polyline points="893.0,218 893.0,234" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="822,159.0 832,159.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="832.0,159.0 823.8,155.3 823.8,162.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="964" y="100" width="122" height="118" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="974" y="120" font-size="12" fill="#1a56c4" font-weight="700" text-anchor="start" xml:space="preserve">B8</text>
+<text x="974" y="138" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Review</text>
+<text x="974" y="156" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">13 findings, fixed</text>
+<text x="974" y="170" font-size="11" fill="#5f6368" text-anchor="start" xml:space="preserve">or kept</text>
+<text x="974" y="210" font-size="10.5" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">e835cf9</text>
+<rect x="990" y="234" width="70" height="26" rx="6" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="1025" y="252" font-size="11.5" fill="#7b1fa2" font-weight="700" text-anchor="middle" xml:space="preserve">my gate</text>
+<polyline points="1025.0,218 1025.0,234" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="954,159.0 964,159.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="964.0,159.0 955.8,155.3 955.8,162.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<text x="40" y="290" font-size="16" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">The test lock: four tags, tests only ever added</text>
+<rect x="40" y="306" width="243" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="52" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked-1</text>
+<text x="52" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">224 tests</text>
+<text x="52" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">rules 1 to 12, before any code</text>
+<rect x="300" y="306" width="243" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="312" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked-2</text>
+<text x="312" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">225 tests</text>
+<text x="312" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">+1: a whole game with every message</text>
+<text x="312" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">serialized, for a bug the real run</text>
+<text x="312" y="400" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">found</text>
+<polyline points="283,358.0 300,358.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="300.0,358.0 291.8,354.3 291.8,361.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="560" y="306" width="243" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="572" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked-3</text>
+<text x="572" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">244 tests</text>
+<text x="572" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">+19: requirement 13, before its</text>
+<text x="572" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">code</text>
+<polyline points="543,358.0 560,358.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="560.0,358.0 551.8,354.3 551.8,361.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="820" y="306" width="243" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="832" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked</text>
+<text x="832" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">253 tests</text>
+<text x="832" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">+9: guards and start-up failures</text>
+<text x="832" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">found by the review</text>
+<polyline points="803,358.0 820,358.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="820.0,358.0 811.8,354.3 811.8,361.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="40" y="424" width="1043" height="52" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="52" y="445" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">git diff --name-only --diff-filter=MDR tests-locked-1 HEAD -- app/src/test</text>
+<text x="52" y="462" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">prints nothing: no test was changed, renamed or deleted after the first lock.</text>
+<rect x="40" y="488" width="335" height="190" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="52" y="510" font-size="15" font-weight="700" fill="#1a1a1a">What the agents did</text>
+<text x="52" y="528" font-size="12" fill="#1a1a1a" xml:space="preserve">analyst: requirements and questions</text>
+<text x="52" y="545" font-size="12" fill="#1a1a1a" xml:space="preserve">test engineer: tests, and a throwaway</text>
+<text x="52" y="562" font-size="12" fill="#1a1a1a" xml:space="preserve">  build outside the repo to test the tests</text>
+<text x="52" y="579" font-size="12" fill="#1a1a1a" xml:space="preserve">  (13 planted faults, each caught)</text>
+<text x="52" y="596" font-size="12" fill="#1a1a1a" xml:space="preserve">architect: the design, three revisions</text>
+<text x="52" y="613" font-size="12" fill="#1a1a1a" xml:space="preserve">programmer: fills stubs until tests pass</text>
+<text x="52" y="630" font-size="12" fill="#1a1a1a" xml:space="preserve">reviewer: a fresh read, changes nothing</text>
+<rect x="393" y="488" width="335" height="190" rx="6" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="405" y="510" font-size="15" font-weight="700" fill="#1a1a1a">What I did</text>
+<text x="405" y="528" font-size="12" fill="#1a1a1a" xml:space="preserve">answered the 20 requirement questions</text>
+<text x="405" y="545" font-size="12" fill="#1a1a1a" xml:space="preserve">chose between the design options</text>
+<text x="405" y="562" font-size="12" fill="#1a1a1a" xml:space="preserve">sent the architecture back twice</text>
+<text x="405" y="579" font-size="12" fill="#1a1a1a" xml:space="preserve">read every round's diff before the next</text>
+<text x="405" y="596" font-size="12" fill="#1a1a1a" xml:space="preserve">decided on each review finding</text>
+<text x="405" y="613" font-size="12" fill="#1a1a1a" xml:space="preserve">moved the lock, openly, three times</text>
+<text x="405" y="630" font-size="12" fill="#1a1a1a" xml:space="preserve">rewrote one rule by hand (B9)</text>
+<rect x="746" y="488" width="337" height="190" rx="6" fill="#fce8e6" stroke="#b3261e" stroke-width="1.6"/>
+<text x="758" y="510" font-size="15" font-weight="700" fill="#1a1a1a">What only a real run found</text>
+<text x="758" y="528" font-size="12" fill="#1a1a1a" xml:space="preserve">A hand was a view into the deck and</text>
+<text x="758" y="545" font-size="12" fill="#1a1a1a" xml:space="preserve">could not be sent over a socket.</text>
+<text x="758" y="562" font-size="12" fill="#1a1a1a" xml:space="preserve">All tests passed: the test connection</text>
+<text x="758" y="579" font-size="12" fill="#1a1a1a" xml:space="preserve">passed objects by reference.</text>
+<text x="758" y="596" font-size="12" fill="#1a1a1a" xml:space="preserve">Fix: one .toList(). Then a test that</text>
+<text x="758" y="613" font-size="12" fill="#1a1a1a" xml:space="preserve">serializes every message of a game.</text>
+<text x="758" y="630" font-size="12" fill="#1a1a1a" xml:space="preserve">Also: ./gradlew run had no keyboard.</text>
+<rect x="40" y="692" width="1043" height="52" rx="6" fill="#fffbe6" stroke="#c9a400" stroke-width="1.0"/>
+<text x="52" y="713" font-size="12" fill="#1a1a1a" xml:space="preserve">After the examiner's lectures (L12, Lecture 16): AGENTS.md, roles, a human gate per stage, tests before code and locked,</text>
+<text x="52" y="730" font-size="12" fill="#1a1a1a" xml:space="preserve">an architecture test on imports, a review by a reviewer who changes nothing.</text>
+<rect x="40" y="761" width="18" height="13" rx="3" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="1.6"/>
+<text x="68" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">my decision</text>
+<rect x="160.4" y="761" width="18" height="13" rx="3" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="188.4" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">a lock (git tag)</text>
+<rect x="312.8" y="761" width="18" height="13" rx="3" fill="#fce8e6" stroke="#b3261e" stroke-width="1.6"/>
+<text x="340.8" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">found late</text>
+<polyline points="426.8,768 448.8,768" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="448.8,768.0 440.6,764.3 440.6,771.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<text x="454.8" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">then</text>
+</svg>

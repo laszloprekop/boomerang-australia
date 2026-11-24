@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">Requirement 13 as the proof: what the change touched</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">Alternating the passing direction was added after rules 1 to 12 were done. Tests first. Measured with git, not claimed.</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · diagram 7</text>
+<rect x="40" y="96" width="230" height="400" rx="6" fill="#f4f4f1" stroke="#b9b9b1" stroke-width="1.2"/>
+<text x="52" y="118" font-size="13" font-weight="700" fill="#1a1a1a">boomerang.game</text>
+<rect x="52" y="128" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="62" y="147" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">Game.kt</text>
+<text x="250" y="147" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="52" y="161" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="62" y="180" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">DraftPhase.kt</text>
+<text x="250" y="180" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="52" y="194" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="62" y="213" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">ScoringPhase.kt</text>
+<text x="250" y="213" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="52" y="227" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="62" y="246" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">History.kt</text>
+<text x="250" y="246" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="52" y="260" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="62" y="279" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">Edition.kt</text>
+<text x="250" y="279" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="52" y="293" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="62" y="312" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">Cards.kt</text>
+<text x="250" y="312" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="52" y="326" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="62" y="345" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">IPlayer.kt</text>
+<text x="250" y="345" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="52" y="359" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="62" y="378" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">IScoringCategory.kt</text>
+<text x="250" y="378" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="52" y="392" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="62" y="411" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">IPassingRule.kt</text>
+<text x="250" y="411" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="52" y="425" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="62" y="444" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">IShuffler.kt</text>
+<text x="250" y="444" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="52" y="458" width="206" height="34" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="62" y="480" font-size="12" fill="#1a1a1a" font-weight="700" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">AlternatingPassingRule.kt</text>
+<rect x="286" y="96" width="230" height="400" rx="6" fill="#f4f4f1" stroke="#b9b9b1" stroke-width="1.2"/>
+<text x="298" y="118" font-size="13" font-weight="700" fill="#1a1a1a">scoring · australia</text>
+<rect x="298" y="128" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="308" y="147" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">ThrowCatchDifference.kt</text>
+<text x="496" y="147" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="298" y="161" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="308" y="180" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">SiteCategories.kt</text>
+<text x="496" y="180" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="298" y="194" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="308" y="213" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">SymbolCategories.kt</text>
+<text x="496" y="213" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="298" y="227" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="308" y="246" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">Australia.kt</text>
+<text x="496" y="246" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="532" y="96" width="230" height="400" rx="6" fill="#f4f4f1" stroke="#b9b9b1" stroke-width="1.2"/>
+<text x="544" y="118" font-size="13" font-weight="700" fill="#1a1a1a">players · net</text>
+<rect x="544" y="128" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="554" y="147" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">BotPlayer.kt</text>
+<text x="742" y="147" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="544" y="161" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="554" y="180" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">ConsolePlayer.kt</text>
+<text x="742" y="180" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="544" y="194" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="554" y="213" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">IConnection.kt</text>
+<text x="742" y="213" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="544" y="227" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="554" y="246" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">RemotePlayer.kt</text>
+<text x="742" y="246" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="544" y="260" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="554" y="279" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">ClientSession.kt</text>
+<text x="742" y="279" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<rect x="544" y="293" width="206" height="28" rx="6" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0" stroke-dasharray="6 4"/>
+<text x="554" y="312" font-size="12" fill="#8a8a8a" font-family="Menlo, Consolas, monospace" text-anchor="start" xml:space="preserve">SocketConnection.kt</text>
+<text x="742" y="312" font-size="12" fill="#8a8a8a" text-anchor="end" xml:space="preserve">0</text>
+<text x="52" y="510" font-size="12" fill="#137333" font-weight="700" text-anchor="start" xml:space="preserve">new file, +14 lines</text>
+<rect x="778" y="96" width="305" height="140" rx="6" fill="#fef7e0" stroke="#b06000" stroke-width="1.8"/>
+<text x="790" y="118" font-size="15" font-weight="700" fill="#1a1a1a">boomerang · App.kt</text>
+<text x="790" y="136" font-size="12" fill="#1a1a1a" xml:space="preserve">+28  −7 lines</text>
+<text x="790" y="153" font-size="12" fill="#1a1a1a" xml:space="preserve"></text>
+<text x="790" y="170" font-size="12" fill="#1a1a1a" xml:space="preserve">a third argument `alternate`</text>
+<text x="790" y="187" font-size="12" fill="#1a1a1a" xml:space="preserve">the usage text names it</text>
+<text x="790" y="204" font-size="12" fill="#1a1a1a" xml:space="preserve">passingRuleFor(start)</text>
+<text x="790" y="221" font-size="12" fill="#1a1a1a" xml:space="preserve">one line hands the rule to Game</text>
+<rect x="778" y="248" width="305" height="274" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="790" y="270" font-size="15" font-weight="700" fill="#1a1a1a">The whole rule</text>
+<text x="790" y="287.5" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">object AlternatingPassingRule</text>
+<text x="790" y="304.0" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">    : IPassingRule {</text>
+<text x="790" y="320.5" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">  override fun passing(round, n)</text>
+<text x="790" y="337.0" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">      : Passing {</text>
+<text x="790" y="353.5" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">    val evenRound = round % 2 == 0</text>
+<text x="790" y="370.0" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">    if (evenRound &amp;&amp; n &gt; 2) {</text>
+<text x="790" y="386.5" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">      return Passing(</text>
+<text x="790" y="403.0" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">        hands = TO_PREVIOUS,</text>
+<text x="790" y="419.5" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">        catch = TO_NEXT)</text>
+<text x="790" y="436.0" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">    }</text>
+<text x="790" y="452.5" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">    return StandardPassingRule</text>
+<text x="790" y="469.0" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">        .passing(round, n)</text>
+<text x="790" y="485.5" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">  }</text>
+<text x="790" y="502.0" font-size="11.5" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">}</text>
+<rect x="40" y="530" width="500" height="110" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="52" y="552" font-size="15" font-weight="700" fill="#1a1a1a">The command that shows it</text>
+<text x="52" y="570" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">git diff --stat tests-locked-2 HEAD -- app/src/main</text>
+<text x="52" y="587" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">  App.kt                      | 28 +++++++---</text>
+<text x="52" y="604" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">  AlternatingPassingRule.kt   | 14 +++++++</text>
+<text x="52" y="621" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">  2 files changed</text>
+<rect x="558" y="536" width="525" height="104" rx="6" fill="#fffbe6" stroke="#c9a400" stroke-width="1.0"/>
+<text x="570" y="558" font-size="15" font-weight="700" fill="#1a1a1a">Why it worked</text>
+<text x="570" y="576" font-size="12" fill="#1a1a1a" xml:space="preserve">Game asks IPassingRule once per round and hands the answer to DraftPhase.</text>
+<text x="570" y="593" font-size="12" fill="#1a1a1a" xml:space="preserve">DraftPhase knows no direction: it uses Direction.receiver(seat, playerCount).</text>
+<text x="570" y="610" font-size="12" fill="#1a1a1a" xml:space="preserve">The rule returns both directions (hands and Catch card), so one class decides.</text>
+<text x="570" y="627" font-size="12" fill="#1a1a1a" xml:space="preserve">A test proves Game obeys any rule: a reversed rule gives the mirrored game.</text>
+<rect x="40" y="652" width="1043" height="96" rx="6" fill="#fef7e0" stroke="#b06000" stroke-width="1.8"/>
+<text x="52" y="674" font-size="15" font-weight="700" fill="#1a1a1a">The honest correction</text>
+<text x="52" y="692" font-size="12" fill="#1a1a1a" xml:space="preserve">The architecture first said "one class and one line at start-up". The measured figure is one class and about 20 lines in the start-up file:</text>
+<text x="52" y="709" font-size="12" fill="#1a1a1a" xml:space="preserve">a rule that can be switched on needs a switch. The document now states the measured figure. Open-closed held where it matters: no game file was edited.</text>
+<text x="52" y="726" font-size="12" fill="#1a1a1a" xml:space="preserve">The brief does not ask for requirement 13 to be implemented (line 165). It was built as evidence for questions 3a and 3b, with 19 tests written first.</text>
+<rect x="40" y="761" width="18" height="13" rx="3" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.0"/>
+<text x="68" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">untouched, 0 lines</text>
+<rect x="205.2" y="761" width="18" height="13" rx="3" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="233.2" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">new</text>
+<rect x="274.4" y="761" width="18" height="13" rx="3" fill="#fef7e0" stroke="#b06000" stroke-width="1.8"/>
+<text x="302.4" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">edited</text>
+</svg>

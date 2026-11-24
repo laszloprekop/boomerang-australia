@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">Scoring: an edition is data plus rules named by mechanism</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">Australia configures six reusable scoring classes. Score state lives in one immutable History, so every rule is a pure function.</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · diagram 6</text>
+<rect x="40" y="96" width="500" height="330" rx="6" fill="#f4f4f1" stroke="#b9b9b1" stroke-width="1.2"/>
+<text x="52" y="118" font-size="13" font-weight="700" fill="#1a1a1a">boomerang.australia · australia(): Edition</text>
+<rect x="56" y="130" width="468" height="42" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="68" y="148" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">10a  Throw and catch</text>
+<text x="68" y="165" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">difference of the Throw and Catch numbers</text>
+<text x="512" y="156" font-size="12" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="end" xml:space="preserve">ThrowCatchDifference</text>
+<rect x="56" y="178" width="468" height="42" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="68" y="196" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">10b  Tourist sites</text>
+<text x="68" y="213" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">1 per site not visited before</text>
+<text x="512" y="204" font-size="12" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="end" xml:space="preserve">NewSites</text>
+<rect x="56" y="226" width="468" height="42" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="68" y="244" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">10b  Region bonus</text>
+<text x="68" y="261" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">first to complete a region</text>
+<text x="512" y="252" font-size="12" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="end" xml:space="preserve">RegionBonus(regions, 3)</text>
+<rect x="56" y="274" width="468" height="42" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="68" y="292" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">10c  Collections</text>
+<text x="68" y="309" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">sum ≤ 7 doubles</text>
+<text x="512" y="300" font-size="12" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="end" xml:space="preserve">SymbolSum(values, ×2 up to 7)</text>
+<rect x="56" y="322" width="468" height="42" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="68" y="340" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">10d  Animals</text>
+<text x="68" y="357" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">value per complete pair</text>
+<text x="512" y="348" font-size="12" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="end" xml:space="preserve">SymbolPairs(values)</text>
+<rect x="56" y="370" width="468" height="42" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="68" y="388" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">10e  Activities</text>
+<text x="68" y="405" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">player chooses; 0,0,2,4,7,10,15</text>
+<text x="512" y="396" font-size="12" fill="#1a56c4" font-family="Menlo, Consolas, monospace" text-anchor="end" xml:space="preserve">ChosenSymbolCount(table)</text>
+<rect x="600" y="130" width="250" height="136" rx="6" fill="#e8f0fe" stroke="#1a56c4" stroke-width="1.8"/>
+<text x="612" y="147" font-size="11" fill="#1a56c4">interface</text>
+<text x="612" y="164" font-size="15" font-weight="700" fill="#1a1a1a">IScoringCategory</text>
+<text x="612" y="182" font-size="12" fill="#1a1a1a" xml:space="preserve">name</text>
+<text x="612" y="199" font-size="12" fill="#1a1a1a" xml:space="preserve">scores(context): List&lt;Score&gt;</text>
+<text x="612" y="216" font-size="12" fill="#1a1a1a" xml:space="preserve"></text>
+<text x="612" y="233" font-size="12" fill="#1a1a1a" xml:space="preserve">one score: taken</text>
+<text x="612" y="250" font-size="12" fill="#1a1a1a" xml:space="preserve">several: the player chooses</text>
+<polyline points="524,151.0 570,151.0" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polyline points="524,199.0 570,199.0" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polyline points="524,247.0 570,247.0" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polyline points="524,295.0 570,295.0" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polyline points="524,343.0 570,343.0" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polyline points="524,391.0 570,391.0" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polyline points="570,391.0 570,151.0" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polyline points="570,198 600,198" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="600.0,198.0 590.0,193.5 590.0,202.5" fill="#ffffff" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="600" y="306" width="250" height="120" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="612" y="328" font-size="15" font-weight="700" fill="#1a1a1a">ScoringContext</text>
+<text x="612" y="346" font-size="12" fill="#1a1a1a" xml:space="preserve">seat</text>
+<text x="612" y="363" font-size="12" fill="#1a1a1a" xml:space="preserve">drafts (all players, this round)</text>
+<text x="612" y="380" font-size="12" fill="#1a1a1a" xml:space="preserve">history</text>
+<text x="612" y="397" font-size="12" fill="#1a1a1a" xml:space="preserve">draft · otherDrafts · playerCount</text>
+<rect x="893" y="130" width="190" height="296" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="905" y="152" font-size="15" font-weight="700" fill="#1a1a1a">History</text>
+<text x="905" y="170" font-size="12" fill="#1a1a1a" xml:space="preserve">immutable</text>
+<text x="905" y="187" font-size="12" fill="#1a1a1a" xml:space="preserve"></text>
+<text x="905" y="204" font-size="12" fill="#1a1a1a" xml:space="preserve">visitedSites(seat)</text>
+<text x="905" y="221" font-size="12" fill="#1a1a1a" xml:space="preserve">chosen(seat, category)</text>
+<text x="905" y="238" font-size="12" fill="#1a1a1a" xml:space="preserve">previousPoints(...)</text>
+<text x="905" y="255" font-size="12" fill="#1a1a1a" xml:space="preserve">total(seat)</text>
+<text x="905" y="272" font-size="12" fill="#1a1a1a" xml:space="preserve">total(seat, category)</text>
+<text x="905" y="289" font-size="12" fill="#1a1a1a" xml:space="preserve">result(edition)</text>
+<text x="905" y="306" font-size="12" fill="#1a1a1a" xml:space="preserve"></text>
+<text x="905" y="323" font-size="12" fill="#1a1a1a" xml:space="preserve">plus(round) gives</text>
+<text x="905" y="340" font-size="12" fill="#1a1a1a" xml:space="preserve">a new History</text>
+<polyline points="725.0,266 725.0,306" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="725.0,306.0 728.7,297.8 721.3,297.8" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="850,366.0 871.5,366.0 871.5,352.0 893,352.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="893.0,352.0 884.8,348.3 884.8,355.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="40" y="446" width="330" height="200" rx="6" fill="#fffbe6" stroke="#c9a400" stroke-width="1.0"/>
+<text x="52" y="468" font-size="15" font-weight="700" fill="#1a1a1a">Why by mechanism</text>
+<text x="52" y="486" font-size="12" fill="#1a1a1a" xml:space="preserve">Europe scores Transport in pairs with</text>
+<text x="52" y="503" font-size="12" fill="#1a1a1a" xml:space="preserve">the same values as Australia's animals:</text>
+<text x="52" y="520" font-size="12" fill="#1a1a1a" xml:space="preserve">SymbolPairs("Transport", values).</text>
+<text x="52" y="537" font-size="12" fill="#1a1a1a" xml:space="preserve"></text>
+<text x="52" y="554" font-size="12" fill="#1a1a1a" xml:space="preserve">Named `Animals`, the class would be</text>
+<text x="52" y="571" font-size="12" fill="#1a1a1a" xml:space="preserve">copied or renamed for the second</text>
+<text x="52" y="588" font-size="12" fill="#1a1a1a" xml:space="preserve">edition, which edits working code.</text>
+<text x="52" y="605" font-size="12" fill="#1a1a1a" xml:space="preserve"></text>
+<text x="52" y="622" font-size="12" fill="#1a1a1a" xml:space="preserve">A new mechanism is one new class.</text>
+<rect x="388" y="446" width="330" height="200" rx="6" fill="#fffbe6" stroke="#c9a400" stroke-width="1.0"/>
+<text x="400" y="468" font-size="15" font-weight="700" fill="#1a1a1a">Why state in History</text>
+<text x="400" y="486" font-size="12" fill="#1a1a1a" xml:space="preserve">The original kept score state in five</text>
+<text x="400" y="503" font-size="12" fill="#1a1a1a" xml:space="preserve">fields of Player, kept in step by hand.</text>
+<text x="400" y="520" font-size="12" fill="#1a1a1a" xml:space="preserve">The missing site points came from that.</text>
+<text x="400" y="537" font-size="12" fill="#1a1a1a" xml:space="preserve"></text>
+<text x="400" y="554" font-size="12" fill="#1a1a1a" xml:space="preserve">Here a rule is tested with one call:</text>
+<text x="400" y="571" font-size="12" fill="#1a1a1a" xml:space="preserve">hand-built drafts and history in,</text>
+<text x="400" y="588" font-size="12" fill="#1a1a1a" xml:space="preserve">a score out. No set-up order.</text>
+<text x="400" y="605" font-size="12" fill="#1a1a1a" xml:space="preserve"></text>
+<text x="400" y="622" font-size="12" fill="#1a1a1a" xml:space="preserve">The category object is the key, not a name.</text>
+<rect x="736" y="446" width="347" height="200" rx="6" fill="#fce8e6" stroke="#b3261e" stroke-width="1.6"/>
+<text x="748" y="468" font-size="15" font-weight="700" fill="#1a1a1a">Three bugs, three lines</text>
+<text x="748" y="486" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">10b  sites missing from the total</text>
+<text x="748" y="503" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">     NewSites is a category like any other</text>
+<text x="748" y="520" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">10c  the doubling limit</text>
+<text x="748" y="537" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">     if (sum &lt;= 7) sum * 2 else sum</text>
+<text x="748" y="554" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">10d  a pair only at exactly two cards</text>
+<text x="748" y="571" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">     value * (count / 2)</text>
+<text x="748" y="588" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve"></text>
+<text x="748" y="605" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">Shown failing on the original by</text>
+<text x="748" y="622" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">./gradlew legacyBugs  (19 tests)</text>
+<rect x="40" y="662" width="1043" height="72" rx="6" fill="#fef7e0" stroke="#b06000" stroke-width="1.8"/>
+<text x="52" y="684" font-size="15" font-weight="700" fill="#1a1a1a">Honest weak spots</text>
+<text x="52" y="702" font-size="12" fill="#1a1a1a" xml:space="preserve">"Several scores means the player chooses" is a convention in the contract, not in the type. Score.chosen assumes a choice is a symbol.</text>
+<text x="52" y="719" font-size="12" fill="#1a1a1a" xml:space="preserve">A second edition is designed for, not built: no edition switch on the command line yet (one line in App.kt names australia()).</text>
+<polyline points="40,768 62,768" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="62.0,768.0 52.0,763.5 52.0,772.5" fill="#ffffff" stroke="#3c4043" stroke-width="1.5"/>
+<text x="68" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">implements</text>
+<polyline points="154.0,768 176.0,768" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="176.0,768.0 167.8,764.3 167.8,771.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<text x="182.0" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">reads</text>
+<rect x="236.0" y="761" width="18" height="13" rx="3" fill="#e8f0fe" stroke="#1a56c4" stroke-width="1.8"/>
+<text x="264.0" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">seam</text>
+<rect x="311.6" y="761" width="18" height="13" rx="3" fill="#fce8e6" stroke="#b3261e" stroke-width="1.6"/>
+<text x="339.6" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">the original's faults</text>
+<rect x="496.0" y="761" width="18" height="13" rx="3" fill="#fef7e0" stroke="#b06000" stroke-width="1.8"/>
+<text x="524.0" y="772" font-size="12" fill="#5f6368" text-anchor="start" xml:space="preserve">known limits</text>
+</svg>
