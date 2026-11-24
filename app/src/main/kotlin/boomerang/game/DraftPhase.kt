@@ -29,7 +29,8 @@ class DraftPhase(private val players: List<IPlayer>) {
         val hands = mutableListOf<List<Card>>()
         for (seat in players.indices) {
             val first = seat * Game.HAND_SIZE
-            hands += deck.subList(first, first + Game.HAND_SIZE)
+            // toList makes a list of its own: a hand is sent to a player, and a view into the deck cannot be
+            hands += deck.subList(first, first + Game.HAND_SIZE).toList()
         }
         return hands
     }

@@ -8,7 +8,16 @@ import boomerang.game.IPlayer
 
 /** S4: selects any card of the hand at random and takes the first score offered. Ignores events. */
 class BotPlayer(private val random: kotlin.random.Random) : IPlayer {
-    override fun selectCard(request: CardRequest): IAnswer<Char> = TODO("not implemented")
-    override fun chooseScore(request: ChoiceRequest): IAnswer<Int> = TODO("not implemented")
-    override fun show(event: GameEvent): Unit = TODO("not implemented")
+    /** The answer is ready at once: the site of a card drawn from the hand with the bot's random source. */
+    override fun selectCard(request: CardRequest): IAnswer<Char> {
+        val site = request.hand.random(random).site
+        return IAnswer { site }
+    }
+
+    /** Index 0 is the first score offered. */
+    override fun chooseScore(request: ChoiceRequest): IAnswer<Int> = IAnswer { 0 }
+
+    /** A bot decides without looking at what happened, so there is nothing to do. */
+    override fun show(event: GameEvent) {
+    }
 }
