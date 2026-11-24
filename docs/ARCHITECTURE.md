@@ -220,6 +220,10 @@ data class Passing(val hands: Direction, val catch: Direction)
 fun interface IPassingRule { fun passing(round: Int, playerCount: Int): Passing }
 /** Brief rules 6 and 9 with Q1: hands to the next player, Catch card to the previous, in every round (AC11.5). */
 object StandardPassingRule : IPassingRule
+// game/AlternatingPassingRule.kt
+/** FC13 with Q18: in even rounds of a game of three or four players, hands to the previous player and the
+ *  Catch card to the next; otherwise as StandardPassingRule. */
+object AlternatingPassingRule : IPassingRule
 // game/IShuffler.kt
 /** Puts the cards of a deck in the order of the next deal. Returns the same cards, each once. */
 fun interface IShuffler { fun shuffle(cards: List<Card>): List<Card> }
@@ -375,12 +379,15 @@ class SocketListener(port: Int) : AutoCloseable {
 }
 // App.kt (package boomerang)
 sealed interface Start
-data class ServerStart(val humans: Int, val bots: Int) : Start
+data class ServerStart(val humans: Int, val bots: Int, val alternate: Boolean = false) : Start   // alternate: FC13
 data class ClientStart(val host: String) : Start
 data class Usage(val message: String) : Start      // states Game.PLAYERS and the two command forms
 /** S3: "<humans> <bots>", two whole numbers not below 0 whose sum is in Game.PLAYERS, is a server;
- *  "<host>" is a client; anything else is Usage. */
+ *  a third argument, exactly the word "alternate", asks for FC13 (AC13.3); "<host>" is a client;
+ *  anything else is Usage. */
 fun parseArguments(args: Array<String>): Start
+/** AC13.3, AC13.4: AlternatingPassingRule if start.alternate, else StandardPassingRule. */
+internal fun passingRuleFor(start: ServerStart): IPassingRule
 fun main(args: Array<String>)                      // the composition root; reports every failure in words (S2)
 const val PORT: Int                                // 2048
 ```
@@ -511,8 +518,15 @@ home. `StandardPassingRule` is brief rules 6 and 9 with Q1. Rejected: a flag `al
 on a flag); the direction as part of `Edition` (the rule is optional per game, not per edition); the Catch
 direction fixed in `DraftPhase` as "opposite to the hands" (the rulebook's reading would then need a change
 in `game`). Not built: a general list of optional-rule hooks; one optional rule is named.
+Measured: FC13 is implemented as the proof. It took one new file of 14 lines in `game`
+(`AlternatingPassingRule.kt`) and `App.kt` learning one option: 28 lines added, 7 removed (the third
+property of `ServerStart`, the parse branch, the usage text, `passingRuleFor`, one line handing the rule to
+`Game`). No existing file of `game`, `scoring`, `australia`, `players` or `net` was edited. The estimate
+made before, "one line at start-up", was too low: a rule that can be switched on needs a switch. Shown by
+`git diff --stat tests-locked-2 HEAD -- app/src/main`. Tests: `AlternatingPassingRuleTest`,
+`AlternatingGameTest`, `AlternateArgumentTest`, 19 tests.
 Defence: Brief and rulebook disagree on the Catch direction, and FC13 changes both directions, so both are
-one decision in one object. A new passing rule is one class and one line at start-up.
+one decision in one object. Adding FC13 touched one new file and the start-up file, nothing else.
 
 **D7. How kinds of player differ.** By class: `BotPlayer`, `ConsolePlayer`, `RemotePlayer`, each a full
 substitute for `IPlayer` (LSP). No `isBot`, no `online`, no base class. The server hosts no player (Q10):
@@ -666,7 +680,7 @@ Considered and declined:
 | Visitor over `GameEvent` | The same switch as the sealed `when`, with more code (D15). |
 | Decorator or a hook list for optional rules | One optional rule is named. `IPassingRule` is its seam (D6). |
 | Chain of Responsibility for tie-breaks | An ordered list of categories compared in turn is enough. |
-| Singleton | State is passed in. The only `object`s (`StandardPassingRule`, `Bye`, `AustraliaSymbols`) hold no state. |
+| Singleton | State is passed in. The only `object`s (the two passing rules, `Bye`, `AustraliaSymbols`) hold no state. |
 | Composite for "Tourist sites and region bonus" | Two entries in the edition's list give the same result (D17). |
 | A registry of editions or a plug-in loader | One edition exists. The second adds one line to `App.kt`. |
 
@@ -676,7 +690,7 @@ Considered and declined:
 
 | Change | New files | Existing files changed |
 |---|---|---|
-| **FC13** alternating direction | `game/AlternatingPassingRule.kt`: in even rounds with three or four players, hands `TO_PREVIOUS` and Catch `TO_NEXT` (Q18) | `App.kt` |
+| **FC13** alternating direction (done, measured in D6) | `game/AlternatingPassingRule.kt`, 14 lines: in even rounds with three or four players, hands `TO_PREVIOUS` and Catch `TO_NEXT` (Q18) | `App.kt` only: 28 lines added, 7 removed, for the switch |
 | The rulebook's Catch direction | one `IPassingRule` class | `App.kt` |
 | **Another transport**, an answer time limit, earlier notice of a lost player (requirements 6.3) | `net/<New>Connection.kt` with its listener | `App.kt` |
 | A client that is not a console | a new `IPlayer`, handed to `ClientSession` | `App.kt` |
@@ -730,12 +744,13 @@ The acceptance checks against the signatures of section 3 (described, not code t
 
 ## 8. Files, in the order to implement them
 
-All under `app/src/main/kotlin/boomerang/`, 21 files. Inside out: a file uses only files above it, except
+All under `app/src/main/kotlin/boomerang/`, 22 files. Inside out: a file uses only files above it, except
 that `IScoringCategory.kt` and `History.kt` refer to each other and are written together. Contents are the
 blocks of section 3.
 
-1. `game/` (10): `Cards.kt`, `IScoringCategory.kt`, `History.kt`, `Edition.kt`, `IPassingRule.kt`,
-   `IShuffler.kt`, `IPlayer.kt`, `DraftPhase.kt`, `ScoringPhase.kt`, `Game.kt`
+1. `game/` (11): `Cards.kt`, `IScoringCategory.kt`, `History.kt`, `Edition.kt`, `IPassingRule.kt`,
+   `IShuffler.kt`, `IPlayer.kt`, `DraftPhase.kt`, `ScoringPhase.kt`, `Game.kt`, and for FC13
+   `AlternatingPassingRule.kt`
 2. `scoring/` (3): `ThrowCatchDifference.kt`, `SiteCategories.kt`, `SymbolCategories.kt`
 3. `australia/` (1): `Australia.kt`
 4. `players/` (2): `BotPlayer.kt`, `ConsolePlayer.kt`
