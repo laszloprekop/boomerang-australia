@@ -3,6 +3,7 @@ package boomerang
 import boomerang.australia.australia
 import boomerang.game.Game
 import boomerang.game.GameResult
+import boomerang.game.IPassingRule
 import boomerang.game.IPlayer
 import boomerang.game.PlayerLost
 import boomerang.game.RandomShuffler
@@ -19,8 +20,8 @@ import kotlin.system.exitProcess
 /** What the command line asks for. */
 sealed interface Start
 
-/** Run a server for a game with this many humans (who connect) and bots. */
-data class ServerStart(val humans: Int, val bots: Int) : Start
+/** Run a server for a game with this many humans (who connect) and bots. `alternate`: FC13 is asked for. */
+data class ServerStart(val humans: Int, val bots: Int, val alternate: Boolean = false) : Start
 
 /** Join the game of the server at this address. */
 data class ClientStart(val host: String) : Start
@@ -46,6 +47,9 @@ private fun usage(): Usage = Usage(
     "Start a server with: <humans> <bots>, two whole numbers that add up to " +
         "${Game.PLAYERS.first} to ${Game.PLAYERS.last} players. Join a game with: <address of the server>.",
 )
+
+/** FC13, AC13.3 and AC13.4: the passing rule of the game this start asks for. */
+internal fun passingRuleFor(start: ServerStart): IPassingRule = TODO("not implemented")
 
 /** The composition root; reports every failure in words (S2). */
 fun main(args: Array<String>) {
