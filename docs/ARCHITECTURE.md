@@ -128,7 +128,7 @@ All arrows point inward. `game` owns the interfaces the outer packages implement
    `java.`, `javax.`, `System.`, `Thread`, `println`, `readLine`.
 2. `scoring` imports from `boomerang.game` and `kotlin.*` only. It names no edition: no site, region,
    symbol or value appears in it as a literal; they arrive through constructors.
-3. An edition package imports from `boomerang.game` and `boomerang.scoring` only. Editions never depend on
+3. An edition package imports from `boomerang.game`, `boomerang.scoring` and `kotlin.*` only. Editions never depend on
    each other. `Symbol(` is called only in an edition package, once per symbol, as a named constant.
 4. `players` imports from `boomerang.game` only (plus `kotlin.*`). `net` imports from `boomerang.game`,
    `java.io` and `java.net` only. Neither knows the other, nor `scoring`, nor any edition.
@@ -138,7 +138,7 @@ All arrows point inward. `game` owns the interfaces the outer packages implement
 7. Text for people is produced only in `players/ConsolePlayer.kt` and `App.kt`. `game` passes on names
    that are edition data (category, region, symbol) and composes no sentence.
 
-`DependencyRulesTest` reads the main source files and asserts rules 1 to 6 as written here.
+`DependencyRulesTest` reads the main source files, strips comments, and asserts rules 1 to 6 as written here.
 
 ## 3. Types and their operations
 
@@ -254,7 +254,7 @@ interface IPlayer {
     fun show(event: GameEvent)
 }
 /** Thrown by an IPlayer that can no longer be reached. */
-class PlayerLost(val player: IPlayer, cause: Throwable? = null) : RuntimeException()
+class PlayerLost(val player: IPlayer, cause: Throwable? = null) : RuntimeException(cause)
 // game/DraftPhase.kt, game/ScoringPhase.kt, game/Game.kt
 /** Rules 4 to 9: deal, Throw card, pass and select, Catch card. Knows no edition and no scoring. */
 class DraftPhase(private val players: List<IPlayer>) {
@@ -322,7 +322,8 @@ fun australia(): Edition
 class BotPlayer(private val random: kotlin.random.Random) : IPlayer
 // players/ConsolePlayer.kt
 /** A human at a text console. Prints every event and question; repeats a question locally until a line can
- *  be read as an answer (one character; a number). Throws PlayerLost when the input ends. */
+ *  be read as an answer (one character; a number). A typed option number counts from 1; "0" is not an
+ *  answer and the question is repeated locally. Throws PlayerLost when the input ends. */
 class ConsolePlayer(private val readLine: () -> String?, private val print: (String) -> Unit) : IPlayer
 /** The only place that lays out text for a player. */
 internal fun describe(event: GameEvent): String
@@ -354,7 +355,9 @@ data class CardAnswer(val site: Char) : ClientMessage
 data class ChoiceAnswer(val index: Int) : ClientMessage
 // net/RemotePlayer.kt
 /** Server side: stands in for the player at the other end of a connection. Turns ConnectionLost and a
- *  reply of the wrong kind into PlayerLost. close() sends Bye and closes the connection. */
+ *  reply of the wrong kind into PlayerLost. A failed send of a question surfaces as PlayerLost in await(),
+ *  so selectCard and chooseScore always return; a failed send in show(event) throws PlayerLost at once.
+ *  close() sends Bye and closes the connection. */
 class RemotePlayer(private val connection: IConnection) : IPlayer, AutoCloseable
 // net/ClientSession.kt
 /** Client side: receives server messages, delivers each to the local player, sends the reply, until Bye. */
@@ -395,6 +398,7 @@ sequenceDiagram
     participant X as ScoringPhase
     participant C as IScoringCategory
     participant H as History
+    Note over G,P: once, before round 1, Game shows GameStarted to every player
     G->>P: show RoundStarted with own visited sites
     G->>S: shuffle edition.cards
     S-->>G: deck
@@ -427,7 +431,8 @@ sequenceDiagram
     G->>P: show RoundScored, own lines and all announcements
 ```
 
-After round 4 `Game` calls `history.result(edition)` and shows `GameOver` to all (AC12.7). No fifth deal.
+`Game.play` first shows `GameStarted` to every player, once, before round 1. After round 4 it calls
+`history.result(edition)` and shows `GameOver` to all (AC12.7). No fifth deal.
 
 **Selection "at the same time" without threads.** `selectCard` only puts the question and returns an
 `IAnswer`. `DraftPhase` calls it for every player first, so all players are choosing at once, and only then
