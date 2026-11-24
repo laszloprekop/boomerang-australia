@@ -299,6 +299,16 @@ from round to round. `[Q18]`
 - It does not apply to two players.
 - Accepted when: the rule can be added and switched on without changing how cards are selected, how
   rounds are scored, or how players are reached over the network.
+- Decided on 24 November 2026, after rules 1 to 12 were implemented: FC13 is implemented, as the proof
+  that the design takes this change. The brief does not ask for it (line 165), and asks for unit tests of
+  any future modification that is implemented (brief lines 260 to 261).
+  - AC13.1 With the rule on, in a game of three or four players, odd rounds pass as rules 6 and 9 say
+    (hands to the next player, Catch card to the previous player) and even rounds are mirrored completely
+    (hands to the previous player, Catch card to the next player). `[Q18]`
+  - AC13.2 With the rule on, a game of two players passes in every round as rules 6 and 9 say.
+  - AC13.3 The rule is off unless it is asked for when the server is started: a third argument
+    `alternate` after `<humans> <bots>`. Any other third argument is refused with the usage text.
+  - AC13.4 Without the third argument the game behaves exactly as before.
 
 ### FC14. Boomerang Europe and Boomerang USA (brief lines 168 to 170, 220 to 227)
 
@@ -438,6 +448,6 @@ now. The full questions with their options are in `requirements-questions.md`.
 
 ## 9. Out of scope
 
-- Implementing Europe, USA or the alternating direction.
+- Implementing Europe or USA.
 - Reconnecting, saving a game, a graphical client.
 - Reproducing the console layout of the original.
