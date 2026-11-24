@@ -1,8 +1,7 @@
 # Requirements: Boomerang Australia
 
-Status: approved in part on 24 November 2026. Sections 1 to 6 are approved, with the decisions of section 8.
-Section 7 was verified by tests on 24 November 2026. Questions Q3, Q6 and Q9 are still open: the evidence
-for them is now in section 7 and in `legacy-findings.md`.
+Status: approved on 24 November 2026, with the decisions of section 8.
+Section 7 was verified by tests on 24 November 2026, and all questions of section 8 are decided.
 
 Sources, in order of authority:
 
@@ -282,7 +281,7 @@ original that "remains the same" (brief line 257).
 | S1 | A selection that is not allowed (unknown site character, card not in hand, activity not offered) changes nothing, and the same player is asked again with a message saying what is allowed. Site characters are accepted in upper and lower case. `[Q12]` | Brief line 239; original lines 90 to 94 |
 | S2 | Failures (bad start arguments, port in use, server not reachable, a player lost during the game) are reported in words to the people affected. No failure is ignored silently. A lost player ends the game for everyone `[Q13]`. | Brief line 239; original lines 54, 62, 464 |
 | S3 | The game is played over a network: one server, started first, waits for the human players' clients to connect and then runs the game. The server hosts no player of its own `[Q10]`. The command-line shape of the original (players and bots for the server, server address for the client) and port 2048 are kept `[Q11]`. | Brief lines 248 to 257 |
-| S4 | A seat can be taken by a bot. A bot selects a card of its hand at random and makes its activity choice without human input `[Q9]`. | Brief lines 249 to 250; original lines 86 to 89, 237 to 239 |
+| S4 | A seat can be taken by a bot. A bot selects a card of its hand at random and takes the first activity it is offered, in the order the edition lists its activities `[Q9]`. | Brief lines 249 to 250; original lines 86 to 89, 237 to 239 |
 | S5 | Every rule R1 to R12 is covered by automated tests that pass or fail, run with `./gradlew test`, and need no network, no console and no real randomness. The tests do not shape the design of the production code. | Brief lines 228 to 231, 259 to 263 |
 | S6 | The game rules can be exercised without console, network or storage. | Brief line 172; AGENTS.md |
 | S7 | The exact text and layout of the console output are free. The information given to each player is not. | Brief lines 269 to 270 |
@@ -418,13 +417,13 @@ now. The full questions with their options are in `requirements-questions.md`.
 |---|---|---|---|
 | Q1 | Does the Catch card go to the previous player (brief) or onward in the passing direction (rulebook)? | Previous player | decided |
 | Q2 | Is the whole deck reshuffled each round, or are last round's undealt cards guaranteed to be dealt? | Whole deck reshuffled | decided |
-| Q3 | Are Throw cards shown to everyone when the round ends? | Yes | open; assumed yes |
+| Q3 | Are Throw cards shown to everyone when the round ends? | Yes | decided |
 | Q4 | Is "first to complete a region" decided per round or per card within a round? | Per round | decided |
 | Q5 | Do Throw and Catch cards count in every scoring category? | Yes | decided |
-| Q6 | Can an activity with no card, or one card, be scored? | At least one card needed | open; leaning this way |
+| Q6 | Can an activity with no card, or one card, be scored? | At least one card needed | decided |
 | Q7 | One question for the activity, or yes and no per activity? | One question | decided |
 | Q8 | Who wins if the tie-break is also tied? | Shared win | decided |
-| Q9 | Are bots kept, and how do they decide? | Kept; random card; the first activity offered, as in the original | open; leaning this way |
+| Q9 | Are bots kept, and how do they decide? | Kept; any card of the hand at random; the first activity offered, in the order the edition lists its activities | decided |
 | Q10 | Does the server host a player? Is a game of bots only allowed? | No; yes | decided |
 | Q11 | Are the original command-line arguments and port 2048 kept? | Yes | decided |
 | Q12 | What happens on an invalid selection? | Ask again | decided |
