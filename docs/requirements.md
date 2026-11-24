@@ -286,9 +286,10 @@ original that "remains the same" (brief line 257).
 | S6 | The game rules can be exercised without console, network or storage. | Brief line 172; AGENTS.md |
 | S7 | The exact text and layout of the console output are free. The information given to each player is not. | Brief lines 269 to 270 |
 
-## 5. Future changes (not implemented now)
+## 5. Future changes
 
-The design must make these possible. No code and no tests are written for them in this hand-in.
+The design must make these possible. FC13 is implemented as a proof, with tests (see its decision below).
+For FC14 no code and no tests are written in this hand-in.
 
 ### FC13. Alternating passing direction (brief lines 166 to 167, 226 to 227)
 
@@ -307,7 +308,8 @@ from round to round. `[Q18]`
     (hands to the previous player, Catch card to the next player). `[Q18]`
   - AC13.2 With the rule on, a game of two players passes in every round as rules 6 and 9 say.
   - AC13.3 The rule is off unless it is asked for when the server is started: a third argument
-    `alternate` after `<humans> <bots>`. Any other third argument is refused with the usage text.
+    `alternate` after `<humans> <bots>`. Any other third argument, also `ALTERNATE` or an empty one, and
+    any fourth argument, is refused with the usage text. The usage text names the word `alternate`.
   - AC13.4 Without the third argument the game behaves exactly as before.
 
 ### FC14. Boomerang Europe and Boomerang USA (brief lines 168 to 170, 220 to 227)
