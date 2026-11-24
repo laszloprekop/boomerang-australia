@@ -13,18 +13,28 @@ data class Card(
 /** The cards one player has kept in a round, in the order kept: Throw card first, Catch card seventh. */
 data class Draft(val cards: List<Card> = emptyList()) : Serializable {
     /** The first card; IllegalStateException if the draft is empty. */
-    val throwCard: Card get() = TODO("not implemented")
+    val throwCard: Card
+        get() {
+            check(cards.isNotEmpty()) { "an empty draft has no Throw card" }
+            return cards.first()
+        }
 
     /** The seventh card; IllegalStateException if fewer than seven. */
-    val catchCard: Card get() = TODO("not implemented")
+    val catchCard: Card
+        get() {
+            check(cards.size >= Game.HAND_SIZE) { "a draft of ${cards.size} cards has no Catch card" }
+            return cards[Game.HAND_SIZE - 1]
+        }
 
     /** Every card except the Throw card. */
-    val shown: List<Card> get() = TODO("not implemented")
+    val shown: List<Card> get() = cards.drop(1)
 
-    val sites: Set<Char> get() = TODO("not implemented")
+    /** The site characters of the cards. */
+    val sites: Set<Char> get() = cards.map { it.site }.toSet()
 
     /** Number of cards that carry the symbol. */
-    fun count(symbol: Symbol): Int = TODO("not implemented")
+    fun count(symbol: Symbol): Int = cards.count { symbol in it.symbols }
 
-    operator fun plus(card: Card): Draft = TODO("not implemented")
+    /** A new draft with the card added at the end; this draft stays as it is. */
+    operator fun plus(card: Card): Draft = Draft(cards + card)
 }

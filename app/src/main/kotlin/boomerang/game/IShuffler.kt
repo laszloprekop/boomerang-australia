@@ -5,5 +5,6 @@ fun interface IShuffler { fun shuffle(cards: List<Card>): List<Card> }
 
 /** The production shuffler: the order comes from the random source it is given. */
 class RandomShuffler(private val random: kotlin.random.Random) : IShuffler {
-    override fun shuffle(cards: List<Card>): List<Card> = TODO("not implemented")
+    /** shuffled returns a new list, so the list given is left as it was. */
+    override fun shuffle(cards: List<Card>): List<Card> = cards.shuffled(random)
 }

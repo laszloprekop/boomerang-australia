@@ -12,12 +12,13 @@ data class Score(
 /** What a category may look at when it scores one player for the round just drafted. */
 class ScoringContext(val seat: Int, val drafts: List<Draft>, val history: History) {
     /** drafts[seat] */
-    val draft: Draft get() = TODO("not implemented")
+    val draft: Draft get() = drafts[seat]
 
     /** The drafts of all other players, this round. */
-    val otherDrafts: List<Draft> get() = TODO("not implemented")
+    val otherDrafts: List<Draft> get() = drafts.filterIndexed { index, _ -> index != seat }
 
-    val playerCount: Int get() = TODO("not implemented")
+    /** One draft per player, so the number of drafts. */
+    val playerCount: Int get() = drafts.size
 }
 
 /** One line of the score sheet with the rule that fills it. Stateless: the same context gives the same list. */
