@@ -1,8 +1,8 @@
 # Requirements: Boomerang Australia
 
 Status: approved in part on 24 November 2026. Sections 1 to 6 are approved, with the decisions of section 8.
-Section 7 and questions Q3, Q6, Q9 and Q20 stay open until the bug tests against the original have run:
-they rest on claims about the original that were read from the source, not verified.
+Section 7 was verified by tests on 24 November 2026. Questions Q3, Q6 and Q9 are still open: the evidence
+for them is now in section 7 and in `legacy-findings.md`.
 
 Sources, in order of authority:
 
@@ -371,23 +371,43 @@ lobby, a client other than the console.
 
 ## 7. Where the original departs from rules 1 to 12
 
-Open: found by reading the source, not by running it. Each row is to be confirmed, corrected or removed by a
-test against the original. To be fixed unless section 8 decides otherwise `[Q20]`.
+Verified on 24 November 2026 by tests against the untouched original: `./gradlew legacyBugs` runs 19 tests
+that each state a rule and fail. The full evidence, with failure messages, is in `legacy-findings.md`.
 
-| Rule | Departure | Original lines |
-|---|---|---|
-| R1 | The server always adds a player of its own, so "0 2" gives 3 players and "0 4" gives 5; negative numbers pass the check. | 282, 443 to 455 |
-| R5, R9 | Throw cards and Catch cards are never shown to the other players, not even when the round ends. | 369 to 377, 395 to 401 |
-| R7 | An input that matches no card drafts nothing; the hand is passed on with one card too many and the round fails later. | 90 to 94, 159 |
-| R10b | The region list says "Wester Australia", so Western Australia can never be completed. | 323 |
-| R10b | Regions are checked before the Catch card joins the draft, so a region completed by the Catch card is found a round late, or never in round 4. | 381 to 396 |
-| R10c | Collections are scored as twice the number of collection cards; the values and the limit of 7 are not used. | 177 to 183 |
-| R10d | Only exactly two of an animal score; three, four or five score 0. | 193 to 208 |
-| R10e | Activities are asked one by one in no defined order, and an activity with no cards can be scored and used up. | 219 to 247 |
-| R12 | The final total leaves out the Tourist sites points. | 270, 272 |
-| R12 | The first player with the highest total wins; there is no tie-break. | 412 to 417 |
-| S2 | Exceptions are swallowed in three places. | 54, 62, 464 |
-| S5 | Shuffle, input and network are created inside the game logic, so no rule can be tested in isolation. | 34, 327, 337 |
+"Direct" means the test calls the original's own classes. "Subclass" means the test needs `RiggedGame`, a
+subclass that replaces the public `server()` method to fix the deal, and that swaps the hands of later rounds
+while the game runs. The original file is not changed in either case. Decision: the answer to exam question 1
+states both, the assert and that it is reachable only through such a subclass.
+
+| Rule | Departure | Original lines | Shown by |
+|---|---|---|---|
+| R1 | The server always adds a player of its own (line 443), so "0 4" gives 5 players. A game of five never plays: the deal runs out of cards and only the exception text is printed. | 282, 443 | Direct |
+| R1 | Negative numbers pass the check ("-2 4" gives 5 players). Arguments that are not numbers end the program without a message. Both rest on AC1.2, not on the brief's wording. | 282, 464 | Direct |
+| R5 | A Throw card is never shown to another player, not even when the round ends. A departure only if Q3 is answered yes. | 374, 398 | Subclass |
+| R9 | A Catch card is never shown to the other players. | 374, 396, 398 | Subclass |
+| R7 | An input that matches no card drafts nothing, and the hand is passed on with one card too many. | 90 to 96 | Direct |
+| R7 | That one wrong input later ends the whole game, not only the round, and no winner is announced. | 159, 374, 421 | Subclass |
+| R10b | The region list says "Wester Australia", so Western Australia never gives its bonus. | 323 | Subclass |
+| R10b | Regions are checked before the Catch card joins the draft: a region completed by the Catch card is paid a round late, or never in round 4. A player who completes it in that later round is then paid too. | 381 to 396 | Subclass |
+| R10c | Collections score twice the number of cards per collection. The values 1, 2, 3 and 5 are not used, and the limit of 7 is applied to a count that never reaches it. | 177 to 183 | Direct |
+| R10d | Only exactly two of an animal score; three, four or five score 0. | 193 to 208 | Direct |
+| R12 | The final total leaves out the Tourist sites points, so the wrong player can win outright. | 270, 272 | Direct |
+| R12 | The first player with the highest total wins; there is no tie-break. | 412 to 417 | Subclass |
+
+Not a departure from the brief, but behaviour to decide about:
+
+| Topic | What the original does | Original lines | Question |
+|---|---|---|---|
+| R10e | Activities are asked one by one, in an order that is fixed but accidental (Indigenous Culture, Swimming, Sightseeing, Bushwalking on JDK 21). An activity with no card is offered, scores 0 and is used up. | 217 to 247 | Q6, Q7 |
+| Bots | A bot never picks the last card of its hand, and says yes to the first activity asked. | 88, 237 to 239 | Q9 |
+| R12 | A fifth deal happens after round 4, before the winner is named. Nobody sees it. | 403 to 410 | none: not carried over |
+| S2 | Errors are swallowed in four places, and one more prints only the exception text on the server. | 54, 62, 64, 421, 463 | none: fixed by S2 |
+
+What the original gets right, shown by 36 passing tests: rules 2, 3, 4, 6, 8, 10a and 11, the parts of rules
+1, 5, 7, 9, 10b, 10e and 12 not listed above.
+
+What cannot be tested: the client (lines 426 to 440) and the accept loop (448 to 457), because the socket, the
+port and the keyboard reader are created inside them.
 
 ## 8. Open questions and provisional answers
 
@@ -415,7 +435,7 @@ now. The full questions with their options are in `requirements-questions.md`.
 | Q17 | What counts as a test of the shuffle? | Same cards, order from a replaceable random source | decided |
 | Q18 | FC13: which rounds are reversed, and does the Catch direction reverse too? | Even rounds mirrored completely | decided |
 | Q19 | FC14: design only, or one edition implemented as proof? | Design only | decided |
-| Q20 | Are all departures of section 7 bugs to fix? | Yes | open until tested |
+| Q20 | Are all departures of section 7 bugs to fix? | Yes, the twelve rows of its first table | decided |
 
 ## 9. Out of scope
 
