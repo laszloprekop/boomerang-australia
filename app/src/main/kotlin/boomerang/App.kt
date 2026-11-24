@@ -1,12 +1,14 @@
 package boomerang
 
 import boomerang.australia.australia
+import boomerang.game.AlternatingPassingRule
 import boomerang.game.Game
 import boomerang.game.GameResult
 import boomerang.game.IPassingRule
 import boomerang.game.IPlayer
 import boomerang.game.PlayerLost
 import boomerang.game.RandomShuffler
+import boomerang.game.StandardPassingRule
 import boomerang.net.ClientSession
 import boomerang.net.ConnectionLost
 import boomerang.net.RemotePlayer
@@ -30,26 +32,34 @@ data class ClientStart(val host: String) : Start
 data class Usage(val message: String) : Start
 
 /** S3: "<humans> <bots>", two whole numbers not below 0 whose sum is in Game.PLAYERS, is a server;
- *  "<host>" is a client; anything else is Usage. */
+ *  a third argument, exactly the word of ALTERNATE, asks for FC13 (AC13.3); "<host>" is a client;
+ *  anything else is Usage. */
 fun parseArguments(args: Array<String>): Start {
     if (args.size == 1) return ClientStart(args[0])
-    if (args.size != 2) return usage()
+    if (args.size != 2 && args.size != 3) return usage()
+    val alternate = args.size == 3
+    if (alternate && args[2] != ALTERNATE) return usage()
     val humans = args[0].toIntOrNull()
     val bots = args[1].toIntOrNull()
     if (humans == null || bots == null) return usage()
     if (humans < 0 || bots < 0) return usage()
     if (humans + bots !in Game.PLAYERS) return usage()
-    return ServerStart(humans, bots)
+    return ServerStart(humans, bots, alternate)
 }
+
+/** AC13.3: the third argument that switches on the alternating passing direction. */
+private const val ALTERNATE = "alternate"
 
 /** The text for a command line that cannot be used. The range comes from the game, not from here. */
 private fun usage(): Usage = Usage(
     "Start a server with: <humans> <bots>, two whole numbers that add up to " +
-        "${Game.PLAYERS.first} to ${Game.PLAYERS.last} players. Join a game with: <address of the server>.",
+        "${Game.PLAYERS.first} to ${Game.PLAYERS.last} players; add the word $ALTERNATE to pass the other way " +
+        "round in even rounds. Join a game with: <address of the server>.",
 )
 
 /** FC13, AC13.3 and AC13.4: the passing rule of the game this start asks for. */
-internal fun passingRuleFor(start: ServerStart): IPassingRule = TODO("not implemented")
+internal fun passingRuleFor(start: ServerStart): IPassingRule =
+    if (start.alternate) AlternatingPassingRule else StandardPassingRule
 
 /** The composition root; reports every failure in words (S2). */
 fun main(args: Array<String>) {
@@ -88,7 +98,7 @@ private fun runServer(start: ServerStart) {
         try {
             acceptHumans(listener, start.humans, remotes)
             val players: List<IPlayer> = remotes + List(start.bots) { BotPlayer(random) }
-            val result = Game(australia(), players, RandomShuffler(random)).play()
+            val result = Game(australia(), players, RandomShuffler(random), passingRuleFor(start)).play()
             printResult(result)
         } finally {
             closeAll(remotes)
