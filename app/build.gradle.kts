@@ -23,6 +23,11 @@ application {
     mainClass = "boomerang.AppKt"
 }
 
+// `./gradlew run` gives the program the keyboard: without this a client could not answer a question.
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
+}
+
 tasks.named<Test>("test") {
     // Tests tagged "legacy-bug" fail on purpose: they show where the original breaks the rules.
     useJUnitPlatform {

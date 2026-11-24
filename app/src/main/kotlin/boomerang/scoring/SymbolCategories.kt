@@ -30,12 +30,23 @@ class SymbolPairs(override val name: String, private val values: Map<Symbol, Int
 class ChosenSymbolCount(
     override val name: String, private val symbols: List<Symbol>, private val pointsByCount: List<Int>,
 ) : IScoringCategory {
+    init {
+        require(pointsByCount.isNotEmpty()) { "$name has a points table with no entry" }
+    }
+
     /** Several scores, so the player chooses: the symbols still free, then "take none". */
     override fun scores(context: ScoringContext): List<Score> {
         val draft = context.draft
         val usedUp = context.history.chosen(context.seat, this)
         val free = symbols.filter { draft.count(it) > 0 && it !in usedUp }
-        val offered = free.map { Score(pointsByCount[draft.count(it)], chosen = it) }
+        val offered = free.map { Score(pointsFor(draft.count(it)), chosen = it) }
         return offered + Score(0)
+    }
+
+    /** The points for this many cards. A count the table has no entry for is a fault in the edition's
+     *  data: it is reported with the category and the count, and not rounded to the last entry. */
+    private fun pointsFor(count: Int): Int {
+        check(count < pointsByCount.size) { "$name has no points for $count cards" }
+        return pointsByCount[count]
     }
 }

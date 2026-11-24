@@ -19,6 +19,8 @@ class ScoringPhase(private val categories: List<IScoringCategory>, private val p
         val requests = mutableListOf<ChoiceRequest>()
         for (seat in players.indices) {
             val offered = category.scores(ScoringContext(seat, drafts, history))
+            // the contract of a category: never an empty list
+            check(offered.isNotEmpty()) { "${category.name} offered no score" }
             requests += ChoiceRequest(category.name, offered, drafts[seat])
         }
         val answers = askChoosers(requests)

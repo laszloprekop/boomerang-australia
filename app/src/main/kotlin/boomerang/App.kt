@@ -2,8 +2,14 @@ package boomerang
 
 import boomerang.australia.australia
 import boomerang.game.AlternatingPassingRule
+import boomerang.game.CardRequest
+import boomerang.game.ChoiceRequest
 import boomerang.game.Game
+import boomerang.game.GameAborted
+import boomerang.game.GameEvent
+import boomerang.game.GameOver
 import boomerang.game.GameResult
+import boomerang.game.IAnswer
 import boomerang.game.IPassingRule
 import boomerang.game.IPlayer
 import boomerang.game.PlayerLost
@@ -71,7 +77,7 @@ fun main(args: Array<String>) {
         }
     } catch (lost: PlayerLost) {
         reportSuppressed(lost)
-        fail("A player can no longer be reached, so the game has ended.")
+        fail("A player can no longer be reached, so the game has ended${reason(lost)}.")
     } catch (lost: ConnectionLost) {
         fail("The game cannot go on: ${lost.message}.")
     }
@@ -83,10 +89,16 @@ private fun fail(sentence: String): Nothing {
     exitProcess(1)
 }
 
+/** Why the player was lost, as the end of a sentence; empty if the failure carries no cause. */
+private fun reason(lost: PlayerLost): String {
+    val cause = lost.cause?.message
+    return if (cause == null) "" else ": $cause"
+}
+
 /** A player lost while the others were told of the first loss is attached to it (D10): say so as well. */
 private fun reportSuppressed(lost: PlayerLost) {
-    for (other in lost.suppressed) {
-        println("Another player could not be told: $other")
+    repeat(lost.suppressed.size) {
+        println("Another player could not be told that the game has ended.")
     }
 }
 
@@ -117,7 +129,13 @@ private fun acceptHumans(listener: SocketListener, humans: Int, remotes: Mutable
 
 /** What the server itself prints at the end: it hosts no player, so nobody else would see it there. */
 private fun printResult(result: GameResult) {
-    println("The game is over. Totals by player: ${result.totals}. Winning player: ${result.winners.map { it + 1 }}.")
+    println("The game is over.")
+    for (seat in result.totals.indices) {
+        println("Player ${seat + 1} has ${result.totals[seat]} points.")
+    }
+    for (seat in result.winners) {
+        println("Player ${seat + 1} wins.")
+    }
 }
 
 /** Says Bye to every client and closes its connection. A client that is already gone cannot be told;
@@ -135,8 +153,31 @@ private fun closeAll(remotes: List<RemotePlayer>) {
 /** The client: one human at this console, played over the connection to the server. */
 private fun runClient(start: ClientStart) {
     SocketConnection.open(start.host, PORT).use { connection ->
-        val player = ConsolePlayer(readLine = { readlnOrNull() }, print = { println(it) })
-        ClientSession(connection, player).run()
+        val console = ConsolePlayer(readLine = { readlnOrNull() }, print = { println(it) })
+        val player = EndWatcher(console)
+        try {
+            ClientSession(connection, player).run()
+        } catch (lost: PlayerLost) {
+            fail("The input has ended, so you have left the game.")
+        }
+        if (!player.sawTheEnd) fail("The server ended the session before the game was over.")
+    }
+}
+
+/** Stands in front of the client's player and passes everything on unchanged. It only notes whether the
+ *  player was shown how the game ended, so that a session that just stops is not taken for a finished game. */
+private class EndWatcher(private val player: IPlayer) : IPlayer {
+    /** True once GameOver or GameAborted has been shown. */
+    var sawTheEnd = false
+        private set
+
+    override fun selectCard(request: CardRequest): IAnswer<Char> = player.selectCard(request)
+
+    override fun chooseScore(request: ChoiceRequest): IAnswer<Int> = player.chooseScore(request)
+
+    override fun show(event: GameEvent) {
+        if (event is GameOver || event is GameAborted) sawTheEnd = true
+        player.show(event)
     }
 }
 
