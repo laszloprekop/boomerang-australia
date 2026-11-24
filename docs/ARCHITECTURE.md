@@ -10,11 +10,11 @@ game mode), **scoring category** (one line of the score sheet with the rule that
 rule** (which way hands and Catch card travel). "Rule" with a number means R1 to R12.
 
 The design in five sentences. The game logic is one package, `game`, that talks to the outside through
-three interfaces it owns: `IPlayer` (everything asked of and told to a player), `IShuffler` (randomness)
-and `IPassingRule` (directions). An edition is a value: a card list, a list of `IScoringCategory` objects
-and a tie-break order. A scoring category is stateless; all score state of a game lives in one immutable
-`History`. A bot, a console and a network connection are three implementations of `IPlayer`. `App.kt` is
-the only file that knows all packages and puts the parts together.
+four interfaces it owns: `IPlayer` (everything asked of and told to a player), `IShuffler` (randomness),
+`IPassingRule` (directions) and `IScoringCategory` (implemented in `scoring`). An edition is a value: a
+card list, a list of `IScoringCategory` objects and a tie-break order. A scoring category is stateless;
+all score state lives in one immutable `History`. A bot, a console and a network connection are three
+implementations of `IPlayer`. `App.kt` is the only file that knows all packages and puts the parts together.
 
 ## 1. Shortcomings of the original
 
@@ -66,7 +66,7 @@ flowchart TD
     subgraph net["boomerang.net: the network"]
         Remote["RemotePlayer"]
         Session["ClientSession"]
-        IConn["IConnection"]
+        IConn["IConnection and the messages"]
         Sock["SocketConnection, SocketListener"]
     end
     Game --> DraftPhase
@@ -75,9 +75,11 @@ flowchart TD
     Game --> Edition
     Game --> IShuffler
     Game --> IPassingRule
+    Game --> IPlayer
     DraftPhase --> IPlayer
     ScoringPhase --> IPlayer
     ScoringPhase --> ICategory
+    ScoringPhase --> History
     Edition --> ICategory
     Cats -.implements.-> ICategory
     Aus --> Cats
@@ -88,6 +90,7 @@ flowchart TD
     Remote --> IConn
     Session --> IConn
     Session --> IPlayer
+    IConn --> IPlayer
     Sock -.implements.-> IConn
     App --> Game
     App --> Aus
@@ -126,8 +129,8 @@ All arrows point inward. `game` owns the interfaces the outer packages implement
 1. A file in `game` may import `java.io.Serializable` and names from `kotlin.*`, nothing else: no other
    `java.*` or `javax.*`, no other `boomerang` package. Outside its import lines it contains none of
    `java.`, `javax.`, `System.`, `Thread`, `println`, `readLine`.
-2. `scoring` imports from `boomerang.game` and `kotlin.*` only. It names no edition: no site, region,
-   symbol or value appears in it as a literal; they arrive through constructors.
+2. `scoring` imports from `boomerang.game` and `kotlin.*` only. It names no edition: no site, region or
+   symbol name is a literal in it (the test checks string literals); values arrive through constructors.
 3. An edition package imports from `boomerang.game`, `boomerang.scoring` and `kotlin.*` only. Editions never depend on
    each other. `Symbol(` is called only in an edition package, once per symbol, as a named constant.
 4. `players` imports from `boomerang.game` only (plus `kotlin.*`). `net` imports from `boomerang.game`,
@@ -135,8 +138,10 @@ All arrows point inward. `game` owns the interfaces the outer packages implement
 5. Only `App.kt` names concrete classes of more than one outer package. Nothing imports from it.
 6. `Random` is constructed only in `App.kt`. No main source file calls `shuffled()` or `random()` without a
    passed-in source.
-7. Text for people is produced only in `players/ConsolePlayer.kt` and `App.kt`. `game` passes on names
-   that are edition data (category, region, symbol) and composes no sentence.
+7. Text for a player during a game is laid out only in `players/ConsolePlayer.kt`. The server's own lines
+   and the failure sentences are in `App.kt`. `game` composes no sentence. Two concessions, not held by a
+   test: an exception of `net` carries a short reason that `App.kt` prints (D10), and `RegionBonus` joins
+   region names into its announcement (one string in `Score`, no list type for one category).
 
 `DependencyRulesTest` reads the main source files, strips comments, and asserts rules 1 to 6 as written here.
 
@@ -204,7 +209,8 @@ class History(val rounds: List<RoundRecord> = emptyList()) {
 // game/Edition.kt
 /** An edition: its cards, its categories in score sheet order, and its tie-break order.
  *  The constructor throws IllegalArgumentException unless site characters are distinct, category names
- *  are distinct and not blank, and every tie-breaker is one of `categories` (the same object). */
+ *  are distinct and not blank, every tie-breaker is one of `categories` (the same object), and there are
+ *  enough cards for the largest game (Game.PLAYERS.last * Game.HAND_SIZE). */
 class Edition(
     val name: String, val cards: List<Card>,
     val categories: List<IScoringCategory>, val tieBreakers: List<IScoringCategory>,
@@ -267,7 +273,8 @@ class DraftPhase(private val players: List<IPlayer>) {
      *  drafts by seat. Hands travel in passing.hands, the last card of each hand in passing.catch. */
     fun run(deck: List<Card>, passing: Passing): List<Draft>
 }
-/** Rule 10: for every category, asks the players who have a choice, and records every player's score. */
+/** Rule 10: for every category, asks the players who have a choice, and records every player's score.
+ *  IllegalStateException naming the category if one offers no score. */
 class ScoringPhase(private val categories: List<IScoringCategory>, private val players: List<IPlayer>) {
     fun run(drafts: List<Draft>, history: History): RoundRecord
 }
@@ -309,7 +316,8 @@ class SymbolSum(
 /** R10d: for each symbol, its value for every complete pair on the draft. */
 class SymbolPairs(override val name: String, private val values: Map<Symbol, Int>) : IScoringCategory
 /** R10e: one score per symbol that is on the draft and not in history.chosen(seat, this), worth
- *  pointsByCount[number of cards], in the order of `symbols`, then "take none" with 0 points. */
+ *  pointsByCount[number of cards], in the order of `symbols`, then "take none" with 0 points. The table
+ *  must not be empty (IllegalArgumentException); a count it has no entry for is an IllegalStateException. */
 class ChosenSymbolCount(
     override val name: String, private val symbols: List<Symbol>, private val pointsByCount: List<Int>,
 ) : IScoringCategory
@@ -388,6 +396,8 @@ data class Usage(val message: String) : Start      // states Game.PLAYERS and th
 fun parseArguments(args: Array<String>): Start
 /** AC13.3, AC13.4: AlternatingPassingRule if start.alternate, else StandardPassingRule. */
 internal fun passingRuleFor(start: ServerStart): IPassingRule
+/** Client only: wraps the ConsolePlayer, passes everything on, and notes whether the end of the game was shown. */
+private class EndWatcher(private val player: IPlayer) : IPlayer { var sawTheEnd: Boolean }
 fun main(args: Array<String>)                      // the composition root; reports every failure in words (S2)
 const val PORT: Int                                // 2048
 ```
@@ -477,12 +487,13 @@ Defence: The rules ask a player and tell a player, and that is all they know. Ev
 interface can be replaced, including by a script in a test.
 
 **D3. What a card is, and new symbol kinds.** A card is a value with a list of `Symbol(kind, name)`. A new
-kind is new data in an edition file; `Card`, `Draft` and the console layout (one row per kind found on the
-cards) do not change. Rejected: one field per kind (the original) and an enum of kinds in `game`, which
+kind is new data in an edition file; `Card`, `Draft` and the console (one line per card with its symbol
+names) do not change. Rejected: one field per kind (the original) and an enum of kinds in `game`, which
 would be edited for Europe. A symbol's value is not on the card: it belongs to the category that scores it.
 A typo is caught in three places: each symbol is declared once as a constant and used by that name, so a
 wrong reference does not compile; `DependencyRulesTest` forbids `Symbol(` outside edition packages; the one
-declaration is checked by the R2 tests (AC2.5, AC2.6). `kind` only groups symbols for display.
+declaration is checked by the R2 tests (AC2.5, AC2.6). No main source file reads `kind` today: it is part
+of a symbol's identity, checked by AC2.5, and data for a later edition; a display by kind is not built.
 Defence: The brief says other editions bring new symbols, so the set of kinds must be open, and that means
 data. A symbol is typed once and referred to by name everywhere else.
 
@@ -573,14 +584,16 @@ Defence: Client and server agree on types, never on words. The transport is one 
   `ConnectionLost`; `RemotePlayer` turns that into `PlayerLost`, the only failure `game` knows. `Game.play`
   shows `GameAborted(lostSeat)` to every other player and rethrows; a second loss while doing so is attached
   to the first (`addSuppressed`), not dropped. `main` reports it and closes all connections.
-- A port in use and an unreachable server are turned into `ConnectionLost` inside `net`, each with its own
-  sentence. `main` therefore catches `PlayerLost` and `ConnectionLost` only and names no `java.net` type;
-  it prints a sentence and exits with a non-zero status. It cannot name the lost seat (`PlayerLost`
-  carries the player); the clients learn it through `GameAborted`. Bad arguments are the value `Usage`.
-- A broken invariant (`require`, `check`) is a programming error and crashes with its stack trace.
+- A port in use and an unreachable server are turned into `ConnectionLost` inside `net`, each with a
+  short reason written there, where the failure is known. `main` catches `PlayerLost` and `ConnectionLost`
+  only, names no `java.net` type, puts the reason into its sentence and exits with a non-zero status. It
+  cannot name the lost seat (`PlayerLost` carries the player); the clients learn it through `GameAborted`.
+  Bad arguments are the value `Usage`. On a client, a session that ends before `GameOver` or `GameAborted`
+  was shown has its own sentence, and so has the end of the client's own input (`runClient`, `EndWatcher`).
+- A broken invariant (`require`, `check`) is a programming error and crashes with its stack trace. Guards:
+  too few cards (`Edition`), no score offered (`ScoringPhase`), a points table too short (`ChosenSymbolCount`).
 - Known limit: a player who stays connected and silent makes the game wait, as in the original; no
-  requirement names a time limit. One would be added in a connection class behind `IConnection`, with no
-  change in `game`.
+  requirement names a time limit. One would be added behind `IConnection`, with no change in `game`.
 
 Defence: A wrong answer is part of play, so it is a value and the player is asked again. A closed or
 broken connection ends the game for everyone with a message, and no catch block is empty.
@@ -605,15 +618,16 @@ players (R4 to R9); `ScoringPhase`, `History.result` and `Game` with scripted pl
 (R1, R3, R10e, R11, R12); `parseArguments` (R1); `ConsolePlayer` with strings; `RemotePlayer` and
 `ClientSession` over an in-memory connection pair. Two more: `DependencyRulesTest`, because a dependency
 rule that no test checks erodes; and one loopback test of `SocketConnection` on a free port, because that
-class is otherwise the only one no test runs. The doubles (`ScriptedPlayer`, `InMemoryConnection`,
-`FixedCategory`) and two helpers (`Table`, `AustraliaSheet`) live in the test sources, in
-`boomerang/support/`.
+class is otherwise the only one no test runs; `GameOverTheWireTest` plays a game through serialized
+messages. The doubles (`ScriptedPlayer`, `InMemoryConnection`, `SerializingConnection`, `FixedCategory`)
+and two helpers (`Table`, `AustraliaSheet`) live in the test sources, in `boomerang/support/`.
 Defence: Every rule is tested where it lives, without console, socket or chance. No production type
 exists for the tests' sake: the rules need `IPlayer` and `IShuffler` anyway.
 
 **D14. Naming.** Idiomatic Kotlin, with one rule for the prefix: **an open (not sealed) interface gets
-`I`**. There are six, each with operations and more than one implementation: `IPlayer`,
-`IScoringCategory`, `IPassingRule`, `IShuffler`, `IConnection`, `IAnswer`. **A sealed interface gets no
+`I`**. There are six, each with operations: `IPlayer`, `IScoringCategory`, `IPassingRule`, `IShuffler`,
+`IConnection`, `IAnswer`. In the main sources `IShuffler` and `IConnection` have one implementation each
+(their second is a test double) and `IAnswer` only lambdas. **A sealed interface gets no
 prefix**: `GameEvent`, `Message`, `ServerMessage`, `ClientMessage`, `Start` are closed families of values,
 complete in one file, that nothing outside can implement, so they are data, not seams. Implementations say
 what sets them apart (`BotPlayer`, `SocketConnection`). A file is named after its interface or main class.
@@ -634,6 +648,8 @@ a type in the design:
    checks that it is a `ServerMessage`, because only those can be delivered to a player. `RemotePlayer`
    checks each reply (`CardAnswer`, `ChoiceAnswer`), because a client may answer the wrong question. Each
    failure is `ConnectionLost` or `PlayerLost`.
+4. `EndWatcher` in `App.kt`: `event is GameOver || event is GameAborted`. The client must know whether the
+   game ended or the session merely stopped; the check stays out of `game` and `net`, in start-up code.
 
 There is no other test on a type. `Direction.receiver` is a `when` on the enum's own two values.
 
@@ -682,7 +698,7 @@ Considered and declined:
 | Chain of Responsibility for tie-breaks | An ordered list of categories compared in turn is enough. |
 | Singleton | State is passed in. The only `object`s (the two passing rules, `Bye`, `AustraliaSymbols`) hold no state. |
 | Composite for "Tourist sites and region bonus" | Two entries in the edition's list give the same result (D17). |
-| A registry of editions or a plug-in loader | One edition exists. The second adds one line to `App.kt`. |
+| A registry of editions or a plug-in loader | One edition exists. The second needs a switch in `App.kt`, as FC13 did (D6). |
 
 ## 7. Quality attributes
 
@@ -700,8 +716,8 @@ Considered and declined:
 
 | Change | New files | Existing files changed |
 |---|---|---|
-| **FC14 Europe** | `europe/Europe.kt` (symbols, cards, edition), `europe/NationalTreasures.kt`, `europe/PassportBonus.kt` | `App.kt` |
-| **FC14 USA** | `usa/Usa.kt`, `usa/ThrowIfCaught.kt`, `usa/Americana.kt`, `usa/WestEastRoute.kt` | `App.kt` |
+| **FC14 Europe** | `europe/Europe.kt` (symbols, cards, edition), `europe/NationalTreasures.kt`, `europe/PassportBonus.kt` | `App.kt`: a switch for the edition, not measured; FC13's cost 28 lines (D6) |
+| **FC14 USA** | `usa/Usa.kt`, `usa/ThrowIfCaught.kt`, `usa/Americana.kt`, `usa/WestEastRoute.kt` | `App.kt`, the same switch |
 | A new symbol kind | none: a constant such as `Symbol("Treasure", "Art")` in the edition's file | none |
 | A new kind of player | one `IPlayer` class | `App.kt` |
 
@@ -737,7 +753,8 @@ The acceptance checks against the signatures of section 3 (described, not code t
 - **LSP:** every `IPlayer` honours one contract (question put at once, answer awaited); every
   `IScoringCategory` is stateless and returns a non-empty list.
 - **ISP:** `IPlayer` has three operations, `IConnection` two, `IScoringCategory` one, and every one is
-  called. No implementation carries a method or parameter it does not use.
+  called by its client. Three implementations leave something unused by nature: `BotPlayer.show` is
+  empty, `StandardPassingRule` ignores its parameters, `Bye.deliverTo` ignores the player.
 - **DIP, coupling:** `game` owns its interfaces; packages meet only at them and at immutable values.
 - **Sufficiency, completeness:** `ScoringContext` carries all that requirements 6.1 point 4 lists, no more.
 - **Primitiveness:** `Draft`, `History` and `Direction` offer only operations that need their internals.
@@ -745,8 +762,9 @@ The acceptance checks against the signatures of section 3 (described, not code t
 ## 8. Files, in the order to implement them
 
 All under `app/src/main/kotlin/boomerang/`, 22 files. Inside out: a file uses only files above it, except
-that `IScoringCategory.kt` and `History.kt` refer to each other and are written together. Contents are the
-blocks of section 3.
+that `IScoringCategory.kt` and `History.kt` refer to each other, and that `Draft` in `Cards.kt` and
+`Edition` read `Game.HAND_SIZE` (and `Game.PLAYERS`) from `Game.kt`. That second cycle inside the package
+is kept on purpose: the number 7 has one home. Contents are the blocks of section 3.
 
 1. `game/` (11): `Cards.kt`, `IScoringCategory.kt`, `History.kt`, `Edition.kt`, `IPassingRule.kt`,
    `IShuffler.kt`, `IPlayer.kt`, `DraftPhase.kt`, `ScoringPhase.kt`, `Game.kt`, and for FC13
@@ -757,22 +775,25 @@ blocks of section 3.
 5. `net/` (4): `IConnection.kt`, `RemotePlayer.kt`, `ClientSession.kt`, `SocketConnection.kt`
 6. `App.kt` (1; exists as a stub and is replaced)
 
-What shares a file does so because it changes for the same reason, and never across a dependency rule:
-`Draft` with the cards; the events and requests with `IPlayer` ("all that is asked and told"); the
-categories by what they read (numbers, sites, symbols); symbols, cards and edition of Australia; the
-console layout with `ConsolePlayer`; the messages with `IConnection`; argument parsing with `main`, so
-that start-up is one file. Kept apart on purpose: `DraftPhase`, `ScoringPhase` and `Game` (FC14 must not
-touch the drafting sequence, and each is tested alone); one file per seam interface; `RemotePlayer` and
-`ClientSession` (the two ends run in different processes).
+What shares a file changes for the same reason, never across a dependency rule: `Draft` with the cards;
+events and requests with `IPlayer`; the categories by what they read (numbers, sites, symbols); symbols,
+cards and edition of Australia; the console layout with `ConsolePlayer`; the messages with `IConnection`;
+argument parsing with `main`. Kept apart on purpose: `DraftPhase`, `ScoringPhase` and `Game` (each tested
+alone); one file per seam interface; `RemotePlayer` and `ClientSession` (two different processes).
 
 ## 9. What does not fit cleanly
 
 No question is open. Known limits, each stated where it is decided: a silent player makes the game wait,
 and a lost player is noticed when that seat is next awaited (D10, D8); `game` carries
-`java.io.Serializable` (D9); two `when`s on a sealed type and four checks of arriving objects remain (D15); "several
-scores means the player chooses" is a contract, not a type, and a choice is always a symbol (D4); `kind`
-and the display names are strings (D3). Two more:
+`java.io.Serializable` (D9); two `when`s on a sealed type, four checks of arriving objects and one check
+in `EndWatcher` remain (D15); "several scores means the player chooses" is a contract, not a type, and a
+choice is always a symbol (D4); `kind` and the display names are strings (D3). Limits stated only here:
 
+- **A stray connection can stall the lobby**: a peer that sends nothing holds `accept`, one that sends
+  other bytes ends the server. It follows from having no time limit.
+- **The object stream is never reset** and has no input filter: both ends keep every message of a session.
+- **Players are not told the passing direction** of a round, nor that the alternating rule is on.
+- **`GameAborted(-1)` is possible** if `PlayerLost` names an object that is not a seat; no class here does.
 - **Europe and USA card lists were not examined** (requirements 6.1). If a site there is not one character,
   `site` changes type, which touches `Card`, `CardRequest`, `CardAnswer` and `visitedSites`.
 - **The passport rule's "highest available score"** after a shared first place is ambiguous in the
