@@ -139,7 +139,8 @@ All arrows point inward. `game` owns the interfaces the outer packages implement
 6. `Random` is constructed only in `App.kt`. No main source file calls `shuffled()` or `random()` without a
    passed-in source.
 7. Text for a player during a game is laid out only in the console files of `players`
-   (`ConsolePlayer.kt`, `ConsoleMemory.kt`, `ConsoleScreens.kt`, `ConsoleLayout.kt`). The server's own lines
+   (`ConsolePlayer.kt`, `ConsoleMemory.kt`, `ConsoleScreens.kt`, `ConsoleLayout.kt`, `TerminalFrame.kt`,
+   `CardFan.kt`). The server's own lines
    and the failure sentences are in `App.kt`. `game` composes no sentence. Three concessions, not held by a
    test: an exception of `net` carries a short reason that `App.kt` prints (D10), `RegionBonus` joins
    region names into its announcement (one string in `Score`, no list type for one category), and five
