@@ -42,7 +42,7 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
         val pick = "Round ${memory.round.round}, pick ${draft.cards.size + 1} of ${Game.HAND_SIZE - 1}"
         val lines = mutableListOf("")
         if (request.refused != null) {
-            lines += paint.bold("${request.refused} is not in your hand. Nothing was drafted and no cards were passed.")
+            lines += paint.warning("${request.refused} is not in your hand.") + " Nothing was drafted and no cards were passed."
             lines += ""
         }
         lines += header(pick, memory)
@@ -50,10 +50,10 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
         lines += draftLines(draft, table)
         lines += othersLines(memory)
         lines += sheetLines("SCORE SHEET", memory.rounds, withRoundTotals = false)
-        lines += rule('-')
+        lines += paint.dim(rule('-'))
         lines += handLines(request, memory, table)
         lines += ""
-        lines += "Type the letter or sign of the card to keep (${request.hand.joinToString(" ") { it.site.toString() }}):"
+        lines += paint.prompt("Type the letter or sign of the card to keep (${request.hand.joinToString(" ") { it.site.toString() }}):")
         return lines.joinToString("\n")
     }
 
@@ -61,13 +61,13 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
     fun choiceQuestion(request: ChoiceRequest): String {
         val lines = mutableListOf("")
         if (request.refused != null) {
-            lines += paint.bold("Option ${request.refused + 1} is not offered. Nothing was chosen.")
+            lines += paint.warning("Option ${request.refused + 1} is not offered.") + " Nothing was chosen."
             lines += ""
         }
-        lines += paint.bold(request.category.uppercase()) + "   choose one for the cards of your draft"
+        lines += paint.bold(request.category.uppercase()) + paint.dim("   choose one for the cards of your draft")
         lines += tableFor(request.draft.cards).lines(request.draft.cards)
         lines += optionLines(request)
-        lines += "Type the number of your choice:"
+        lines += paint.prompt("Type the number of your choice:")
         return lines.joinToString("\n")
     }
 
@@ -75,48 +75,51 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
 
     /** CS2: the edition, where the game is, and the player's own name, with a line under them. */
     private fun header(middle: String, memory: ConsoleMemory): List<String> {
-        val line = headerLine(memory.edition.uppercase(), middle, "You are ${memory.name(memory.seat)}")
-        return listOf(paint.bold(line), rule('='))
+        val left = memory.edition.uppercase()
+        val right = "You are ${memory.name(memory.seat)}"
+        val between = headerLine(left, middle, right).removePrefix(left).removeSuffix(right)
+        return listOf(paint.bold(left) + between + paint.dim(right), paint.dim(rule('=')))
     }
 
     /** CS3: the legend, then one row per region. Nothing without the cards of the edition (D2). */
     private fun mapLines(visited: Set<Char>, drafted: Set<Char>): List<String> {
         if (cards.isEmpty()) return emptyList()
-        val lines = mutableListOf(paint.bold("MAP") + "   [x] visited earlier   (x) drafted this round    x  not visited")
+        val lines = mutableListOf(paint.bold("MAP") + paint.dim("   [x] visited earlier   (x) drafted this round    x  not visited"))
         val regions = regionsOf(cards)
         val nameWidth = regions.maxOf { it.length }
         val codeWidth = regions.maxOf { regionCode(it).length }
         for (index in regions.indices) {
             val region = regions[index]
             val label = regionCode(region).padEnd(codeWidth) + " " + region.padEnd(nameWidth)
-            lines += "  " + paint.region(index, label) + "  " + regionSites(region, visited, drafted)
+            lines += "  " + paint.region(index, label) + "  " + regionSites(index, region, visited, drafted)
         }
         lines += ""
         return lines
     }
 
     /** The sites of a region with their marks, how many of them the player has, and whether that is all. */
-    private fun regionSites(region: String, visited: Set<Char>, drafted: Set<Char>): String {
+    private fun regionSites(index: Int, region: String, visited: Set<Char>, drafted: Set<Char>): String {
         val sites = cards.filter { it.region == region }.map { it.site }
-        val marks = sites.joinToString(" ") { siteMark(it, visited, drafted) }
+        val marks = sites.joinToString(" ") { siteMark(index, it, visited, drafted) }
         val has = sites.count { it in visited || it in drafted }
-        val complete = if (has == sites.size) "  " + paint.bold("complete") else ""
+        val complete = if (has == sites.size) "  " + paint.good("complete") else ""
         return "$marks  $has/${sites.size}$complete"
     }
 
-    /** A site as the map shows it: in square brackets if visited in an earlier round, in round ones if
-     *  drafted in this round, between spaces if the player does not have it. */
-    private fun siteMark(site: Char, visited: Set<Char>, drafted: Set<Char>): String = when (site) {
-        in visited -> "[$site]"
-        in drafted -> "($site)"
-        else -> " $site "
+    /** A site as the map shows it: in square brackets and the colour of its region if visited in an earlier
+     *  round, in round ones and bold if drafted in this round, between spaces and dim if the player does
+     *  not have it. `index` is the place of the region among the regions. */
+    private fun siteMark(index: Int, site: Char, visited: Set<Char>, drafted: Set<Char>): String = when (site) {
+        in visited -> paint.region(index, "[$site]")
+        in drafted -> paint.now("($site)")
+        else -> paint.dim(" $site ")
     }
 
     /** CS4, CS5: the own draft as a table, and which of its cards is the Throw card. */
     private fun draftLines(draft: Draft, table: CardTable): List<String> {
-        val heading = paint.bold("YOUR DRAFT THIS ROUND") + "   ${draft.cards.size} of ${Game.HAND_SIZE} cards"
+        val heading = paint.bold("YOUR DRAFT THIS ROUND") + paint.dim("   ${draft.cards.size} of ${Game.HAND_SIZE} cards")
         if (draft.cards.isEmpty()) return listOf(heading, "")
-        val throwCard = "  Your Throw card is ${draft.throwCard.site}, the first you kept: hidden until the round ends."
+        val throwCard = paint.dim("  Your Throw card is ${draft.throwCard.site}, the first you kept: hidden until the round ends.")
         return listOf(heading) + table.lines(draft.cards) + throwCard + ""
     }
 
@@ -124,13 +127,17 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
      *  CardsShown of a round. The player's own cards are in the draft above and are not repeated. */
     private fun othersLines(memory: ConsoleMemory): List<String> {
         if (memory.shown.isEmpty()) return emptyList()
-        val lines = mutableListOf(paint.bold("THE OTHERS THIS ROUND") + "   their Throw cards are hidden")
+        val lines = mutableListOf(paint.bold("THE OTHERS THIS ROUND") + paint.dim("   their Throw cards are hidden"))
+        val table = tableFor(memory.shown.flatten())
         val nameWidth = memory.shown.indices.maxOf { memory.name(it).length }
         for (seat in memory.shown.indices) {
             if (seat == memory.seat) continue
             val lead = "  " + memory.name(seat).padEnd(nameWidth) + "  "
             val shownCards = memory.shown[seat].map { "[${it.site}] ${it.name}" }
-            lines += behind(lead, wrap(shownCards, "  ", WIDTH - lead.length))
+            // laid out as plain text first, so that the colour codes do not count as width
+            lines += behind(lead, wrap(shownCards, "  ", WIDTH - lead.length)).map { line ->
+                memory.shown[seat].fold(line) { text, card -> text.replace("[${card.site}] ", table.site(card) + " ") }
+            }
         }
         lines += ""
         return lines
@@ -142,7 +149,7 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
         val firstPick = request.draft.cards.isEmpty()
         val giver = memory.name(memory.giver(memory.round.passing.hands))
         val origin = if (firstPick) "dealt to you" else "passed to you by $giver"
-        val heading = paint.bold("YOUR HAND") + "   ${counted(request.hand.size, "card")}, $origin"
+        val heading = paint.bold("YOUR HAND") + paint.dim("   ${counted(request.hand.size, "card")}, $origin")
         return listOf(heading) + table.lines(request.hand) + regionLegend(request.hand + request.draft.cards)
     }
 
@@ -152,7 +159,7 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
         if (cards.isNotEmpty()) return emptyList()
         val lead = "  Regions: "
         val named = regionsOf(onScreen).map { "${regionCode(it)} $it" }
-        return behind(lead, wrap(named, ", ", WIDTH - lead.length))
+        return behind(lead, wrap(named, ", ", WIDTH - lead.length)).map { paint.dim(it) }
     }
 
     /** CS8: the score sheet, a row per category in the order received, a column per round played and the
@@ -163,14 +170,14 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
         val titles = rounds.first().map { it.title }
         val titleWidth = (titles + ROUND_TOTAL).maxOf { it.length }
         val lines = mutableListOf(paint.bold(heading))
-        lines += sheetRow("", titleWidth, rounds.indices.map { "R${it + 1}" }, "Total")
+        lines += paint.dim(sheetRow("", titleWidth, rounds.indices.map { "R${it + 1}" }, "Total"))
         for (row in titles.indices) {
             val points = rounds.map { it[row].score.points }
             lines += sheetRow(titles[row], titleWidth, points.map { it.toString() }, points.sum().toString())
         }
         if (withRoundTotals) {
             val totals = rounds.map { round -> round.sumOf { it.score.points } }
-            lines += sheetRow(ROUND_TOTAL, titleWidth, totals.map { it.toString() }, totals.sum().toString())
+            lines += paint.bold(sheetRow(ROUND_TOTAL, titleWidth, totals.map { it.toString() }, totals.sum().toString()))
         }
         lines += ""
         return lines
@@ -262,8 +269,8 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
         for (line in event.own) {
             lines += scoreLines(line, titleWidth, memory.draft)
         }
-        lines += "-".repeat(POINTS_WIDTH + 2).padStart(WIDTH)
-        lines += pointsLine("  Round ${event.round} total", event.own.sumOf { it.score.points })
+        lines += paint.dim("-".repeat(POINTS_WIDTH + 2).padStart(WIDTH))
+        lines += paint.bold(pointsLine("  Round ${event.round} total", event.own.sumOf { it.score.points }))
         for (seat in event.announced.indices) {
             if (seat == memory.seat) continue
             for (line in event.announced[seat]) {
@@ -300,7 +307,8 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
         for (place in ranked.indices) {
             val seat = ranked[place]
             val total = result.totals[seat].toString().padStart(TOTAL_WIDTH)
-            lines += "  ${place + 1}  " + nameWithYou(seat, memory).padEnd(nameWidth) + total + winnerMark(seat, result.winners)
+            val line = "  ${place + 1}  " + nameWithYou(seat, memory).padEnd(nameWidth) + total + winnerMark(seat, result.winners)
+            lines += if (seat in result.winners) paint.good(line) else line
         }
         return lines.joinToString("\n")
     }
@@ -312,7 +320,7 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
     /** What stands behind a winner: a winner alone and one of several read differently (CS13). */
     private fun winnerMark(seat: Int, winners: List<Int>): String {
         if (seat !in winners) return ""
-        return "   " + paint.bold(if (winners.size == 1) "winner" else "shares the win")
+        return "   " + if (winners.size == 1) "winner" else "shares the win"
     }
 
     // --- shared -----------------------------------------------------------------------------------------

@@ -9,23 +9,56 @@ internal const val WIDTH = 80
 /** Colour for a console (D3, CS15). Every function gets text that is already laid out and adds only escape
  *  sequences around it, so that the text without them is the text of a console without colour. */
 internal class Paint(private val on: Boolean) {
-    /** For headings and for what must not be overlooked. */
-    fun bold(text: String): String = sgr("1", text)
+    /** For headings: bold and white. */
+    fun bold(text: String): String = sgr("1;" + ink(WHITE), text)
 
-    /** The colour of a region; `index` is the place of the region in the order the cards name them (D8). */
-    fun region(index: Int, text: String): String = sgr(REGION_COLOURS[index % REGION_COLOURS.size], text)
+    /** For what explains and what is not the player's: legends, column heads, lines, sites not visited. */
+    fun dim(text: String): String = sgr(ink(GREY), text)
+
+    /** For what is of this round and must be found at once: a site drafted now. */
+    fun now(text: String): String = sgr("1;" + ink(WHITE), text)
+
+    /** For good news: a region that is complete, a winner. */
+    fun good(text: String): String = sgr(ink(GREEN), text)
+
+    /** For an answer that was refused. */
+    fun warning(text: String): String = sgr("1;" + ink(RED), text)
+
+    /** For the line that says what to type. */
+    fun prompt(text: String): String = sgr(ink(BLUE), text)
+
+    /** A region: dark, bold text on the colour of the region; `index` is the place of the region in the
+     *  order the cards name them (D8). */
+    fun region(index: Int, text: String): String =
+        sgr("1;" + ink(DARK) + ";" + ground(REGION_COLOURS[index % REGION_COLOURS.size]), text)
 
     /** The text between an ANSI "select graphic rendition" code and the code that resets it; with colour
-     *  off, the text as it is. */
-    private fun sgr(code: String, text: String): String = if (on) "$ESCAPE[${code}m$text$ESCAPE[0m" else text
+     *  off, or with no text, the text as it is. */
+    private fun sgr(code: String, text: String): String =
+        if (on && text.isNotEmpty()) "$ESCAPE[${code}m$text$ESCAPE[0m" else text
+
+    /** The code that sets the colour of the text, and the one that sets the colour behind it: 24-bit
+     *  colour, as red;green;blue (D10). */
+    private fun ink(rgb: String): String = "38;2;$rgb"
+    private fun ground(rgb: String): String = "48;2;$rgb"
 }
 
 /** The character that starts an escape sequence. */
 private const val ESCAPE = '\u001B'
 
-/** D8: seven foreground colours, given to the regions in order of first appearance: red, green, yellow,
- *  blue, magenta, cyan, bright magenta. */
-private val REGION_COLOURS = listOf("31", "32", "33", "34", "35", "36", "95")
+/** D8, D10: seven background colours, given to the regions in order of first appearance: coral, orange,
+ *  yellow, green, cyan, violet, lavender. Each as red;green;blue. */
+private val REGION_COLOURS = listOf(
+    "240;144;124", "240;180;106", "236;217;102", "159;214;122", "95;211;220", "199;164;242", "169;164;245",
+)
+
+/** D10: the other colours of a screen, each as red;green;blue. */
+private const val WHITE = "255;255;255"
+private const val GREY = "139;145;155"
+private const val DARK = "20;22;26"
+private const val GREEN = "143;220;159"
+private const val RED = "255;157;146"
+private const val BLUE = "138;180;248"
 
 /** D8: a short code for a region, made from its name: the initials of a name of several words (WA), else
  *  its first three letters in capitals (QUE). */
@@ -88,24 +121,29 @@ internal class CardTable(known: List<Card>, private val paint: Paint) {
     fun head(lead: String = LEAD, withRegion: Boolean = true): String {
         val site = " ".repeat(SITE_WIDTH)
         val region = if (withRegion) " " + REGION_HEAD.padEnd(codeWidth) else ""
-        return lead + site + " " + NAME_HEAD.padEnd(nameWidth) + " " + NUMBER_HEAD.padStart(numberWidth) + region +
-            " " + padded(kinds)
+        return paint.dim(lead + site + " " + NAME_HEAD.padEnd(nameWidth) + " " + NUMBER_HEAD.padStart(numberWidth) +
+            region + " " + padded(kinds))
     }
 
-    /** One card on one line: the lead, the site character in brackets, the name, the number, the region
-     *  code in the colour of the region, and one cell per symbol kind. */
+    /** One card on one line: the lead, the site character in brackets and the region code, both in the
+     *  colour of the region, the name, the number, and one cell per symbol kind. */
     fun line(card: Card, lead: String = LEAD, withRegion: Boolean = true): String {
         val region = if (withRegion) " " + regionCell(card.region) else ""
-        return lead + "[${card.site}]" + " " + card.name.padEnd(nameWidth) + " " +
+        return lead + site(card) + " " + card.name.padEnd(nameWidth) + " " +
             card.number.toString().padStart(numberWidth) + region + " " + padded(kinds.map { cell(card, it) })
     }
 
     /** The head and one line per card, as a card question shows a hand or a draft. */
     fun lines(cards: List<Card>): List<String> = listOf(head()) + cards.map { line(it) }
 
-    /** The code of the region, as wide as its column, in the colour of the region. */
-    private fun regionCell(region: String): String =
-        paint.region(regions.indexOf(region), regionCode(region).padEnd(codeWidth))
+    /** The site character of a card in brackets, in the colour of its region. */
+    fun site(card: Card): String = paint.region(regions.indexOf(card.region), "[${card.site}]")
+
+    /** The code of the region in the colour of the region, then spaces up to the width of its column. */
+    private fun regionCell(region: String): String {
+        val code = regionCode(region)
+        return paint.region(regions.indexOf(region), code) + " ".repeat(codeWidth - code.length)
+    }
 
     /** What a card has of one symbol kind: the name of the symbol, or a dash if it has none. */
     private fun cell(card: Card, kind: String): String {
