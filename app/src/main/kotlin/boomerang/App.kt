@@ -22,6 +22,7 @@ import boomerang.net.SocketConnection
 import boomerang.net.SocketListener
 import boomerang.players.BotPlayer
 import boomerang.players.ConsolePlayer
+import boomerang.players.TerminalFrame
 import kotlin.random.Random
 import kotlin.system.exitProcess
 
@@ -76,11 +77,34 @@ internal fun useColour(hasConsole: Boolean, noColor: String?): Boolean = hasCons
 internal fun playerNamesFor(start: ServerStart): List<String> =
     List(start.humans + start.bots) { seat -> if (seat < start.humans) "Player ${seat + 1}" else "Bot ${seat + 1}" }
 
-/** A console for a person at this terminal: it knows the cards of the edition (D2) and whether to use colour (D3). */
-private fun consolePlayer(): ConsolePlayer = ConsolePlayer(
-    readLine = { readlnOrNull() }, print = { println(it) },
-    cards = australia().cards, colour = useColour(System.console() != null, System.getenv("NO_COLOR")),
-)
+/** A console for a person at this terminal: it knows the cards of the edition (D2), whether to use colour
+ *  (D3), and, at a real terminal, a frame as high as that terminal (D11). */
+private fun consolePlayer(): ConsolePlayer {
+    val hasConsole = System.console() != null
+    val colour = useColour(hasConsole, System.getenv("NO_COLOR"))
+    return ConsolePlayer(
+        readLine = { readlnOrNull() }, print = { println(it) }, cards = australia().cards, colour = colour,
+        frame = if (hasConsole) TerminalFrame(terminalRows(), colour) else null,
+    )
+}
+
+/** D11: the height of the terminal in lines, as `stty size` reports it ("rows columns"). Where that
+ *  cannot be asked (no such command, no terminal), a height most terminals stay under. */
+private fun terminalRows(): Int = try {
+    val process = ProcessBuilder("sh", "-c", "stty size < /dev/tty").redirectErrorStream(true).start()
+    val answer = process.inputStream.bufferedReader().readText()
+    process.waitFor()
+    val rows = answer.trim().split(" ").first().toInt()
+    if (rows in MIN_ROWS..MAX_ROWS) rows else DEFAULT_ROWS // "0 0": the terminal does not say
+} catch (e: java.io.IOException) {
+    DEFAULT_ROWS
+} catch (e: NumberFormatException) {
+    DEFAULT_ROWS
+}
+
+private const val MIN_ROWS = 10
+private const val MAX_ROWS = 300
+private const val DEFAULT_ROWS = 60
 
 /** The composition root; reports every failure in words (S2). */
 fun main(args: Array<String>) {

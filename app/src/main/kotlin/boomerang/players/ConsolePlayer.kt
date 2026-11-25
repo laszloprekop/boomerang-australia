@@ -23,23 +23,29 @@ import boomerang.game.ScoreLine
  *  answer and the question is repeated locally. Throws PlayerLost when the input ends.
  *  `cards`: the cards of the edition, for the map (D2). `colour`: whether to print escape sequences (D3).
  *  Once it has been shown GameStarted it prints the screens of docs/console-screens.md and remembers what
- *  they need (D1); until then it prints the plain texts of `describe` (D9). */
+ *  they need (D1); until then it prints the plain texts of `describe` (D9).
+ *  `frame`: for a real terminal, a box around every screen, and a page of its own for the first screen
+ *  after an answer (D11); without one, the screens are printed as they are. */
 class ConsolePlayer(
     private val readLine: () -> String?, private val print: (String) -> Unit,
-    cards: List<Card> = emptyList(), colour: Boolean = false,
+    cards: List<Card> = emptyList(), colour: Boolean = false, private val frame: TerminalFrame? = null,
 ) : IPlayer {
     private val memory = ConsoleMemory()
     private val screens = ConsoleScreens(cards, Paint(colour))
 
+    /** D11: whether a line was typed since the last screen. Only then has the person seen all that is on
+     *  the terminal, and the next screen may take a page of its own. */
+    private var answered = false
+
     /** Prints the question at once; the line is read when the game awaits the answer. */
     override fun selectCard(request: CardRequest): IAnswer<Char> {
-        print(if (memory.started) screens.cardQuestion(request, memory) else describe(request))
+        print(if (memory.started) framed(screens.cardQuestion(request, memory), promptLines = 1) else describe(request))
         return IAnswer { readSite() }
     }
 
     /** As selectCard. The person types 1 for the first option, and the game counts from 0. */
     override fun chooseScore(request: ChoiceRequest): IAnswer<Int> {
-        print(if (memory.started) screens.choiceQuestion(request) else describe(request))
+        print(if (memory.started) framed(screens.choiceQuestion(request), promptLines = 1) else describe(request))
         return IAnswer { readOptionNumber() - 1 }
     }
 
@@ -49,7 +55,15 @@ class ConsolePlayer(
         val startedBefore = memory.started
         memory.remember(event)
         val text = if (startedBefore) screens.of(event, memory) else describe(event)
-        if (text.isNotEmpty()) print(text)
+        if (text.isNotEmpty()) print(if (startedBefore) framed(text) else text)
+    }
+
+    /** D11: the screen in the frame, if there is one; on a new page if a line was typed since the last screen. */
+    private fun framed(screen: String, promptLines: Int = 0): String {
+        if (frame == null) return screen
+        val newPage = answered
+        answered = false
+        return frame.around(screen, newPage, promptLines)
     }
 
     /** Reads lines until one is a single character. Whether it is a card of the hand is for the game to say. */
@@ -75,6 +89,7 @@ class ConsolePlayer(
     /** The next line typed, without spaces around it. No line means the input has ended: the player is lost. */
     private fun readAnswerLine(): String {
         val line = readLine() ?: throw PlayerLost(this)
+        answered = true
         return line.trim()
     }
 }
