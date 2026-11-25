@@ -88,17 +88,18 @@ class CardFanTest {
     }
 
     @Test
-    fun `D12 a console with a frame shows the hand as cards, one without shows the table`() {
-        fun screen(frame: TerminalFrame?): String {
+    fun `D12 a console told to shows the hand as cards, any other shows the table`() {
+        fun screen(terminal: TerminalLook): String {
             val printed = StringBuilder()
-            val player = ConsolePlayer(readLine = { null }, print = { printed.append(it).append('\n') }, cards = cards, frame = frame)
+            val player = ConsolePlayer(readLine = { null }, print = { printed.append(it).append('\n') }, cards = cards, terminal = terminal)
             player.show(boomerang.game.GameStarted(edition = "Boomerang Australia", seat = 0, playerCount = 2))
             player.show(boomerang.game.RoundStarted(round = 1, visitedSites = emptySet()))
             player.selectCard(boomerang.game.CardRequest(hand("XJGQPZD"), boomerang.game.Draft()))
             return printed.toString()
         }
 
-        assertTrue("╰[X]─" in screen(TerminalFrame(rows = 40)))
-        assertFalse("╰[X]─" in screen(null))
+        assertTrue("╰[X]─" in screen(TerminalLook(cardFan = true)))
+        assertFalse("╰[X]─" in screen(TerminalLook()))
+        assertFalse("╰[X]─" in screen(TerminalLook(frame = TerminalFrame(rows = 40))))
     }
 }

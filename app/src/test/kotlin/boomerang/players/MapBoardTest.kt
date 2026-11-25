@@ -69,14 +69,14 @@ class MapBoardTest {
     }
 
     @Test
-    fun `D13 a layout that misses a region is not used, and a console without a frame keeps the list`() {
+    fun `D13 a layout that misses a region is not used, and a console without a map keeps the list`() {
         assertFalse(MapBoard(cards, listOf(listOf("Western Australia")), Paint(false)).usable)
         assertFalse(MapBoard(cards, emptyList(), Paint(false)).usable)
 
-        fun screen(frame: TerminalFrame?): String {
+        fun screen(terminal: TerminalLook): String {
             val printed = StringBuilder()
             val player = ConsolePlayer(
-                readLine = { null }, print = { printed.append(it).append('\n') }, cards = cards, frame = frame, map = AUSTRALIA_MAP,
+                readLine = { null }, print = { printed.append(it).append('\n') }, cards = cards, terminal = terminal,
             )
             player.show(boomerang.game.GameStarted(edition = "Boomerang Australia", seat = 0, playerCount = 2))
             player.show(boomerang.game.RoundStarted(round = 1, visitedSites = emptySet()))
@@ -85,7 +85,8 @@ class MapBoardTest {
         }
         val sameLine = Regex("Western Australia.*Northern Territory.*Queensland")
 
-        assertTrue(sameLine.containsMatchIn(screen(TerminalFrame(rows = 40))))
-        assertFalse(sameLine.containsMatchIn(screen(null)))
+        assertTrue(sameLine.containsMatchIn(screen(TerminalLook(map = AUSTRALIA_MAP))))
+        assertFalse(sameLine.containsMatchIn(screen(TerminalLook())))
+        assertFalse(sameLine.containsMatchIn(screen(TerminalLook(map = listOf(listOf("Western Australia"))))))
     }
 }

@@ -58,7 +58,7 @@ class TerminalFrameTest {
     @Test
     fun `D11 a console without a frame prints its screens as before, and with one only after the game started`() {
         val printed = mutableListOf<String>()
-        val player = ConsolePlayer(readLine = { null }, print = { printed += it }, frame = TerminalFrame(rows = 40))
+        val player = ConsolePlayer(readLine = { null }, print = { printed += it }, terminal = TerminalLook(frame = TerminalFrame(rows = 40)))
 
         player.show(boomerang.game.GameAborted(lostSeat = 0))
 

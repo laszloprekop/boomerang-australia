@@ -4,6 +4,7 @@ package boomerang.players
  *  parts as sections of the box, and on request on a page of its own. A page is "faked": the terminal is
  *  moved up by its own height, so the old screen is out of sight but still there to scroll back to.
  *  Nothing here knows a rule or an event; it reads only the lines of a screen.
+ *  TerminalLook hands one to a ConsolePlayer.
  *  `rows`: the height of the terminal in lines. `colour`: whether the box is drawn dim (D3). */
 class TerminalFrame(private val rows: Int, colour: Boolean = false) {
     private val paint = Paint(colour)
@@ -18,12 +19,13 @@ class TerminalFrame(private val rows: Int, colour: Boolean = false) {
         return (if (newPage) pageBreak() else "") + (box + below).joinToString("\n")
     }
 
-    /** The lines of a box: an empty line and a line across the whole width both become one divider. No
-     *  divider at the start, at the end, or directly after another. */
+    /** The lines of a box: every line that only separates two parts of a screen becomes one divider. What
+     *  such a line is, ConsoleLayout says, beside what makes one. No divider at the start, at the end, or
+     *  directly after another. */
     private fun sections(lines: List<String>): List<String?> {
         val out = mutableListOf<String?>()
         for (line in lines) {
-            if (isDivider(line)) {
+            if (separates(visible(line))) {
                 if (out.isNotEmpty() && out.last() != null) out += null
             } else {
                 out += line
@@ -31,12 +33,6 @@ class TerminalFrame(private val rows: Int, colour: Boolean = false) {
         }
         while (out.isNotEmpty() && out.last() == null) out.removeLast()
         return out
-    }
-
-    /** An empty line, or a line of the whole width made of one of the two line characters. */
-    private fun isDivider(line: String): Boolean {
-        val text = visible(line)
-        return text.isBlank() || (text.length == WIDTH && (text.all { it == '-' } || text.all { it == '=' }))
     }
 
     /** One row of the box: a line of the screen between the two sides, or a divider for null. */

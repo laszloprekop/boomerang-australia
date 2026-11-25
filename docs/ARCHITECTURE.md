@@ -139,8 +139,8 @@ All arrows point inward. `game` owns the interfaces the outer packages implement
 6. `Random` is constructed only in `App.kt`. No main source file calls `shuffled()` or `random()` without a
    passed-in source.
 7. Text for a player during a game is laid out only in the console files of `players`
-   (`ConsolePlayer.kt`, `ConsoleMemory.kt`, `ConsoleScreens.kt`, `ConsoleLayout.kt`, `TerminalFrame.kt`,
-   `CardFan.kt`, `MapBoard.kt`). The server's own lines
+   (`ConsolePlayer.kt`, `ConsoleMemory.kt`, `ConsoleScreens.kt`, `ConsoleLayout.kt`, `ConsoleViews.kt`,
+   `TerminalFrame.kt`, `TerminalLook.kt`, `CardFan.kt`, `MapBoard.kt`). The server's own lines
    and the failure sentences are in `App.kt`. `game` composes no sentence. Three concessions, not held by a
    test: an exception of `net` carries a short reason that `App.kt` prints (D10), `RegionBonus` joins
    region names into its announcement (one string in `Score`, no list type for one category), and five
@@ -788,7 +788,7 @@ Considered and declined:
 | The rulebook's Catch direction | one `IPassingRule` class | `App.kt` |
 | **Another transport**, an answer time limit, earlier notice of a lost player (requirements 6.3) | `net/<New>Connection.kt` with its listener | `App.kt` |
 | A client that is not a console | a new `IPlayer`, handed to `ClientSession` | `App.kt` |
-| Console wording or layout | none | the console files of `players` only (`ConsoleScreens.kt`, `ConsoleLayout.kt`, and for a real terminal `TerminalFrame.kt`, `CardFan.kt`, `MapBoard.kt`) |
+| Console wording or layout | none | the console files of `players` only (`ConsoleScreens.kt`, `ConsoleLayout.kt`, and for a real terminal `ConsoleViews.kt`, and for a real terminal `TerminalFrame.kt`, `TerminalLook.kt`, `CardFan.kt`, `MapBoard.kt`) |
 
 ### 7.2 Extensibility
 

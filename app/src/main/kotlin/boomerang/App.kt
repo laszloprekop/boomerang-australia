@@ -24,6 +24,7 @@ import boomerang.net.SocketListener
 import boomerang.players.BotPlayer
 import boomerang.players.ConsolePlayer
 import boomerang.players.TerminalFrame
+import boomerang.players.TerminalLook
 import kotlin.random.Random
 import kotlin.system.exitProcess
 
@@ -85,9 +86,14 @@ private fun consolePlayer(): ConsolePlayer {
     val colour = useColour(hasConsole, System.getenv("NO_COLOR"))
     return ConsolePlayer(
         readLine = { readlnOrNull() }, print = { println(it) }, cards = australia().cards, colour = colour,
-        frame = if (hasConsole) TerminalFrame(terminalRows(), colour) else null, map = AUSTRALIA_MAP,
+        terminal = if (hasConsole) terminalLook(colour) else TerminalLook(),
     )
 }
+
+/** All that a console does at a real terminal: the frame as high as the terminal (D11), cards as a fan
+ *  (D12), and the map of the edition as a board (D13). */
+private fun terminalLook(colour: Boolean): TerminalLook =
+    TerminalLook(frame = TerminalFrame(terminalRows(), colour), cardFan = true, map = AUSTRALIA_MAP)
 
 /** D11: the height of the terminal in lines, as `stty size` reports it ("rows columns"). Where that
  *  cannot be asked (no such command, no terminal), a height most terminals stay under. */

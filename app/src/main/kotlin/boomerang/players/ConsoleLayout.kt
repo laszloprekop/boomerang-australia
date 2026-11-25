@@ -117,6 +117,10 @@ internal fun behind(lead: String, texts: List<String>): List<String> =
 /** A line across the whole width, made of one character. */
 internal fun rule(character: Char): String = character.toString().repeat(WIDTH)
 
+/** Whether a line of a screen only separates two parts of it: an empty line, or a rule as `rule` makes
+ *  it. `line` is the line as it is seen, without escape sequences. A frame draws its dividers there (D11). */
+internal fun separates(line: String): Boolean = line.isBlank() || line == rule('-') || line == rule('=')
+
 /** Three texts on one line of the whole width: one at the left, one in the middle, one at the right. */
 internal fun headerLine(left: String, middle: String, right: String): String {
     val free = WIDTH - left.length - middle.length - right.length

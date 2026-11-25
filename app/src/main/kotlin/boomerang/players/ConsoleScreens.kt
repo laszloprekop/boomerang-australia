@@ -20,14 +20,13 @@ import boomerang.game.ScoreLine
 /** The screens of docs/console-screens.md: one text per question and per event, at most WIDTH characters
  *  wide, for a console that has seen the start of the game. `cards` are the cards of the edition (D2); with
  *  none given, the map is left out. Every screen starts with an empty line that sets it off from the last.
- *  `fan`: draw hands and drafts as cards lying on each other and not as tables (D12, for a real terminal).
- *  `map`: where the regions lie, for the map as a board (D13); used with `fan` only. */
+ *  `cardView`, `mapView`: how cards and the map are drawn. The screens do not know which way they were
+ *  handed; without any, a table (CS4) and a list (CS3). */
 internal class ConsoleScreens(
-    private val cards: List<Card>, private val paint: Paint, private val fan: Boolean = false,
-    map: List<List<String>> = emptyList(),
+    private val cards: List<Card>, private val paint: Paint,
+    private val cardView: ICardView = CardTableView(cards, paint),
+    private val mapView: IMapView = MapList(cards, paint),
 ) {
-    private val board = MapBoard(cards, map, paint)
-
 
     /** The screen of an event; empty if the event is only remembered. */
     fun of(event: GameEvent, memory: ConsoleMemory): String = when (event) {
@@ -45,7 +44,7 @@ internal class ConsoleScreens(
      *  others, the score sheet, the hand, and what to type. */
     fun cardQuestion(request: CardRequest, memory: ConsoleMemory): String {
         val draft = request.draft
-        val table = tableFor(request.hand + draft.cards)
+        val onScreen = request.hand + draft.cards
         val pick = "Round ${memory.round.round}, pick ${draft.cards.size + 1} of ${Game.HAND_SIZE - 1}"
         val lines = mutableListOf("")
         if (request.refused != null) {
@@ -54,11 +53,11 @@ internal class ConsoleScreens(
         }
         lines += header(pick, memory)
         lines += mapLines(memory.round.visitedSites, draft.sites)
-        lines += draftLines(draft, table)
+        lines += draftLines(draft, onScreen)
         lines += othersLines(memory)
         lines += sheetLines("SCORE SHEET", memory.rounds, withRoundTotals = false)
         lines += paint.dim(rule('-'))
-        lines += handLines(request, memory, table)
+        lines += handLines(request, memory, onScreen)
         lines += ""
         lines += paint.prompt("Type the letter or sign of the card to keep (${request.hand.joinToString(" ") { it.site.toString() }}):")
         return lines.joinToString("\n")
@@ -72,7 +71,7 @@ internal class ConsoleScreens(
             lines += ""
         }
         lines += paint.bold(request.category.uppercase()) + paint.dim("   choose one for the cards of your draft")
-        lines += cardLines(request.draft.cards, tableFor(request.draft.cards))
+        lines += cardView.cards(request.draft.cards, request.draft.cards)
         lines += optionLines(request)
         lines += paint.prompt("Type the number of your choice:")
         return lines.joinToString("\n")
@@ -88,50 +87,19 @@ internal class ConsoleScreens(
         return listOf(paint.bold(left) + between + paint.dim(right), paint.dim(rule('=')))
     }
 
-    /** CS3: the legend, then one row per region. Nothing without the cards of the edition (D2). */
+    /** CS3: the legend, then the map as this console draws it. Nothing without the cards of the edition (D2). */
     private fun mapLines(visited: Set<Char>, drafted: Set<Char>): List<String> {
         if (cards.isEmpty()) return emptyList()
-        val lines = mutableListOf(paint.bold("MAP") + paint.dim("   [x] visited earlier   (x) drafted this round    x  not visited"))
-        if (fan && board.usable) {
-            val lead = "  "
-            return lines + board.lines(WIDTH - lead.length, visited, drafted).map { lead + it } + ""
-        }
-        val regions = regionsOf(cards)
-        val nameWidth = regions.maxOf { it.length }
-        val codeWidth = regions.maxOf { regionCode(it).length }
-        for (index in regions.indices) {
-            val region = regions[index]
-            val label = regionCode(region).padEnd(codeWidth) + " " + region.padEnd(nameWidth)
-            lines += "  " + paint.region(index, label) + "  " + regionSites(index, region, visited, drafted)
-        }
-        lines += ""
-        return lines
+        val legend = paint.bold("MAP") + paint.dim("   [x] visited earlier   (x) drafted this round    x  not visited")
+        return listOf(legend) + mapView.lines(visited, drafted) + ""
     }
 
-    /** The sites of a region with their marks, how many of them the player has, and whether that is all. */
-    private fun regionSites(index: Int, region: String, visited: Set<Char>, drafted: Set<Char>): String {
-        val sites = cards.filter { it.region == region }.map { it.site }
-        val marks = sites.joinToString(" ") { siteMark(index, it, visited, drafted) }
-        val has = sites.count { it in visited || it in drafted }
-        val complete = if (has == sites.size) "  " + paint.good("complete") else ""
-        return "$marks  $has/${sites.size}$complete"
-    }
-
-    /** A site as the map shows it: in square brackets and the colour of its region if visited in an earlier
-     *  round, in round ones and bold if drafted in this round, between spaces and dim if the player does
-     *  not have it. `index` is the place of the region among the regions. */
-    private fun siteMark(index: Int, site: Char, visited: Set<Char>, drafted: Set<Char>): String = when (site) {
-        in visited -> paint.region(index, "[$site]")
-        in drafted -> paint.now("($site)")
-        else -> paint.dim(" $site ")
-    }
-
-    /** CS4, CS5: the own draft as a table, and which of its cards is the Throw card. */
-    private fun draftLines(draft: Draft, table: CardTable): List<String> {
+    /** CS4, CS5: the own draft, and which of its cards is the Throw card. */
+    private fun draftLines(draft: Draft, onScreen: List<Card>): List<String> {
         val heading = paint.bold("YOUR DRAFT THIS ROUND") + paint.dim("   ${draft.cards.size} of ${Game.HAND_SIZE} cards")
         if (draft.cards.isEmpty()) return listOf(heading, "")
         val throwCard = paint.dim("  Your Throw card is ${draft.throwCard.site}, the first you kept: hidden until the round ends.")
-        return listOf(heading) + cardLines(draft.cards, table) + throwCard + ""
+        return listOf(heading) + cardView.cards(draft.cards, onScreen) + throwCard + ""
     }
 
     /** CS6: every other player by name with the cards shown so far in this round. Nothing before the first
@@ -154,14 +122,14 @@ internal class ConsoleScreens(
         return lines
     }
 
-    /** CS4, CS7: the hand as a table, and where it came from: dealt at the first pick, later passed on by
+    /** CS4, CS7: the hand, and where it came from: dealt at the first pick, later passed on by
      *  the player the passing of the round names. Without a map, the region codes are spelled out below. */
-    private fun handLines(request: CardRequest, memory: ConsoleMemory, table: CardTable): List<String> {
+    private fun handLines(request: CardRequest, memory: ConsoleMemory, onScreen: List<Card>): List<String> {
         val firstPick = request.draft.cards.isEmpty()
         val giver = memory.name(memory.giver(memory.round.passing.hands))
         val origin = if (firstPick) "dealt to you" else "passed to you by $giver"
         val heading = paint.bold("YOUR HAND") + paint.dim("   ${counted(request.hand.size, "card")}, $origin")
-        return listOf(heading) + cardLines(request.hand, table) + regionLegend(request.hand + request.draft.cards)
+        return listOf(heading) + cardView.cards(request.hand, onScreen) + regionLegend(onScreen)
     }
 
     /** CS4: the full name of every region of these cards beside its code. Not needed under a map, whose
@@ -246,34 +214,17 @@ internal class ConsoleScreens(
         return lines.joinToString("\n")
     }
 
-    /** CS12: every player by name with all seven cards; "Throw" in front of the first, "Catch" in front of
-     *  the seventh. The mark takes the place the region code has in a card question: a line has room for
-     *  one of the two. */
+    /** CS12: every player by name with all seven cards; the first is marked "Throw", the seventh "Catch". */
     private fun drafts(event: DraftsRevealed, memory: ConsoleMemory): String {
-        val table = tableFor(event.drafts.flatMap { it.cards })
+        val all = event.drafts.flatMap { it.cards }
         val lines = mutableListOf("")
         lines += paint.bold("THE DRAFTS OF ROUND ${memory.round.round}")
-        if (!fan) lines += table.head(lead = NO_MARK, withRegion = false)
+        lines += cardView.revealedHead(all)
         for (seat in event.drafts.indices) {
             lines += "  " + paint.bold(nameWithYou(seat, memory))
-            val draftCards = event.drafts[seat].cards
-            if (fan) {
-                val marks = draftCards.indices.associateWith { draftMark(it).trim() }.filterValues { it.isNotEmpty() }
-                lines += fanLines(draftCards, marks)
-                continue
-            }
-            for (place in draftCards.indices) {
-                lines += table.line(draftCards[place], lead = draftMark(place), withRegion = false)
-            }
+            lines += cardView.revealed(event.drafts[seat].cards, all, DRAFT_MARKS)
         }
         return lines.joinToString("\n")
-    }
-
-    /** What stands in front of a card of a revealed draft: the first is the Throw card, the seventh the Catch card. */
-    private fun draftMark(place: Int): String = when (place) {
-        0 -> "Throw "
-        Game.HAND_SIZE - 1 -> "Catch "
-        else -> NO_MARK
     }
 
     /** CS11: one line per category with title, reason and points; the total of the round; then what is
@@ -345,18 +296,6 @@ internal class ConsoleScreens(
     private fun nameWithYou(seat: Int, memory: ConsoleMemory): String =
         if (seat == memory.seat) "${memory.name(seat)} (you)" else memory.name(seat)
 
-    /** Cards as a screen shows them: as a table, or as a fan of cards if this console draws one (D12). */
-    private fun cardLines(shown: List<Card>, table: CardTable): List<String> =
-        if (fan) fanLines(shown) else table.lines(shown)
-
-    /** D12: the cards as a fan, with what the lines of a card are below it. Nothing for no cards. */
-    private fun fanLines(shown: List<Card>, marks: Map<Int, String> = emptyMap()): List<String> {
-        if (shown.isEmpty()) return emptyList()
-        val cardFan = CardFan(cards.ifEmpty { shown }, paint)
-        val lead = "  "
-        return cardFan.lines(shown, WIDTH - lead.length, marks).map { lead + it } + paint.dim(lead + cardFan.legend())
-    }
-
     /** A card table for a screen. Its columns fit the edition if the console knows the cards of the
      *  edition, else the cards on this screen. */
     private fun tableFor(onScreen: List<Card>): CardTable = CardTable(cards.ifEmpty { onScreen }, paint)
@@ -372,7 +311,7 @@ internal class ConsoleScreens(
         /** The width points are written in, at the right end of a line. */
         private const val POINTS_WIDTH = 4
 
-        /** As wide as "Throw " and "Catch ": what stands in front of the other cards of a revealed draft. */
-        private const val NO_MARK = "      "
+        /** The cards of a revealed draft that have a name: the first kept and the last received. */
+        private val DRAFT_MARKS = mapOf(0 to "Throw", Game.HAND_SIZE - 1 to "Catch")
     }
 }

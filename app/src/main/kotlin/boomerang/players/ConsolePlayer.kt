@@ -24,17 +24,15 @@ import boomerang.game.ScoreLine
  *  `cards`: the cards of the edition, for the map (D2). `colour`: whether to print escape sequences (D3).
  *  Once it has been shown GameStarted it prints the screens of docs/console-screens.md and remembers what
  *  they need (D1); until then it prints the plain texts of `describe` (D9).
- *  `frame`: for a real terminal, a box around every screen, and a page of its own for the first screen
- *  after an answer (D11); without one, the screens are printed as they are.
- *  `map`: where the regions of the edition lie, row by row, for the map as a board (D13); used only
- *  with a frame. */
+ *  `terminal`: what is done only at a real terminal (D11 to D13); by default nothing, and the screens are
+ *  printed as they are. */
 class ConsolePlayer(
     private val readLine: () -> String?, private val print: (String) -> Unit,
-    cards: List<Card> = emptyList(), colour: Boolean = false, private val frame: TerminalFrame? = null,
-    map: List<List<String>> = emptyList(),
+    cards: List<Card> = emptyList(), colour: Boolean = false, terminal: TerminalLook = TerminalLook(),
 ) : IPlayer {
     private val memory = ConsoleMemory()
-    private val screens = ConsoleScreens(cards, Paint(colour), fan = frame != null, map = map)
+    private val frame = terminal.frame
+    private val screens = screensFor(cards, Paint(colour), terminal)
 
     /** D11: whether a line was typed since the last screen. Only then has the person seen all that is on
      *  the terminal, and the next screen may take a page of its own. */
@@ -95,6 +93,18 @@ class ConsolePlayer(
         answered = true
         return line.trim()
     }
+}
+
+/** The screens with the ways of drawing that `terminal` chooses. This is the one place that turns its
+ *  choices into objects; the screens only use what they are handed. A map that does not name every region
+ *  of the cards is not used (D13). */
+private fun screensFor(cards: List<Card>, paint: Paint, terminal: TerminalLook): ConsoleScreens {
+    val board = MapBoard(cards, terminal.map, paint)
+    return ConsoleScreens(
+        cards, paint,
+        cardView = if (terminal.cardFan) CardFanView(cards, paint) else CardTableView(cards, paint),
+        mapView = if (board.usable) board else MapList(cards, paint),
+    )
 }
 
 /** The plain text of an event, from the event alone: what a console prints that has not been shown the

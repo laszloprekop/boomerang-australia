@@ -8,11 +8,17 @@ import boomerang.game.Card
  *  An empty name is open water. A name that stands in the same column of the row above goes on as the
  *  same block (a region that is higher than the others). The layout is data the console is handed; it
  *  knows no edition (D8). */
-internal class MapBoard(private val cards: List<Card>, private val layout: List<List<String>>, private val paint: Paint) {
+internal class MapBoard(
+    private val cards: List<Card>, private val layout: List<List<String>>, private val paint: Paint,
+) : IMapView {
     private val regions = regionsOf(cards)
 
     /** Whether the board can show these cards: there is a layout, and it has every region of the cards. */
     val usable: Boolean = layout.isNotEmpty() && layout.flatten().toSet().containsAll(regions)
+
+    /** The board over the width of a screen, set in as the other parts of a screen are. */
+    override fun lines(visited: Set<Char>, drafted: Set<Char>): List<String> =
+        lines(WIDTH - LEAD.length, visited, drafted).map { LEAD + it }
 
     /** The lines of the board, `width` characters wide: two lines per row of the layout. */
     fun lines(width: Int, visited: Set<Char>, drafted: Set<Char>): List<String> {
@@ -64,5 +70,6 @@ internal class MapBoard(private val cards: List<Card>, private val layout: List<
     companion object {
         private const val CODE_WIDTH = 3
         private const val MARK_WIDTH = 3
+        private const val LEAD = "  "
     }
 }
