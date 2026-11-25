@@ -40,6 +40,13 @@ internal class Paint(private val on: Boolean) {
         return sgr((if (bold) "1;" else "") + ink(DARK) + ";" + ground(behind), text)
     }
 
+    /** A site that was visited, on the board of the map (D13): the colour of its region on dark, bold. */
+    fun stamp(index: Int, text: String): String =
+        sgr("1;" + ink(REGION_COLOURS[index % REGION_COLOURS.size]) + ";" + ground(DARK), text)
+
+    /** A site drafted in this round, on the board of the map (D13): dark on white, bold. */
+    fun fresh(text: String): String = sgr("1;" + ink(DARK) + ";" + ground(WHITE), text)
+
     /** The text between an ANSI "select graphic rendition" code and the code that resets it; with colour
      *  off, or with no text, the text as it is. */
     private fun sgr(code: String, text: String): String =

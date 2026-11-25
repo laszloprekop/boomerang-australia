@@ -25,13 +25,16 @@ import boomerang.game.ScoreLine
  *  Once it has been shown GameStarted it prints the screens of docs/console-screens.md and remembers what
  *  they need (D1); until then it prints the plain texts of `describe` (D9).
  *  `frame`: for a real terminal, a box around every screen, and a page of its own for the first screen
- *  after an answer (D11); without one, the screens are printed as they are. */
+ *  after an answer (D11); without one, the screens are printed as they are.
+ *  `map`: where the regions of the edition lie, row by row, for the map as a board (D13); used only
+ *  with a frame. */
 class ConsolePlayer(
     private val readLine: () -> String?, private val print: (String) -> Unit,
     cards: List<Card> = emptyList(), colour: Boolean = false, private val frame: TerminalFrame? = null,
+    map: List<List<String>> = emptyList(),
 ) : IPlayer {
     private val memory = ConsoleMemory()
-    private val screens = ConsoleScreens(cards, Paint(colour), fan = frame != null)
+    private val screens = ConsoleScreens(cards, Paint(colour), fan = frame != null, map = map)
 
     /** D11: whether a line was typed since the last screen. Only then has the person seen all that is on
      *  the terminal, and the next screen may take a page of its own. */

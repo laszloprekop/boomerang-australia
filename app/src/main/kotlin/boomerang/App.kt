@@ -1,5 +1,6 @@
 package boomerang
 
+import boomerang.australia.AUSTRALIA_MAP
 import boomerang.australia.australia
 import boomerang.game.AlternatingPassingRule
 import boomerang.game.CardRequest
@@ -84,7 +85,7 @@ private fun consolePlayer(): ConsolePlayer {
     val colour = useColour(hasConsole, System.getenv("NO_COLOR"))
     return ConsolePlayer(
         readLine = { readlnOrNull() }, print = { println(it) }, cards = australia().cards, colour = colour,
-        frame = if (hasConsole) TerminalFrame(terminalRows(), colour) else null,
+        frame = if (hasConsole) TerminalFrame(terminalRows(), colour) else null, map = AUSTRALIA_MAP,
     )
 }
 

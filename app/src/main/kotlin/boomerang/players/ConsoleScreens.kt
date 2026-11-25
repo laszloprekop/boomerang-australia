@@ -20,10 +20,14 @@ import boomerang.game.ScoreLine
 /** The screens of docs/console-screens.md: one text per question and per event, at most WIDTH characters
  *  wide, for a console that has seen the start of the game. `cards` are the cards of the edition (D2); with
  *  none given, the map is left out. Every screen starts with an empty line that sets it off from the last.
- *  `fan`: draw hands and drafts as cards lying on each other and not as tables (D12, for a real terminal). */
+ *  `fan`: draw hands and drafts as cards lying on each other and not as tables (D12, for a real terminal).
+ *  `map`: where the regions lie, for the map as a board (D13); used with `fan` only. */
 internal class ConsoleScreens(
     private val cards: List<Card>, private val paint: Paint, private val fan: Boolean = false,
+    map: List<List<String>> = emptyList(),
 ) {
+    private val board = MapBoard(cards, map, paint)
+
 
     /** The screen of an event; empty if the event is only remembered. */
     fun of(event: GameEvent, memory: ConsoleMemory): String = when (event) {
@@ -88,6 +92,10 @@ internal class ConsoleScreens(
     private fun mapLines(visited: Set<Char>, drafted: Set<Char>): List<String> {
         if (cards.isEmpty()) return emptyList()
         val lines = mutableListOf(paint.bold("MAP") + paint.dim("   [x] visited earlier   (x) drafted this round    x  not visited"))
+        if (fan && board.usable) {
+            val lead = "  "
+            return lines + board.lines(WIDTH - lead.length, visited, drafted).map { lead + it } + ""
+        }
         val regions = regionsOf(cards)
         val nameWidth = regions.maxOf { it.length }
         val codeWidth = regions.maxOf { regionCode(it).length }

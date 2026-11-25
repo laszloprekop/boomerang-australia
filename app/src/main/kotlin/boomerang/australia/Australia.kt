@@ -38,6 +38,15 @@ private const val NEW_SOUTH_WALES = "New South Wales"
 private const val VICTORIA = "Victoria"
 private const val TASMANIA = "Tasmania"
 
+/** Where the regions lie on the map of the score card, row by row from north to south and from west to
+ *  east. Western Australia is as high as two rows; an empty name is the sea. For a console that draws
+ *  the map as a board (console-screens D13); no rule reads it. */
+val AUSTRALIA_MAP: List<List<String>> = listOf(
+    listOf(WESTERN_AUSTRALIA, NORTHERN_TERRITORY, QUEENSLAND),
+    listOf(WESTERN_AUSTRALIA, SOUTH_AUSTRALIA, NEW_SOUTH_WALES),
+    listOf("", TASMANIA, VICTORIA),
+)
+
 /** Points for completing a region first (R10b). */
 private const val REGION_BONUS = 3
 
