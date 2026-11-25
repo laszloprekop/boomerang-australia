@@ -1,5 +1,9 @@
 # Boomerang Australia
 
+![The first round of a game at a terminal, played by the program itself](docs/demo.gif)
+
+The recording shows the first round of a game against two bots. How it is made: [docs/demo.md](docs/demo.md).
+
 Home Exam, Programvaruteknik (Z7005E), Luleå University of Technology, 2026
 
 ## Requirements
