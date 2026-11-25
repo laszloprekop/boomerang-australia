@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">Scoring: an edition is data, the rules are mechanisms</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">Australia names six categories. Each is one reusable class, configured with values.</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · short 6</text>
+<rect x="40" y="250" width="210" height="190" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="145.0" y="316.0" font-size="20" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">australia()</text>
+<text x="145.0" y="334.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">Edition:</text>
+<text x="145.0" y="352.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">28 cards</text>
+<text x="145.0" y="370.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">six categories</text>
+<text x="145.0" y="388.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">tie-breakers</text>
+<text x="330" y="139" font-size="15" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Throw and catch</text>
+<rect x="500" y="100" width="280" height="64" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="640.0" y="137.0" font-size="16" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">ThrowCatchDifference</text>
+<polyline points="250,345 290,345 290,132 322,132" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="470,132 500,132" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="500.0,132.0 491.8,128.3 491.8,135.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="780,132.0 820,132 820,345" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="330" y="223" font-size="15" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Tourist sites</text>
+<rect x="500" y="184" width="280" height="64" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="640.0" y="221.0" font-size="16" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">NewSites</text>
+<polyline points="250,345 290,345 290,216 322,216" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="470,216 500,216" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="500.0,216.0 491.8,212.3 491.8,219.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="780,216.0 820,216 820,345" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="330" y="307" font-size="15" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Region bonus</text>
+<rect x="500" y="268" width="280" height="64" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="640.0" y="305.0" font-size="16" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">RegionBonus</text>
+<polyline points="250,345 290,345 290,300 322,300" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="470,300 500,300" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="500.0,300.0 491.8,296.3 491.8,303.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="780,300.0 820,300 820,345" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="330" y="391" font-size="15" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Collections</text>
+<rect x="500" y="352" width="280" height="64" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="640.0" y="389.0" font-size="16" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">SymbolSum</text>
+<polyline points="250,345 290,345 290,384 322,384" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="470,384 500,384" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="500.0,384.0 491.8,380.3 491.8,387.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="780,384.0 820,384 820,345" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="330" y="475" font-size="15" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Animals</text>
+<rect x="500" y="436" width="280" height="64" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="640.0" y="473.0" font-size="16" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">SymbolPairs</text>
+<polyline points="250,345 290,345 290,468 322,468" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="470,468 500,468" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="500.0,468.0 491.8,464.3 491.8,471.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="780,468.0 820,468 820,345" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="330" y="559" font-size="15" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Activities</text>
+<rect x="500" y="520" width="280" height="64" rx="8" fill="#fef7e0" stroke="#b06000" stroke-width="2.2"/>
+<text x="640.0" y="557.0" font-size="16" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">ChosenSymbolCount</text>
+<polyline points="250,345 290,345 290,552 322,552" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="470,552 500,552" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="500.0,552.0 491.8,548.3 491.8,555.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="780,552.0 820,552 820,345" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="863" y="290" width="220" height="110" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="973.0" y="320.0" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">interface</text>
+<text x="973.0" y="337.0" font-size="17" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">IScoringCategory</text>
+<text x="973.0" y="355.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">scores(context):</text>
+<text x="973.0" y="373.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">List&lt;Score&gt;</text>
+<polyline points="820,345 863,345.0" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="863.0,345.0 853.0,340.5 853.0,349.5" fill="#ffffff" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="863" y="130" width="220" height="70" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="973.0" y="162.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">ScoringPhase</text>
+<text x="973.0" y="180.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">calls every category</text>
+<polyline points="973.0,200 973.0,290" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="973.0,290.0 976.7,281.8 969.3,281.8" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="863" y="480" width="220" height="84" rx="8" fill="#fef7e0" stroke="#b06000" stroke-width="2.2"/>
+<text x="973.0" y="508.5" font-size="15" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">A player's choice</text>
+<text x="973.0" y="526.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">several scores back:</text>
+<text x="973.0" y="544.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">the player picks one</text>
+<text x="40" y="640" font-size="13" fill="#5f6368" text-anchor="start" xml:space="preserve">Left: the name the players see (theme). Right: what the class computes (mechanism). A new edition reuses the right side.</text>
+<text x="40" y="721" font-size="12" fill="#5f6368" font-weight="700" text-anchor="start" xml:space="preserve">Keywords</text>
+<rect x="112" y="703" width="138.8" height="24" rx="12" fill="#1a1a1a"/>
+<text x="181.4" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">Strategy pattern</text>
+<rect x="258.8" y="703" width="168.0" height="24" rx="12" fill="#1a1a1a"/>
+<text x="342.8" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">data, not subclasses</text>
+<rect x="434.8" y="703" width="255.6" height="24" rx="12" fill="#1a1a1a"/>
+<text x="562.6" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">named by mechanism, not by theme</text>
+<rect x="698.4000000000001" y="703" width="146.1" height="24" rx="12" fill="#1a1a1a"/>
+<text x="771.45" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">open/closed (OCP)</text>
+<rect x="112" y="733" width="299.4" height="24" rx="12" fill="#1a1a1a"/>
+<text x="261.7" y="750" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">requirement 14: new edition = new data</text>
+<rect x="419.4" y="733" width="138.8" height="24" rx="12" fill="#1a1a1a"/>
+<text x="488.79999999999995" y="750" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">Score is a value</text>
+</svg>

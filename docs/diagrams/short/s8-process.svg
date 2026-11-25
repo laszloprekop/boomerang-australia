@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">How it was built</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">One agent role per stage. A human gate after every stage. Tests before code, then locked.</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · short 8</text>
+<rect x="40" y="110" width="118" height="70" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="99.0" y="136.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">B1</text>
+<text x="99.0" y="153.5" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Rules</text>
+<rect x="64" y="210" width="70" height="30" rx="8" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="2.0"/>
+<text x="99.0" y="228.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">gate</text>
+<polyline points="99.0,180 99.0,210" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<rect x="172" y="110" width="118" height="70" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="231.0" y="136.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">B2</text>
+<text x="231.0" y="153.5" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Requirements</text>
+<rect x="196" y="210" width="70" height="30" rx="8" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="2.0"/>
+<text x="231.0" y="228.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">gate</text>
+<polyline points="231.0,180 231.0,210" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="158,145.0 172,145.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="172.0,145.0 163.8,141.3 163.8,148.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="304" y="110" width="118" height="70" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="363.0" y="136.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">B3</text>
+<text x="363.0" y="153.5" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Legacy tests</text>
+<rect x="328" y="210" width="70" height="30" rx="8" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="2.0"/>
+<text x="363.0" y="228.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">gate</text>
+<polyline points="363.0,180 363.0,210" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="290,145.0 304,145.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="304.0,145.0 295.8,141.3 295.8,148.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="436" y="110" width="118" height="70" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="495.0" y="136.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">B4</text>
+<text x="495.0" y="153.5" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Architecture</text>
+<rect x="460" y="210" width="70" height="30" rx="8" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="2.0"/>
+<text x="495.0" y="228.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">gate</text>
+<polyline points="495.0,180 495.0,210" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="422,145.0 436,145.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="436.0,145.0 427.8,141.3 427.8,148.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="568" y="110" width="118" height="70" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="627.0" y="136.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">B5</text>
+<text x="627.0" y="153.5" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Tests</text>
+<rect x="592" y="210" width="70" height="30" rx="8" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="2.0"/>
+<text x="627.0" y="228.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">gate</text>
+<polyline points="627.0,180 627.0,210" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="554,145.0 568,145.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="568.0,145.0 559.8,141.3 559.8,148.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="700" y="110" width="118" height="70" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="759.0" y="136.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">B6</text>
+<text x="759.0" y="153.5" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Code</text>
+<rect x="724" y="210" width="70" height="30" rx="8" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="2.0"/>
+<text x="759.0" y="228.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">gate</text>
+<polyline points="759.0,180 759.0,210" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="686,145.0 700,145.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="700.0,145.0 691.8,141.3 691.8,148.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="832" y="110" width="118" height="70" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="891.0" y="136.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">B7</text>
+<text x="891.0" y="153.5" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Req 13</text>
+<rect x="856" y="210" width="70" height="30" rx="8" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="2.0"/>
+<text x="891.0" y="228.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">gate</text>
+<polyline points="891.0,180 891.0,210" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="818,145.0 832,145.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="832.0,145.0 823.8,141.3 823.8,148.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="964" y="110" width="118" height="70" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="1023.0" y="136.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">B8</text>
+<text x="1023.0" y="153.5" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Review</text>
+<rect x="988" y="210" width="70" height="30" rx="8" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="2.0"/>
+<text x="1023.0" y="228.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">gate</text>
+<polyline points="1023.0,180 1023.0,210" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
+<polyline points="950,145.0 964,145.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="964.0,145.0 955.8,141.3 955.8,148.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<text x="40" y="300" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">The test lock: a git tag that only moves forward</text>
+<rect x="40" y="325" width="180" height="96" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="130.0" y="376.0" font-size="30" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">224</text>
+<text x="130.0" y="394.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">rules 1 to 12</text>
+<rect x="252" y="325" width="180" height="96" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="342.0" y="376.0" font-size="30" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">225</text>
+<text x="342.0" y="394.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">wire bug</text>
+<polyline points="220,373.0 252,373.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="252.0,373.0 243.8,369.3 243.8,376.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="464" y="325" width="180" height="96" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="554.0" y="376.0" font-size="30" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">244</text>
+<text x="554.0" y="394.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">requirement 13</text>
+<polyline points="432,373.0 464,373.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="464.0,373.0 455.8,369.3 455.8,376.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="676" y="325" width="180" height="96" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="766.0" y="376.0" font-size="30" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">253</text>
+<text x="766.0" y="394.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">review</text>
+<polyline points="644,373.0 676,373.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="676.0,373.0 667.8,369.3 667.8,376.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="888" y="325" width="180" height="96" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="978.0" y="376.0" font-size="30" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">305</text>
+<text x="978.0" y="394.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">console</text>
+<polyline points="856,373.0 888,373.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="888.0,373.0 879.8,369.3 879.8,376.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<text x="40" y="452" font-size="13" fill="#5f6368" text-anchor="start" xml:space="preserve">tests added, never changed or deleted: git diff against the first tag prints nothing</text>
+<rect x="40" y="490" width="320" height="150" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="200.0" y="545.0" font-size="20" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Agents</text>
+<text x="200.0" y="563.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">analyst · test engineer</text>
+<text x="200.0" y="581.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">architect · programmer</text>
+<text x="200.0" y="599.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">reviewer (changes nothing)</text>
+<rect x="401" y="490" width="320" height="150" rx="8" fill="#f3e8fd" stroke="#7b1fa2" stroke-width="2.0"/>
+<text x="561.0" y="545.0" font-size="20" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Me</text>
+<text x="561.0" y="563.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">answered the questions</text>
+<text x="561.0" y="581.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">chose the options</text>
+<text x="561.0" y="599.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">read every diff, moved the lock</text>
+<rect x="763" y="490" width="320" height="150" rx="8" fill="#fce8e6" stroke="#b3261e" stroke-width="2.0"/>
+<text x="923.0" y="554.0" font-size="20" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">A real run</text>
+<text x="923.0" y="572.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">found what 224 green</text>
+<text x="923.0" y="590.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">tests did not</text>
+<text x="40" y="721" font-size="12" fill="#5f6368" font-weight="700" text-anchor="start" xml:space="preserve">Keywords</text>
+<rect x="112" y="703" width="168.0" height="24" rx="12" fill="#1a1a1a"/>
+<text x="196.0" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">human gate per stage</text>
+<rect x="288.0" y="703" width="102.3" height="24" rx="12" fill="#1a1a1a"/>
+<text x="339.15" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">tests first</text>
+<rect x="398.3" y="703" width="175.29999999999998" height="24" rx="12" fill="#1a1a1a"/>
+<text x="485.95" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">tests locked by a tag</text>
+<rect x="581.6" y="703" width="153.4" height="24" rx="12" fill="#1a1a1a"/>
+<text x="658.3000000000001" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">one role per agent</text>
+<rect x="743.0" y="703" width="124.2" height="24" rx="12" fill="#1a1a1a"/>
+<text x="805.1" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">fresh reviewer</text>
+<rect x="875.2" y="703" width="87.7" height="24" rx="12" fill="#1a1a1a"/>
+<text x="919.0500000000001" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">AGENTS.md</text>
+<rect x="112" y="733" width="204.5" height="24" rx="12" fill="#1a1a1a"/>
+<text x="214.25" y="750" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">green tests are not proof</text>
+</svg>

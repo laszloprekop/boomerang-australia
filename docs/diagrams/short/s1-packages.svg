@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">Packages</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">Every arrow is an import. All of them point at the game.</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · short 1</text>
+<rect x="386" y="100" width="351" height="64" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="561.5" y="129.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">App.kt</text>
+<text x="561.5" y="147.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">composition root: wires the parts</text>
+<rect x="386" y="300" width="351" height="150" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="561.5" y="356.0" font-size="22" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">boomerang.game</text>
+<text x="561.5" y="374.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">rules 1 to 12</text>
+<text x="561.5" y="392.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">owns the four interfaces</text>
+<text x="561.5" y="410.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">imports nothing of ours</text>
+<rect x="60" y="220" width="250" height="84" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="185.0" y="259.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">australia</text>
+<text x="185.0" y="277.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">one edition, as data</text>
+<rect x="60" y="450" width="250" height="84" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="185.0" y="489.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">scoring</text>
+<text x="185.0" y="507.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">six rules, by mechanism</text>
+<rect x="813" y="220" width="250" height="84" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="938.0" y="259.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">players</text>
+<text x="938.0" y="277.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">bot, console</text>
+<rect x="813" y="450" width="250" height="84" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="938.0" y="489.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">net</text>
+<text x="938.0" y="507.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">proxy, sockets</text>
+<polyline points="561.5,164 561.5,300" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="561.5,300.0 565.2,291.8 557.8,291.8" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="386,132.0 185,132 185.0,220" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="185.0,220.0 188.7,211.8 181.3,211.8" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="737,122.4 938,122.4 938.0,220" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="938.0,220.0 941.7,211.8 934.3,211.8" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="737,144.8 1093,144.8 1093,492 1063,492.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="1063.0,492.0 1071.2,495.7 1071.2,488.3" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="185.0,304 185.0,450" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="185.0,450.0 188.7,441.8 181.3,441.8" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="310,262.0 348,262 348,337.5 386,337.5" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="386.0,337.5 377.8,333.8 377.8,341.2" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="310,492.0 348,492 348,412.5 386,412.5" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="386.0,412.5 377.8,408.8 377.8,416.2" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="813,262.0 775,262 775,337.5 737,337.5" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="737.0,337.5 745.2,341.2 745.2,333.8" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="813,492.0 775,492 775,412.5 737,412.5" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="737.0,412.5 745.2,416.2 745.2,408.8" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="386" y="540" width="351" height="64" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="561.5" y="569.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">DependencyRulesTest</text>
+<text x="561.5" y="587.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">reads the imports, fails on a wrong arrow</text>
+<polyline points="561.5,540 561.5,450" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="60" y="590" width="250" height="64" rx="8" fill="#fce8e6" stroke="#b3261e" stroke-width="2.0"/>
+<text x="185.0" y="619.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">The original</text>
+<text x="185.0" y="637.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">one file, one class</text>
+<text x="40" y="721" font-size="12" fill="#5f6368" font-weight="700" text-anchor="start" xml:space="preserve">Keywords</text>
+<rect x="112" y="703" width="211.79999999999998" height="24" rx="12" fill="#1a1a1a"/>
+<text x="217.89999999999998" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">dependency inversion (DIP)</text>
+<rect x="331.79999999999995" y="703" width="219.1" height="24" rx="12" fill="#1a1a1a"/>
+<text x="441.34999999999997" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">single responsibility (SRP)</text>
+<rect x="558.9" y="703" width="116.89999999999999" height="24" rx="12" fill="#1a1a1a"/>
+<text x="617.35" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">high cohesion</text>
+<rect x="683.8" y="703" width="109.6" height="24" rx="12" fill="#1a1a1a"/>
+<text x="738.5999999999999" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">low coupling</text>
+<rect x="801.4" y="703" width="138.8" height="24" rx="12" fill="#1a1a1a"/>
+<text x="870.8" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">composition root</text>
+<rect x="112" y="733" width="168.0" height="24" rx="12" fill="#1a1a1a"/>
+<text x="196.0" y="750" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">one reason to change</text>
+<rect x="288.0" y="733" width="219.1" height="24" rx="12" fill="#1a1a1a"/>
+<text x="397.55" y="750" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">architecture held by a test</text>
+</svg>

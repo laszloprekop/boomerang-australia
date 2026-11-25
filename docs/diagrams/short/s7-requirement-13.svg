@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">Requirement 13 as the proof</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">Alternating passing direction, added after the design was fixed. What had to change?</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · short 7</text>
+<text x="40" y="122" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Changed</text>
+<rect x="40" y="140" width="320" height="110" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="200.0" y="183.5" font-size="19" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">AlternatingPassingRule</text>
+<text x="200.0" y="201.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">one new file</text>
+<text x="200.0" y="219.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">implements IPassingRule</text>
+<rect x="40" y="280" width="320" height="110" rx="8" fill="#fef7e0" stroke="#b06000" stroke-width="2.2"/>
+<text x="200.0" y="323.5" font-size="19" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">App.kt</text>
+<text x="200.0" y="341.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">one function chooses the rule</text>
+<text x="200.0" y="359.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">from an argument</text>
+<rect x="40" y="420" width="320" height="90" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="200.0" y="462.5" font-size="19" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">19 tests</text>
+<text x="200.0" y="480.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">written first, then locked</text>
+<text x="430" y="122" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">Not touched</text>
+<rect x="430" y="140" width="160" height="50" rx="8" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="510.0" y="169.5" font-size="15" fill="#8a8a8a" font-weight="700" text-anchor="middle" xml:space="preserve">Game</text>
+<rect x="600" y="140" width="160" height="50" rx="8" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="680.0" y="169.5" font-size="15" fill="#8a8a8a" font-weight="700" text-anchor="middle" xml:space="preserve">DraftPhase</text>
+<rect x="430" y="202" width="160" height="50" rx="8" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="510.0" y="231.5" font-size="15" fill="#8a8a8a" font-weight="700" text-anchor="middle" xml:space="preserve">ScoringPhase</text>
+<rect x="600" y="202" width="160" height="50" rx="8" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="680.0" y="231.5" font-size="15" fill="#8a8a8a" font-weight="700" text-anchor="middle" xml:space="preserve">History</text>
+<rect x="430" y="264" width="160" height="50" rx="8" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="510.0" y="293.5" font-size="15" fill="#8a8a8a" font-weight="700" text-anchor="middle" xml:space="preserve">players</text>
+<rect x="600" y="264" width="160" height="50" rx="8" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="680.0" y="293.5" font-size="15" fill="#8a8a8a" font-weight="700" text-anchor="middle" xml:space="preserve">net</text>
+<rect x="430" y="326" width="160" height="50" rx="8" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="510.0" y="355.5" font-size="15" fill="#8a8a8a" font-weight="700" text-anchor="middle" xml:space="preserve">scoring</text>
+<rect x="600" y="326" width="160" height="50" rx="8" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="680.0" y="355.5" font-size="15" fill="#8a8a8a" font-weight="700" text-anchor="middle" xml:space="preserve">australia</text>
+<rect x="430" y="420" width="330" height="90" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="595.0" y="466.0" font-size="26" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">0 lines</text>
+<text x="595.0" y="484.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">in the game package</text>
+<rect x="823" y="200" width="260" height="110" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="953.0" y="230.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">interface</text>
+<text x="953.0" y="247.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">IPassingRule</text>
+<text x="953.0" y="265.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">passing(round, players):</text>
+<text x="953.0" y="283.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">hands and catch direction</text>
+<polyline points="360,195.0 395,195 395,100 953,100 953.0,200" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="953.0,200.0 957.5,190.0 948.5,190.0" fill="#ffffff" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="823" y="360" width="260" height="150" rx="8" fill="#fffbe6" stroke="#c9a400" stroke-width="1.4"/>
+<text x="953.0" y="413.0" font-size="16" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Why it was cheap</text>
+<text x="953.0" y="431.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">the seam was there</text>
+<text x="953.0" y="449.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">the game asks, never decides</text>
+<text x="953.0" y="467.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">the root does the wiring</text>
+<text x="40" y="570" font-size="13" fill="#5f6368" text-anchor="start" xml:space="preserve">The seam was placed because the brief named this change. Without a named change there is no interface.</text>
+<text x="40" y="721" font-size="12" fill="#5f6368" font-weight="700" text-anchor="start" xml:space="preserve">Keywords</text>
+<rect x="112" y="703" width="284.8" height="24" rx="12" fill="#1a1a1a"/>
+<text x="254.4" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">open/closed (OCP) shown, not claimed</text>
+<rect x="404.8" y="703" width="116.89999999999999" height="24" rx="12" fill="#1a1a1a"/>
+<text x="463.25" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">modifiability</text>
+<rect x="529.7" y="703" width="138.8" height="24" rx="12" fill="#1a1a1a"/>
+<text x="599.1" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">Strategy pattern</text>
+<rect x="676.5" y="703" width="102.3" height="24" rx="12" fill="#1a1a1a"/>
+<text x="727.65" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">tests first</text>
+<rect x="786.8" y="703" width="138.8" height="24" rx="12" fill="#1a1a1a"/>
+<text x="856.1999999999999" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">composition root</text>
+<rect x="112" y="733" width="241.0" height="24" rx="12" fill="#1a1a1a"/>
+<text x="232.5" y="750" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">extension without modification</text>
+</svg>

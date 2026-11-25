@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">Network: a remote human is a player like any other</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">The game talks to IPlayer. Whether the answer crosses a socket is not its business.</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · short 5</text>
+<rect x="40" y="100" width="480" height="470" rx="6" fill="#f4f4f1" stroke="#b9b9b1" stroke-width="1.2"/>
+<text x="52" y="122" font-size="13" font-weight="700" fill="#1a1a1a">server process</text>
+<rect x="603" y="100" width="480" height="470" rx="6" fill="#f4f4f1" stroke="#b9b9b1" stroke-width="1.2"/>
+<text x="615" y="122" font-size="13" font-weight="700" fill="#1a1a1a">client process</text>
+<rect x="70" y="150" width="180" height="90" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="160.0" y="194.0" font-size="22" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Game</text>
+<text x="160.0" y="212.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">asks IPlayer</text>
+<rect x="310" y="150" width="180" height="90" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="400.0" y="188.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">interface</text>
+<text x="400.0" y="205.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">IPlayer</text>
+<rect x="310" y="330" width="180" height="100" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="400.0" y="368.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">RemotePlayer</text>
+<text x="400.0" y="386.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">stands in for the</text>
+<text x="400.0" y="404.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">person far away</text>
+<rect x="633" y="330" width="180" height="100" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="723.0" y="368.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">ClientSession</text>
+<text x="723.0" y="386.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">reads a message,</text>
+<text x="723.0" y="404.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">asks its player</text>
+<rect x="873" y="150" width="180" height="90" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="963.0" y="188.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">interface</text>
+<text x="963.0" y="205.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">IPlayer</text>
+<rect x="873" y="330" width="180" height="100" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="963.0" y="377.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">ConsolePlayer</text>
+<text x="963.0" y="395.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">the same class as local</text>
+<polyline points="250,195.0 310,195.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="310.0,195.0 301.8,191.3 301.8,198.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<polyline points="400.0,330 400.0,240" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="400.0,240.0 395.5,250.0 404.5,250.0" fill="#ffffff" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="963.0,330 963.0,240" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="963.0,240.0 958.5,250.0 967.5,250.0" fill="#ffffff" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="723.0,330 723,195 873,195.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="873.0,195.0 864.8,191.3 864.8,198.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<polyline points="490,360.0 633,360.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="633.0,360.0 624.8,356.3 624.8,363.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<polyline points="633,400.0 490,400.0" fill="none" stroke="#3c4043" stroke-width="2" stroke-dasharray="6 4"/>
+<polygon points="490.0,400.0 498.2,403.7 498.2,396.3" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="508.5" y="339.5" width="106.00000000000001" height="17.5" fill="#ffffff"/>
+<text x="561.5" y="352" font-size="12.5" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">request, event</text>
+<rect x="536.5" y="399.5" width="50.00000000000001" height="17.5" fill="#ffffff"/>
+<text x="561.5" y="412" font-size="12.5" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">answer</text>
+<rect x="411" y="480" width="301" height="64" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="561.5" y="496.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">interface</text>
+<text x="561.5" y="513.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">IConnection</text>
+<text x="561.5" y="531.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">socket in the program, a queue in tests</text>
+<polyline points="561.5,480 561.5,425" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="40" y="600" width="480" height="64" rx="8" fill="#fce8e6" stroke="#b3261e" stroke-width="2.0"/>
+<text x="280.0" y="629.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Connection lost</text>
+<text x="280.0" y="647.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">PlayerLost, then GameAborted to everyone</text>
+<rect x="603" y="600" width="480" height="64" rx="8" fill="#fce8e6" stroke="#b3261e" stroke-width="2.0"/>
+<text x="843.0" y="629.0" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Found by a real run only</text>
+<text x="843.0" y="647.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">a hand that could not be serialized</text>
+<text x="40" y="721" font-size="12" fill="#5f6368" font-weight="700" text-anchor="start" xml:space="preserve">Keywords</text>
+<rect x="112" y="703" width="116.89999999999999" height="24" rx="12" fill="#1a1a1a"/>
+<text x="170.45" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">Proxy pattern</text>
+<rect x="236.89999999999998" y="703" width="160.7" height="24" rx="12" fill="#1a1a1a"/>
+<text x="317.25" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">Liskov substitution</text>
+<rect x="405.59999999999997" y="703" width="175.29999999999998" height="24" rx="12" fill="#1a1a1a"/>
+<text x="493.24999999999994" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">Serializable messages</text>
+<rect x="588.9" y="703" width="211.79999999999998" height="24" rx="12" fill="#1a1a1a"/>
+<text x="694.8" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">same IPlayer on both sides</text>
+<rect x="808.6999999999999" y="703" width="226.4" height="24" rx="12" fill="#1a1a1a"/>
+<text x="921.9" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">transport behind IConnection</text>
+<rect x="112" y="733" width="284.8" height="24" rx="12" fill="#1a1a1a"/>
+<text x="254.4" y="750" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">tests missed it: passed by reference</text>
+</svg>

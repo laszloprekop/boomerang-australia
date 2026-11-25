@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">The four seams</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">A seam is the one place where a part can be swapped. Blue is an interface, dashed is implements.</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · short 2</text>
+<rect x="411" y="290" width="300" height="150" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="561.0" y="356.0" font-size="24" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Game</text>
+<text x="561.0" y="374.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">DraftPhase · ScoringPhase</text>
+<text x="561.0" y="392.0" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">calls interfaces only</text>
+<rect x="60" y="100" width="280" height="66" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="200.0" y="126.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">interface</text>
+<text x="200.0" y="143.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">IPassingRule</text>
+<rect x="60.0" y="188" width="280.0" height="34" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="200.0" y="208.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">StandardPassingRule</text>
+<rect x="60.0" y="230" width="280.0" height="34" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="200.0" y="250.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">AlternatingPassingRule</text>
+<polyline points="200,188 200,166" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="200.0,166.0 195.5,176.0 204.5,176.0" fill="#ffffff" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="783" y="100" width="280" height="66" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="923.0" y="126.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">interface</text>
+<text x="923.0" y="143.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">IPlayer</text>
+<rect x="783.0" y="188" width="136.0" height="34" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="851.0" y="208.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">BotPlayer</text>
+<rect x="927.0" y="188" width="136.0" height="34" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="995.0" y="208.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">ConsolePlayer</text>
+<rect x="783.0" y="230" width="136.0" height="34" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="851.0" y="250.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">RemotePlayer</text>
+<rect x="927.0" y="230" width="136.0" height="34" rx="8" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="995.0" y="250.5" font-size="13" fill="#8a8a8a" font-weight="700" text-anchor="middle" xml:space="preserve">ScriptedPlayer (test)</text>
+<polyline points="923,188 923,166" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="923.0,166.0 918.5,176.0 927.5,176.0" fill="#ffffff" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="60" y="480" width="280" height="66" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="200.0" y="506.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">interface</text>
+<text x="200.0" y="523.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">IShuffler</text>
+<rect x="60.0" y="568" width="280.0" height="34" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="200.0" y="588.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">RandomShuffler</text>
+<rect x="60.0" y="610" width="280.0" height="34" rx="8" fill="#fafafa" stroke="#c4c4c4" stroke-width="1.4" stroke-dasharray="6 4"/>
+<text x="200.0" y="630.5" font-size="13" fill="#8a8a8a" font-weight="700" text-anchor="middle" xml:space="preserve">FixedShuffler (test)</text>
+<polyline points="200,568 200,546" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="200.0,546.0 195.5,556.0 204.5,556.0" fill="#ffffff" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="783" y="480" width="280" height="66" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="923.0" y="506.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">interface</text>
+<text x="923.0" y="523.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">IScoringCategory</text>
+<rect x="783.0" y="568" width="280.0" height="34" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="923.0" y="588.5" font-size="13" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">six classes in scoring</text>
+<polyline points="923,568 923,546" fill="none" stroke="#3c4043" stroke-width="1.5" stroke-dasharray="6 4"/>
+<polygon points="923.0,546.0 918.5,556.0 927.5,556.0" fill="#ffffff" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="470,290 470,133 340,133.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="340.0,133.0 348.2,136.7 348.2,129.3" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="652,290 652,133 783,133.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="783.0,133.0 774.8,129.3 774.8,136.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="470,440 470,513 340,513.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="340.0,513.0 348.2,516.7 348.2,509.3" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<polyline points="652,440 652,513 783,513.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="783.0,513.0 774.8,509.3 774.8,516.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="415.03999999999996" y="202" width="109.92000000000002" height="18" fill="#ffffff"/>
+<text x="470" y="215" font-size="13" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">requirement 13</text>
+<rect x="607.96" y="202" width="88.08000000000001" height="18" fill="#ffffff"/>
+<text x="652" y="215" font-size="13" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">who answers</text>
+<rect x="367.71999999999997" y="467" width="204.56000000000003" height="18" fill="#ffffff"/>
+<text x="470" y="480" font-size="13" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">rule 3, fixed deal in tests</text>
+<rect x="560.64" y="467" width="182.72000000000003" height="18" fill="#ffffff"/>
+<text x="652" y="480" font-size="13" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">requirement 14: editions</text>
+<text x="40" y="721" font-size="12" fill="#5f6368" font-weight="700" text-anchor="start" xml:space="preserve">Keywords</text>
+<rect x="112" y="703" width="138.8" height="24" rx="12" fill="#1a1a1a"/>
+<text x="181.4" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">Strategy pattern</text>
+<rect x="258.8" y="703" width="146.1" height="24" rx="12" fill="#1a1a1a"/>
+<text x="331.85" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">open/closed (OCP)</text>
+<rect x="412.9" y="703" width="168.0" height="24" rx="12" fill="#1a1a1a"/>
+<text x="496.9" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">dependency injection</text>
+<rect x="588.9" y="703" width="102.3" height="24" rx="12" fill="#1a1a1a"/>
+<text x="640.05" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">test double</text>
+<rect x="699.1999999999999" y="703" width="102.3" height="24" rx="12" fill="#1a1a1a"/>
+<text x="750.3499999999999" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">testability</text>
+<rect x="112" y="733" width="277.5" height="24" rx="12" fill="#1a1a1a"/>
+<text x="250.75" y="750" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">no interface without a named change</text>
+<rect x="397.5" y="733" width="219.1" height="24" rx="12" fill="#1a1a1a"/>
+<text x="507.05" y="750" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">Liskov: any IPlayer will do</text>
+</svg>

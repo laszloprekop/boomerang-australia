@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" width="297mm" height="210mm" font-family="Helvetica, Arial, sans-serif">
+<rect width="1123" height="794" fill="#ffffff"/>
+<text x="40" y="46" font-size="24" font-weight="700" fill="#1a1a1a">One round, and who does what</text>
+<text x="40" y="70" font-size="14" fill="#5f6368">Game conducts. Each step calls one seam or sends one event. Four rounds, then the result.</text>
+<text x="1083" y="776" font-size="11" fill="#9a9a9a" text-anchor="end">Boomerang Australia in Kotlin · short 4</text>
+<rect x="40" y="150" width="200" height="110" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="140.0" y="180.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">Game</text>
+<text x="140.0" y="197.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Shuffle</text>
+<text x="140.0" y="215.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">all 28 cards</text>
+<text x="140.0" y="233.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">IShuffler</text>
+<rect x="300" y="150" width="200" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="400.0" y="189.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">Game</text>
+<text x="400.0" y="206.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Deal</text>
+<text x="400.0" y="224.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">7 cards each</text>
+<rect x="560" y="150" width="260" height="110" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="690.0" y="180.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">DraftPhase</text>
+<text x="690.0" y="197.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Pick and pass</text>
+<text x="690.0" y="215.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">first card = Throw</text>
+<text x="690.0" y="233.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">IPlayer · IPassingRule</text>
+<rect x="883" y="150" width="200" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="983.0" y="189.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">DraftPhase</text>
+<text x="983.0" y="206.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Reveal</text>
+<text x="983.0" y="224.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">last card = Catch</text>
+<rect x="883" y="420" width="200" height="110" rx="8" fill="#e8f0fe" stroke="#1a56c4" stroke-width="2.2"/>
+<text x="983.0" y="450.5" font-size="11" fill="#1a56c4" text-anchor="middle" xml:space="preserve">ScoringPhase</text>
+<text x="983.0" y="467.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Score</text>
+<text x="983.0" y="485.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">six categories</text>
+<text x="983.0" y="503.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">IScoringCategory</text>
+<rect x="560" y="420" width="260" height="110" rx="8" fill="#e6f4ea" stroke="#137333" stroke-width="2.2"/>
+<text x="690.0" y="459.5" font-size="11" fill="#137333" text-anchor="middle" xml:space="preserve">Game</text>
+<text x="690.0" y="476.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">History</text>
+<text x="690.0" y="494.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">immutable, grows by a round</text>
+<rect x="40" y="420" width="200" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.7999999999999998"/>
+<text x="140.0" y="459.5" font-size="11" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">Game</text>
+<text x="140.0" y="476.5" font-size="18" fill="#1a1a1a" font-weight="700" text-anchor="middle" xml:space="preserve">Result</text>
+<text x="140.0" y="494.5" font-size="13" fill="#5f6368" text-anchor="middle" xml:space="preserve">totals, tie-breakers</text>
+<polyline points="240,205.0 300,205.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="300.0,205.0 291.8,201.3 291.8,208.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<polyline points="500,205.0 560,205.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="560.0,205.0 551.8,201.3 551.8,208.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<polyline points="820,205.0 883,205.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="883.0,205.0 874.8,201.3 874.8,208.7" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<polyline points="983.0,260 983.0,420" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="983.0,420.0 986.7,411.8 979.3,411.8" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<polyline points="883,475.0 820,475.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="820.0,475.0 828.2,478.7 828.2,471.3" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<polyline points="560,475.0 240,475.0" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="240.0,475.0 248.2,478.7 248.2,471.3" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="348.68" y="457" width="102.64000000000001" height="18" fill="#ffffff"/>
+<text x="400" y="470" font-size="13" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">after round 4</text>
+<polyline points="760,150 760,116 620,116 620,150" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="620.0,150.0 623.7,141.8 616.3,141.8" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="660.52" y="107" width="58.96000000000001" height="18" fill="#ffffff"/>
+<text x="690" y="120" font-size="13" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">7 times</text>
+<polyline points="690,420 690,340 215,340 215,260" fill="none" stroke="#3c4043" stroke-width="2"/>
+<polygon points="215.0,260.0 211.3,268.2 218.7,268.2" fill="#3c4043" stroke="#3c4043" stroke-width="2"/>
+<rect x="359.6" y="331" width="80.80000000000001" height="18" fill="#ffffff"/>
+<text x="400" y="344" font-size="13" fill="#1a1a1a" text-anchor="middle" xml:space="preserve">next round</text>
+<text x="120" y="282" font-size="12.5" fill="#7b1fa2" font-family="Menlo, Consolas, monospace" text-anchor="middle" xml:space="preserve">RoundStarted</text>
+<text x="690" y="282" font-size="12.5" fill="#7b1fa2" font-family="Menlo, Consolas, monospace" text-anchor="middle" xml:space="preserve">CardsShown</text>
+<text x="983" y="282" font-size="12.5" fill="#7b1fa2" font-family="Menlo, Consolas, monospace" text-anchor="middle" xml:space="preserve">DraftsRevealed</text>
+<text x="983" y="552" font-size="12.5" fill="#7b1fa2" font-family="Menlo, Consolas, monospace" text-anchor="middle" xml:space="preserve">RoundScored</text>
+<text x="140" y="552" font-size="12.5" fill="#7b1fa2" font-family="Menlo, Consolas, monospace" text-anchor="middle" xml:space="preserve">GameOver</text>
+<text x="40" y="610" font-size="13" fill="#5f6368" text-anchor="start" xml:space="preserve">Purple: the event every player is shown at that step. The game prints nothing.</text>
+<text x="40" y="721" font-size="12" fill="#5f6368" font-weight="700" text-anchor="start" xml:space="preserve">Keywords</text>
+<rect x="112" y="703" width="211.79999999999998" height="24" rx="12" fill="#1a1a1a"/>
+<text x="217.89999999999998" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">Game conducts, phases work</text>
+<rect x="331.79999999999995" y="703" width="153.4" height="24" rx="12" fill="#1a1a1a"/>
+<text x="408.49999999999994" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">events, not prints</text>
+<rect x="493.19999999999993" y="703" width="146.1" height="24" rx="12" fill="#1a1a1a"/>
+<text x="566.2499999999999" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">immutable History</text>
+<rect x="647.3" y="703" width="146.1" height="24" rx="12" fill="#1a1a1a"/>
+<text x="720.3499999999999" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">one seam per step</text>
+<rect x="801.4" y="703" width="233.7" height="24" rx="12" fill="#1a1a1a"/>
+<text x="918.25" y="720" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">no console, no socket in game</text>
+<rect x="112" y="733" width="284.8" height="24" rx="12" fill="#1a1a1a"/>
+<text x="254.4" y="750" font-size="12.5" fill="#ffffff" font-weight="700" text-anchor="middle" xml:space="preserve">pure scoring: context in, scores out</text>
+</svg>
