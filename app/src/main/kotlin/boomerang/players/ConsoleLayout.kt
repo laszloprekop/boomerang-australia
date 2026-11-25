@@ -32,6 +32,10 @@ internal class Paint(private val on: Boolean) {
     fun region(index: Int, text: String): String =
         sgr("1;" + ink(DARK) + ";" + ground(REGION_COLOURS[index % REGION_COLOURS.size]), text)
 
+    /** A piece of a card (D12): dark text on the colour of its region, bold on request. */
+    fun card(index: Int, text: String, bold: Boolean): String =
+        sgr((if (bold) "1;" else "") + ink(DARK) + ";" + ground(REGION_COLOURS[index % REGION_COLOURS.size]), text)
+
     /** The text between an ANSI "select graphic rendition" code and the code that resets it; with colour
      *  off, or with no text, the text as it is. */
     private fun sgr(code: String, text: String): String =

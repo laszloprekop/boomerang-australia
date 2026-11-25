@@ -31,7 +31,7 @@ class ConsolePlayer(
     cards: List<Card> = emptyList(), colour: Boolean = false, private val frame: TerminalFrame? = null,
 ) : IPlayer {
     private val memory = ConsoleMemory()
-    private val screens = ConsoleScreens(cards, Paint(colour))
+    private val screens = ConsoleScreens(cards, Paint(colour), fan = frame != null)
 
     /** D11: whether a line was typed since the last screen. Only then has the person seen all that is on
      *  the terminal, and the next screen may take a page of its own. */

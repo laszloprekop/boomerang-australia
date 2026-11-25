@@ -19,8 +19,11 @@ import boomerang.game.ScoreLine
 
 /** The screens of docs/console-screens.md: one text per question and per event, at most WIDTH characters
  *  wide, for a console that has seen the start of the game. `cards` are the cards of the edition (D2); with
- *  none given, the map is left out. Every screen starts with an empty line that sets it off from the last. */
-internal class ConsoleScreens(private val cards: List<Card>, private val paint: Paint) {
+ *  none given, the map is left out. Every screen starts with an empty line that sets it off from the last.
+ *  `fan`: draw hands and drafts as cards lying on each other and not as tables (D12, for a real terminal). */
+internal class ConsoleScreens(
+    private val cards: List<Card>, private val paint: Paint, private val fan: Boolean = false,
+) {
 
     /** The screen of an event; empty if the event is only remembered. */
     fun of(event: GameEvent, memory: ConsoleMemory): String = when (event) {
@@ -65,7 +68,7 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
             lines += ""
         }
         lines += paint.bold(request.category.uppercase()) + paint.dim("   choose one for the cards of your draft")
-        lines += tableFor(request.draft.cards).lines(request.draft.cards)
+        lines += cardLines(request.draft.cards, tableFor(request.draft.cards))
         lines += optionLines(request)
         lines += paint.prompt("Type the number of your choice:")
         return lines.joinToString("\n")
@@ -120,7 +123,7 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
         val heading = paint.bold("YOUR DRAFT THIS ROUND") + paint.dim("   ${draft.cards.size} of ${Game.HAND_SIZE} cards")
         if (draft.cards.isEmpty()) return listOf(heading, "")
         val throwCard = paint.dim("  Your Throw card is ${draft.throwCard.site}, the first you kept: hidden until the round ends.")
-        return listOf(heading) + table.lines(draft.cards) + throwCard + ""
+        return listOf(heading) + cardLines(draft.cards, table) + throwCard + ""
     }
 
     /** CS6: every other player by name with the cards shown so far in this round. Nothing before the first
@@ -150,7 +153,7 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
         val giver = memory.name(memory.giver(memory.round.passing.hands))
         val origin = if (firstPick) "dealt to you" else "passed to you by $giver"
         val heading = paint.bold("YOUR HAND") + paint.dim("   ${counted(request.hand.size, "card")}, $origin")
-        return listOf(heading) + table.lines(request.hand) + regionLegend(request.hand + request.draft.cards)
+        return listOf(heading) + cardLines(request.hand, table) + regionLegend(request.hand + request.draft.cards)
     }
 
     /** CS4: the full name of every region of these cards beside its code. Not needed under a map, whose
@@ -242,10 +245,15 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
         val table = tableFor(event.drafts.flatMap { it.cards })
         val lines = mutableListOf("")
         lines += paint.bold("THE DRAFTS OF ROUND ${memory.round.round}")
-        lines += table.head(lead = NO_MARK, withRegion = false)
+        if (!fan) lines += table.head(lead = NO_MARK, withRegion = false)
         for (seat in event.drafts.indices) {
             lines += "  " + paint.bold(nameWithYou(seat, memory))
             val draftCards = event.drafts[seat].cards
+            if (fan) {
+                val marks = draftCards.indices.associateWith { draftMark(it).trim() }.filterValues { it.isNotEmpty() }
+                lines += fanLines(draftCards, marks)
+                continue
+            }
             for (place in draftCards.indices) {
                 lines += table.line(draftCards[place], lead = draftMark(place), withRegion = false)
             }
@@ -328,6 +336,18 @@ internal class ConsoleScreens(private val cards: List<Card>, private val paint: 
     /** The name of a seat, with "(you)" behind the console's own. */
     private fun nameWithYou(seat: Int, memory: ConsoleMemory): String =
         if (seat == memory.seat) "${memory.name(seat)} (you)" else memory.name(seat)
+
+    /** Cards as a screen shows them: as a table, or as a fan of cards if this console draws one (D12). */
+    private fun cardLines(shown: List<Card>, table: CardTable): List<String> =
+        if (fan) fanLines(shown) else table.lines(shown)
+
+    /** D12: the cards as a fan, with what the lines of a card are below it. Nothing for no cards. */
+    private fun fanLines(shown: List<Card>, marks: Map<Int, String> = emptyMap()): List<String> {
+        if (shown.isEmpty()) return emptyList()
+        val cardFan = CardFan(cards.ifEmpty { shown }, paint)
+        val lead = "  "
+        return cardFan.lines(shown, WIDTH - lead.length, marks).map { lead + it } + paint.dim(lead + cardFan.legend())
+    }
 
     /** A card table for a screen. Its columns fit the edition if the console knows the cards of the
      *  edition, else the cards on this screen. */
