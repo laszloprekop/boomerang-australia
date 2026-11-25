@@ -32,7 +32,9 @@ class ConsolePlayer(
 ) : IPlayer {
     private val memory = ConsoleMemory()
     private val frame = terminal.frame
-    private val screens = screensFor(cards, Paint(colour), terminal)
+    private val paint = Paint(colour)
+    private val logo = terminal.logo
+    private val screens = screensFor(cards, paint, terminal)
 
     /** D11: whether a line was typed since the last screen. Only then has the person seen all that is on
      *  the terminal, and the next screen may take a page of its own. */
@@ -56,7 +58,16 @@ class ConsolePlayer(
         val startedBefore = memory.started
         memory.remember(event)
         val text = if (startedBefore) screens.of(event, memory) else describe(event)
-        if (text.isNotEmpty()) print(if (startedBefore) framed(text) else text)
+        if (text.isEmpty()) return
+        print(if (startedBefore) framed(text) else greeting(text))
+    }
+
+    /** D14: the first line of a game under the logo, in the frame if there is one; without a logo, the
+     *  line as it is. */
+    private fun greeting(line: String): String {
+        if (logo.isEmpty()) return line
+        val text = (logo.map { paint.logo(it) } + "" + line).joinToString("\n")
+        return frame?.around(text, newPage = false) ?: text
     }
 
     /** D11: the screen in the frame, if there is one; on a new page if a line was typed since the last screen. */

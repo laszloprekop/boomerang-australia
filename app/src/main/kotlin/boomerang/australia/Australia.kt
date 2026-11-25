@@ -47,6 +47,22 @@ val AUSTRALIA_MAP: List<List<String>> = listOf(
     listOf("", TASMANIA, VICTORIA),
 )
 
+/** The name of the edition in large letters beside the kangaroo warning sign of Australian roads, for a
+ *  console that greets with a logo (console-screens D14). The sign is made of braille characters, each a
+ *  cell of two by four dots: the dots are the face of the sign, the kangaroo is where there are none.
+ *  Cells without a dot are spaces, which every font leaves empty.
+ *  No rule reads it. */
+val AUSTRALIA_LOGO: List<String> = listOf(
+    "      ⢀⣴⣦⡀",
+    "    ⢀⣴⣿⣿⣿⣿⣦⡀       ████   ███   ███  █   █ █████ ████   ███  █   █  ████",
+    "  ⢀⣴⣿⣿⠟⠉⠉⠻⣿⢿⣦⡀     █   █ █   █ █   █ ██ ██ █     █   █ █   █ ██  █ █",
+    "⢀⣴⢿⡿⠟⣁⡀   ⠈⣠⣬⣿⣦⡀   ████  █   █ █   █ █ █ █ ████  ████  █████ █ █ █ █  ██",
+    "⠈⠻⣷⣶⣿⣿⣿⣶ ⣧⣾⣿⣿⣿⠟⠁   █   █ █   █ █   █ █   █ █     █  █  █   █ █  ██ █   █",
+    "  ⠈⠻⣿⣿⣿⣿⣧⣭⣽⣻⠟⠁     ████   ███   ███  █   █ █████ █   █ █   █ █   █  ████",
+    "    ⠈⠻⣿⣿⣿⣿⠟⠁       A  U  S  T  R  A  L  I  A",
+    "      ⠈⠻⠟⠁",
+)
+
 /** Points for completing a region first (R10b). */
 private const val REGION_BONUS = 3
 

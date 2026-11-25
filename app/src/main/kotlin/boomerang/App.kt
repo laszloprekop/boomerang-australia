@@ -1,5 +1,6 @@
 package boomerang
 
+import boomerang.australia.AUSTRALIA_LOGO
 import boomerang.australia.AUSTRALIA_MAP
 import boomerang.australia.australia
 import boomerang.game.AlternatingPassingRule
@@ -91,9 +92,11 @@ private fun consolePlayer(): ConsolePlayer {
 }
 
 /** All that a console does at a real terminal: the frame as high as the terminal (D11), cards as a fan
- *  (D12), and the map of the edition as a board (D13). */
+ *  (D12), the map of the edition as a board (D13), and its logo (D14). */
 private fun terminalLook(colour: Boolean): TerminalLook =
-    TerminalLook(frame = TerminalFrame(terminalRows(), colour), cardFan = true, map = AUSTRALIA_MAP)
+    TerminalLook(
+        frame = TerminalFrame(terminalRows(), colour), cardFan = true, map = AUSTRALIA_MAP, logo = AUSTRALIA_LOGO,
+    )
 
 /** D11: the height of the terminal in lines, as `stty size` reports it ("rows columns"). Where that
  *  cannot be asked (no such command, no terminal), a height most terminals stay under. */

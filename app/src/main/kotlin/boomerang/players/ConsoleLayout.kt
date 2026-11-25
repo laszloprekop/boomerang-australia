@@ -40,6 +40,9 @@ internal class Paint(private val on: Boolean) {
         return sgr((if (bold) "1;" else "") + ink(DARK) + ";" + ground(behind), text)
     }
 
+    /** A line of the logo of an edition (D14): bold, in the yellow of a road sign. */
+    fun logo(text: String): String = sgr("1;" + ink(SIGN_YELLOW), text)
+
     /** A site that was visited, on the board of the map (D13): the colour of its region on dark, bold. */
     fun stamp(index: Int, text: String): String =
         sgr("1;" + ink(REGION_COLOURS[index % REGION_COLOURS.size]) + ";" + ground(DARK), text)
@@ -72,6 +75,7 @@ private val REGION_COLOURS = listOf(
 private const val SHADE = 93
 
 private const val WHITE = "255;255;255"
+private const val SIGN_YELLOW = "255;205;0"
 private const val GREY = "139;145;155"
 private const val DARK = "20;22;26"
 private const val GREEN = "143;220;159"
