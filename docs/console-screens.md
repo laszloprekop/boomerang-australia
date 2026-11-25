@@ -17,7 +17,7 @@ fixed by the criteria in section 3.
 | D3 | Colour is a constructor flag, `colour: Boolean = false`. `App.kt` sets it: on when `System.console()` is not null and the environment variable `NO_COLOR` is not set. | Escape codes are garbage in a file or a pipe. The tests run without colour, so they read plain text. |
 | D4 | `GameStarted` gets `names: List<String>`, by seat, default "Player 1", "Player 2" and so on. `Game` takes the names as a constructor argument with that default. `App.kt` names humans "Player n" and bots "Bot n", n being seat + 1. | The console can then say "Bot 3". The game stays ignorant of what a bot is: it passes names on. |
 | D5 | `RoundStarted` gets `passing: Passing`, default the standard passing. `Passing` becomes `Serializable`. | Review finding L7: with `alternate` on, a person could not see who passes to whom. |
-| D6 | `Score` gets `explanation: String? = null`. Each of the six scoring classes fills it with one short line of facts (which cards, which numbers). | Only the rule knows why the points are what they are. Known cost: a sentence is now written inside a scoring class, as `announcement` already is. The console decides where and whether to print it. |
+| D6 | `Score` gets `explanation: String? = null`. The five scoring classes without a choice fill it with one short line of facts (which cards, which numbers). `ChosenSymbolCount` does not: its score already names the symbol, and the console counts the cards of the draft that carry it. | Only the rule knows why the points are what they are. Known cost: a sentence is now written inside a scoring class, as `announcement` already is. The console decides where and whether to print it. |
 | D7 | Taking no activity stays a numbered option. There is no "press Enter to skip" and no pause between rounds. | Both would be new kinds of question in `IPlayer`. The numbered option already exists and is tested. |
 | D8 | The console knows no edition. Regions, their order and the symbol kinds (the column heads) are read from the cards. A region code is made from the name: the initials of a name of several words (WA), else its first three letters in capitals (QUE). Region colours are given in order of first appearance from a fixed list of seven. | A second edition must not need a second console. |
 | D9 | The top-level `describe` functions stay, with their signatures. A `ConsolePlayer` that has been shown nothing else prints for an event what `describe(event)` returns. | The locked tests call them, and compare. |
@@ -69,7 +69,8 @@ screen also has a row of round totals and the grand total.
 was drafted. A choice question with `refused` set says which number was not offered.
 
 **CS10 Choice.** A choice question lists the options numbered from 1, each with what it uses up (or that
-it uses nothing) and its points, and the explanation of the option when it has one.
+it uses nothing) and its points, and the explanation of the option when it has one. An option with a
+symbol and no explanation shows how many cards of the draft carry the symbol.
 
 **CS11 Round scored.** `RoundScored` prints one line per category with title, explanation when there is
 one, and points; then the total of the round; then what is announced of the other players, by name.
@@ -96,8 +97,9 @@ names, "Player 1" to "Player n". Names of another length than the players are re
 **CS18 Over the wire.** `GameStarted` with names and `RoundStarted` with passing survive serialization.
 A whole game still passes `GameOverTheWireTest`.
 
-**CS19 Explanations.** Each of the six scoring classes gives an explanation with every score it returns,
-and the explanation contains the facts the points come from:
+**CS19 Explanations.** Five of the six scoring classes give an explanation with every score they return,
+and the explanation contains the facts the points come from. `ChosenSymbolCount` gives none: the locked
+tests compare its scores as whole values.
 
 | Class | The explanation contains |
 |---|---|
@@ -106,10 +108,10 @@ and the explanation contains the facts the points come from:
 | `RegionBonus` | nothing more than the announcement; `null` when the bonus is 0 |
 | `SymbolSum` | each symbol counted with its value, the sum, and whether it was doubled |
 | `SymbolPairs` | each symbol with its number of pairs and the points; a symbol held once is named as no pair |
-| `ChosenSymbolCount` | the symbol and how many cards carry it; for the option that takes nothing, that nothing is used |
+| `ChosenSymbolCount` | no explanation (`null`) |
 
 **CS20 Start-up.** `App.kt` names bots "Bot n" and humans "Player n". Colour is on only with a console and
-without `NO_COLOR`. The decision is a function that can be tested without a terminal:
+without `NO_COLOR`; an empty `NO_COLOR` counts as not set. The decision is a function that can be tested without a terminal:
 `useColour(hasConsole: Boolean, noColor: String?): Boolean`.
 
 ## 4. Target screens

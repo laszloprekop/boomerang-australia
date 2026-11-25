@@ -21,7 +21,11 @@ import boomerang.game.ScoreLine
 /** A human at a text console. Prints every event and question; repeats a question locally until a line can
  *  be read as an answer (one character; a number). A typed option number counts from 1; "0" is not an
  *  answer and the question is repeated locally. Throws PlayerLost when the input ends. */
-class ConsolePlayer(private val readLine: () -> String?, private val print: (String) -> Unit) : IPlayer {
+class ConsolePlayer(
+    private val readLine: () -> String?, private val print: (String) -> Unit,
+    // Stubs for console-screens D2 and D3 (CS1 to CS15): accepted, not yet used.
+    private val cards: List<Card> = emptyList(), private val colour: Boolean = false,
+) : IPlayer {
     /** Prints the question at once; the line is read when the game awaits the answer. */
     override fun selectCard(request: CardRequest): IAnswer<Char> {
         print(describe(request))

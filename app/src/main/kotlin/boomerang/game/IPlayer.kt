@@ -15,10 +15,18 @@ data class ChoiceRequest(
 
 /** Something a player is told. A closed family: the seven events below. */
 sealed interface GameEvent : Serializable
-/** The game begins: the receiver's own seat, the number of players and the name of the edition. */
-data class GameStarted(val seat: Int, val playerCount: Int, val edition: String) : GameEvent
-/** A round begins: its number and the sites the receiver visited in earlier rounds. */
-data class RoundStarted(val round: Int, val visitedSites: Set<Char>) : GameEvent   // round is 1 to 4
+/** The game begins: the receiver's own seat, the number of players, the name of the edition and the names
+ *  of the players by seat (console-screens D4; without names given, "Player 1", "Player 2" and so on). */
+data class GameStarted(
+    val seat: Int, val playerCount: Int, val edition: String,
+    val names: List<String> = List(playerCount) { "Player ${it + 1}" },
+) : GameEvent
+/** A round begins: its number, the sites the receiver visited in earlier rounds and the directions of the
+ *  round (console-screens D5; without a passing given, the standard one). */
+data class RoundStarted(
+    val round: Int, val visitedSites: Set<Char>,   // round is 1 to 4
+    val passing: Passing = Passing(hands = Direction.TO_NEXT, catch = Direction.TO_PREVIOUS),
+) : GameEvent
 /** The cards every player has kept so far in the round, without the hidden Throw cards. */
 data class CardsShown(val shown: List<List<Card>>) : GameEvent                     // by seat, Throw cards excluded
 /** The round is drafted: the complete drafts of all players, Throw and Catch cards included. */

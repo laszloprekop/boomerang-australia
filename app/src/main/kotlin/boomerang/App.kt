@@ -67,6 +67,14 @@ private fun usage(): Usage = Usage(
 internal fun passingRuleFor(start: ServerStart): IPassingRule =
     if (start.alternate) AlternatingPassingRule else StandardPassingRule
 
+/** Console-screens CS20: colour is on only with a console and without NO_COLOR. Stub: the tests come first. */
+internal fun useColour(hasConsole: Boolean, noColor: String?): Boolean =
+    throw NotImplementedError("console-screens CS20: useColour($hasConsole, $noColor)")
+
+/** Console-screens CS20, D4: the names by seat, humans "Player n" and bots "Bot n". Stub: the tests come first. */
+internal fun playerNamesFor(start: ServerStart): List<String> =
+    throw NotImplementedError("console-screens CS20: playerNamesFor($start)")
+
 /** The composition root; reports every failure in words (S2). */
 fun main(args: Array<String>) {
     try {

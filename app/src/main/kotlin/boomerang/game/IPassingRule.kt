@@ -1,5 +1,7 @@
 package boomerang.game
 
+import java.io.Serializable
+
 /** A way to pass cards round the table: to the next seat or to the previous one. */
 enum class Direction {
     TO_NEXT, TO_PREVIOUS;
@@ -12,8 +14,8 @@ enum class Direction {
     }
 }
 
-/** The two directions of one round. */
-data class Passing(val hands: Direction, val catch: Direction)
+/** The two directions of one round. Serializable: it travels in RoundStarted (console-screens D5). */
+data class Passing(val hands: Direction, val catch: Direction) : Serializable
 
 /** Decides which way the hands and the Catch card travel in a round (round is 1 to 4). */
 fun interface IPassingRule { fun passing(round: Int, playerCount: Int): Passing }

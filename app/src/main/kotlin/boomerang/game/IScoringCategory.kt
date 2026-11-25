@@ -7,6 +7,7 @@ data class Score(
     val points: Int,
     val chosen: Symbol? = null,        // what the player uses up by taking this score (an activity, a treasure)
     val announcement: String? = null,  // told to all players, for example the name of a completed region
+    val explanation: String? = null,   // console-screens D6: one short line of facts the points come from
 ) : Serializable
 
 /** What a category may look at when it scores one player for the round just drafted. */

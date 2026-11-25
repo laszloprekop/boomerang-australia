@@ -8,6 +8,8 @@ class Game(
     private val players: List<IPlayer>,
     private val shuffler: IShuffler,
     private val passingRule: IPassingRule = StandardPassingRule,
+    // Stub for console-screens D4 (CS16): accepted, not yet checked and not yet sent to the players.
+    private val names: List<String> = List(players.size) { "Player ${it + 1}" },
 ) {
     init {
         require(players.size in PLAYERS) {
