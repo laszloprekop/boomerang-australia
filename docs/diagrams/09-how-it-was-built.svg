@@ -136,7 +136,6 @@
 <text x="405" y="579" font-size="12" fill="#1a1a1a" xml:space="preserve">read every round's diff before the next</text>
 <text x="405" y="596" font-size="12" fill="#1a1a1a" xml:space="preserve">decided on each review finding</text>
 <text x="405" y="613" font-size="12" fill="#1a1a1a" xml:space="preserve">moved the lock, openly, three times</text>
-<text x="405" y="630" font-size="12" fill="#1a1a1a" xml:space="preserve">rewrote one rule by hand (B9)</text>
 <rect x="746" y="488" width="337" height="190" rx="6" fill="#fce8e6" stroke="#b3261e" stroke-width="1.6"/>
 <text x="758" y="510" font-size="15" font-weight="700" fill="#1a1a1a">What only a real run found</text>
 <text x="758" y="528" font-size="12" fill="#1a1a1a" xml:space="preserve">A hand was a view into the deck and</text>
