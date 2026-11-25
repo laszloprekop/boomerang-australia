@@ -32,12 +32,23 @@ class CardFanTest {
     }
 
     @Test
-    fun `D12 every card shows its site, its region code and its number on its first line`() {
-        val first = CardFan(cards, Paint(false)).lines(hand("XJGQPZD"), width = 78)[1]
+    fun `D12 every card has its number in its top edge, its region code first, and what to type in its bottom edge`() {
+        val lines = CardFan(cards, Paint(false)).lines(hand("XJGQPZD"), width = 78)
 
         for (card in hand("XJGQPZD")) {
-            assertTrue(Regex("\\[${Regex.escape(card.site.toString())}] ${regionCode(card.region)} +${card.number}│").containsMatchIn(first), first)
+            assertTrue("╭─${card.number}─" in lines.first(), lines.first())
+            assertTrue("│${regionCode(card.region)} " in lines[1], lines[1])
+            assertTrue("╰[${card.site}]─" in lines.last(), lines.last())
         }
+    }
+
+    @Test
+    fun `D12 the blocks of a card take turns in shade`() {
+        val lines = CardFan(cards, Paint(true)).lines(hand("HW"), width = 78)
+        val grounds = lines.map { Regex("48;2;[0-9;]+").find(it)!!.value }
+
+        // top edge, region, name, three symbol kinds, bottom edge: the name and the second kind are shaded
+        assertEquals(listOf(true, true, false, true, false, true, true), grounds.map { it == grounds.first() })
     }
 
     @Test
@@ -62,7 +73,7 @@ class CardFanTest {
     fun `D12 a mark stands in the top edge of its card`() {
         val top = CardFan(cards, Paint(false)).lines(hand("XJG"), width = 78, marks = mapOf(0 to "Throw", 2 to "Catch")).first()
 
-        assertTrue(top.startsWith("╭ Throw ") && "╭ Catch " in top, top)
+        assertTrue(top.startsWith("╭─2─ Throw ") && "─ Catch " in top, top)
     }
 
     @Test
@@ -87,7 +98,7 @@ class CardFanTest {
             return printed.toString()
         }
 
-        assertTrue("│[X] VIC" in screen(TerminalFrame(rows = 40)))
-        assertFalse("│[X] VIC" in screen(null))
+        assertTrue("╰[X]─" in screen(TerminalFrame(rows = 40)))
+        assertFalse("╰[X]─" in screen(null))
     }
 }

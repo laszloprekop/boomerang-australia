@@ -32,9 +32,13 @@ internal class Paint(private val on: Boolean) {
     fun region(index: Int, text: String): String =
         sgr("1;" + ink(DARK) + ";" + ground(REGION_COLOURS[index % REGION_COLOURS.size]), text)
 
-    /** A piece of a card (D12): dark text on the colour of its region, bold on request. */
-    fun card(index: Int, text: String, bold: Boolean): String =
-        sgr((if (bold) "1;" else "") + ink(DARK) + ";" + ground(REGION_COLOURS[index % REGION_COLOURS.size]), text)
+    /** A piece of a card (D12): dark text on the colour of its region, bold on request. `shaded`: on a
+     *  darker shade of that colour, for every second block of a card. */
+    fun card(index: Int, text: String, bold: Boolean, shaded: Boolean = false): String {
+        val colour = REGION_COLOURS[index % REGION_COLOURS.size]
+        val behind = if (shaded) colour.split(";").joinToString(";") { (it.toInt() * SHADE / 100).toString() } else colour
+        return sgr((if (bold) "1;" else "") + ink(DARK) + ";" + ground(behind), text)
+    }
 
     /** The text between an ANSI "select graphic rendition" code and the code that resets it; with colour
      *  off, or with no text, the text as it is. */
@@ -57,6 +61,9 @@ private val REGION_COLOURS = listOf(
 )
 
 /** D10: the other colours of a screen, each as red;green;blue. */
+/** D12: how light a shaded block of a card is, in hundredths of the colour of its region. */
+private const val SHADE = 86
+
 private const val WHITE = "255;255;255"
 private const val GREY = "139;145;155"
 private const val DARK = "20;22;26"
