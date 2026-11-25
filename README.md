@@ -62,5 +62,10 @@ On Windows the script is `app\build\install\app\bin\app.bat`.
 
 ## In the game
 
-To keep a card, type its letter or sign (the first character of its line) and press Enter. To choose a
-score, type the number of the option.
+Every question is one screen, at most 80 characters wide: a map of the sites you have visited, your draft,
+the cards the others have shown, your score sheet and your hand. To keep a card, type its letter or sign
+(in brackets at the start of its line) and press Enter. To choose a score, type the number of the option.
+
+Colour is used when the program runs in a terminal of its own (the `installDist` way above). It is off when
+input or output is a file or a pipe, which includes `./gradlew run`, and when the environment variable
+`NO_COLOR` is set.

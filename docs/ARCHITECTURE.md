@@ -138,10 +138,12 @@ All arrows point inward. `game` owns the interfaces the outer packages implement
 5. Only `App.kt` names concrete classes of more than one outer package. Nothing imports from it.
 6. `Random` is constructed only in `App.kt`. No main source file calls `shuffled()` or `random()` without a
    passed-in source.
-7. Text for a player during a game is laid out only in `players/ConsolePlayer.kt`. The server's own lines
-   and the failure sentences are in `App.kt`. `game` composes no sentence. Two concessions, not held by a
-   test: an exception of `net` carries a short reason that `App.kt` prints (D10), and `RegionBonus` joins
-   region names into its announcement (one string in `Score`, no list type for one category).
+7. Text for a player during a game is laid out only in the four console files of `players`
+   (`ConsolePlayer.kt`, `ConsoleMemory.kt`, `ConsoleScreens.kt`, `ConsoleLayout.kt`). The server's own lines
+   and the failure sentences are in `App.kt`. `game` composes no sentence. Three concessions, not held by a
+   test: an exception of `net` carries a short reason that `App.kt` prints (D10), `RegionBonus` joins
+   region names into its announcement (one string in `Score`, no list type for one category), and five
+   scoring classes write one line of facts into `Score.explanation` (D18).
 
 `DependencyRulesTest` reads the main source files, strips comments, and asserts rules 1 to 6 as written here.
 
@@ -172,6 +174,7 @@ data class Score(
     val points: Int,
     val chosen: Symbol? = null,        // what the player uses up by taking this score (an activity, a treasure)
     val announcement: String? = null,  // told to all players, for example the name of a completed region
+    val explanation: String? = null,   // one short line of facts the points come from (D18)
 ) : Serializable
 /** What a category may look at when it scores one player for the round just drafted. */
 class ScoringContext(val seat: Int, val drafts: List<Draft>, val history: History) {
@@ -220,8 +223,8 @@ enum class Direction {
     TO_NEXT, TO_PREVIOUS;
     fun receiver(seat: Int, playerCount: Int): Int   // the seat that receives what `seat` passes on
 }
-/** The two directions of one round. */
-data class Passing(val hands: Direction, val catch: Direction)
+/** The two directions of one round. Serializable: it travels in RoundStarted (D18). */
+data class Passing(val hands: Direction, val catch: Direction) : Serializable
 /** Decides which way the hands and the Catch card travel in a round (round is 1 to 4). */
 fun interface IPassingRule { fun passing(round: Int, playerCount: Int): Passing }
 /** Brief rules 6 and 9 with Q1: hands to the next player, Catch card to the previous, in every round (AC11.5). */
@@ -243,9 +246,17 @@ data class CardRequest(val hand: List<Card>, val draft: Draft, val refused: Char
 data class ChoiceRequest(
     val category: String, val scores: List<Score>, val draft: Draft, val refused: Int? = null,
 ) : Serializable
+/** "Player 1", "Player 2" and so on: the names of players nobody has named (D18). */
+fun defaultNames(playerCount: Int): List<String>
 sealed interface GameEvent : Serializable
-data class GameStarted(val seat: Int, val playerCount: Int, val edition: String) : GameEvent
-data class RoundStarted(val round: Int, val visitedSites: Set<Char>) : GameEvent   // round is 1 to 4
+data class GameStarted(
+    val seat: Int, val playerCount: Int, val edition: String,
+    val names: List<String> = defaultNames(playerCount),   // by seat
+) : GameEvent
+data class RoundStarted(
+    val round: Int, val visitedSites: Set<Char>,           // round is 1 to 4
+    val passing: Passing = Passing(hands = Direction.TO_NEXT, catch = Direction.TO_PREVIOUS),
+) : GameEvent
 data class CardsShown(val shown: List<List<Card>>) : GameEvent                     // by seat, Throw cards excluded
 data class DraftsRevealed(val drafts: List<Draft>) : GameEvent                     // by seat, all seven cards
 data class RoundScored(
@@ -284,8 +295,10 @@ class Game(
     private val players: List<IPlayer>,
     private val shuffler: IShuffler,
     private val passingRule: IPassingRule = StandardPassingRule,
+    private val names: List<String> = defaultNames(players.size),   // passed on in GameStarted, never read
 ) {
-    // init: IllegalArgumentException naming PLAYERS if players.size is not in it (the one check of rule 1)
+    // init: IllegalArgumentException naming PLAYERS if players.size is not in it (the one check of rule 1),
+    // and if there is not one name per player
     /** On PlayerLost: shows GameAborted to every other player, then rethrows it. */
     fun play(): GameResult
     companion object {
@@ -336,12 +349,40 @@ class BotPlayer(private val random: kotlin.random.Random) : IPlayer
 // players/ConsolePlayer.kt
 /** A human at a text console. Prints every event and question; repeats a question locally until a line can
  *  be read as an answer (one character; a number). A typed option number counts from 1; "0" is not an
- *  answer and the question is repeated locally. Throws PlayerLost when the input ends. */
-class ConsolePlayer(private val readLine: () -> String?, private val print: (String) -> Unit) : IPlayer
-/** The only place that lays out text for a player. */
+ *  answer and the question is repeated locally. Throws PlayerLost when the input ends.
+ *  `cards`: the cards of the edition, for the map. `colour`: whether to print escape sequences. */
+class ConsolePlayer(
+    private val readLine: () -> String?, private val print: (String) -> Unit,
+    cards: List<Card> = emptyList(), colour: Boolean = false,
+) : IPlayer
+/** The plain text of an event or a question, from that value alone: what a console prints that has not
+ *  been shown GameStarted. */
 internal fun describe(event: GameEvent): String
 internal fun describe(request: CardRequest): String
 internal fun describe(request: ChoiceRequest): String
+// players/ConsoleMemory.kt
+/** What one console has been shown so far: seat, edition, names, the round, the cards shown in it, the own
+ *  draft last revealed, the own score lines per round. Display state: the game never reads it (D18). */
+internal class ConsoleMemory {
+    fun remember(event: GameEvent)
+    fun name(seat: Int): String              // the name from GameStarted, else "Player n"
+    fun giver(direction: Direction): Int     // the seat whose cards reach the own seat in this direction
+    fun receiver(direction: Direction): Int  // the seat that gets the cards of the own seat
+}
+// players/ConsoleScreens.kt
+/** The screens of docs/console-screens.md, each at most 80 characters wide. */
+internal class ConsoleScreens(private val cards: List<Card>, private val paint: Paint) {
+    fun of(event: GameEvent, memory: ConsoleMemory): String   // empty if the event is only remembered
+    fun cardQuestion(request: CardRequest, memory: ConsoleMemory): String
+    fun choiceQuestion(request: ChoiceRequest): String
+}
+// players/ConsoleLayout.kt
+/** Adds ANSI codes around text that is already laid out; with colour off, returns the text as it is. */
+internal class Paint(private val on: Boolean)
+/** Card tables, one card per line, one column per symbol kind the known cards carry. */
+internal class CardTable(known: List<Card>, private val paint: Paint)
+internal fun regionCode(region: String): String   // WA for Western Australia, QUE for Queensland
+internal fun wrap(items: List<String>, separator: String, width: Int): List<String>
 ```
 
 ```kotlin
@@ -396,6 +437,10 @@ data class Usage(val message: String) : Start      // states Game.PLAYERS and th
 fun parseArguments(args: Array<String>): Start
 /** AC13.3, AC13.4: AlternatingPassingRule if start.alternate, else StandardPassingRule. */
 internal fun passingRuleFor(start: ServerStart): IPassingRule
+/** Colour is on only with a console and without the environment variable NO_COLOR (empty counts as not set). */
+internal fun useColour(hasConsole: Boolean, noColor: String?): Boolean
+/** The names by seat: humans "Player n", bots "Bot n", n being the seat plus one. */
+internal fun playerNamesFor(start: ServerStart): List<String>
 /** Client only: wraps the ConsolePlayer, passes everything on, and notes whether the end of the game was shown. */
 private class EndWatcher(private val player: IPlayer) : IPlayer { var sawTheEnd: Boolean }
 fun main(args: Array<String>)                      // the composition root; reports every failure in words (S2)
@@ -417,11 +462,11 @@ sequenceDiagram
     participant C as IScoringCategory
     participant H as History
     Note over G,P: once, before round 1, Game shows GameStarted to every player
-    G->>P: show RoundStarted with own visited sites
-    G->>S: shuffle edition.cards
-    S-->>G: deck
     G->>R: passing for round and player count
     R-->>G: Passing with hands and catch
+    G->>P: show RoundStarted with own visited sites and the Passing
+    G->>S: shuffle edition.cards
+    S-->>G: deck
     G->>D: run with deck and Passing
     Note over D: deal seven cards per seat
     loop six steps, hand sizes 7 down to 2
@@ -487,13 +532,13 @@ Defence: The rules ask a player and tell a player, and that is all they know. Ev
 interface can be replaced, including by a script in a test.
 
 **D3. What a card is, and new symbol kinds.** A card is a value with a list of `Symbol(kind, name)`. A new
-kind is new data in an edition file; `Card`, `Draft` and the console (one line per card with its symbol
-names) do not change. Rejected: one field per kind (the original) and an enum of kinds in `game`, which
+kind is new data in an edition file; `Card`, `Draft` and the console (one line per card, one column per
+kind found on the cards) do not change. Rejected: one field per kind (the original) and an enum of kinds in `game`, which
 would be edited for Europe. A symbol's value is not on the card: it belongs to the category that scores it.
 A typo is caught in three places: each symbol is declared once as a constant and used by that name, so a
 wrong reference does not compile; `DependencyRulesTest` forbids `Symbol(` outside edition packages; the one
-declaration is checked by the R2 tests (AC2.5, AC2.6). No main source file reads `kind` today: it is part
-of a symbol's identity, checked by AC2.5, and data for a later edition; a display by kind is not built.
+declaration is checked by the R2 tests (AC2.5, AC2.6). One main source file reads `kind`: `CardTable` in
+`players/ConsoleLayout.kt` makes one column per kind and uses the kind as the column head (D18).
 Defence: The brief says other editions bring new symbols, so the set of kinds must be open, and that means
 data. A symbol is typed once and referred to by name everywhere else.
 
@@ -570,7 +615,7 @@ lines and their tests that no requirement asks for.
 Stance: the values of `game` carry the marker `java.io.Serializable`, so `game` is not free of the JDK.
 That is the smaller cost because the marker has no methods and changes no signature, and the alternative is
 a second set of classes or an encoder. The dependency rule says so exactly (section 2.3 rule 1) and a test
-holds it. The way out: delete `: Serializable` in four files of `game` and add a connection class in `net`
+holds it. The way out: delete `: Serializable` in five files of `game` and add a connection class in `net`
 that encodes `Message` itself. A concrete cost: `DraftPhase` copies each dealt hand (`toList()`), because a
 `subList` view into the deck cannot be serialized.
 Defence: Client and server agree on types, never on words. The transport is one class behind
@@ -639,9 +684,10 @@ values and one operation `show(event)`. Rejected: one method per event on `IPlay
 `BotPlayer` and every test double implement seven methods they ignore (ISP). The complete list of tests on
 a type in the design:
 
-1. `describe(event)` in `ConsolePlayer.kt`: a `when` over `GameEvent`. It turns data into text at the
-   outermost edge; a text method on the events would put wording into `game`. The compiler rejects it when
-   an event is added and not handled.
+1. Three `when`s over `GameEvent` in `players`: `describe(event)` in `ConsolePlayer.kt` (the plain text),
+   `ConsoleScreens.of` (the screen) and `ConsoleMemory.remember` (what to keep). They turn data into text
+   at the outermost edge; a text method on the events would put wording into `game`. The compiler rejects
+   each when an event is added and not handled.
 2. `main`: a `when` over `Start`. Choosing what to build is the job of the composition root.
 3. Input validation where objects arrive from another process, never dispatch. `SocketConnection.receive`
    checks that the object read is a `Message`, because a stream can deliver any object. `ClientSession`
@@ -670,6 +716,37 @@ special case. Visited sites are sent once per round in `RoundStarted`: the origi
 77) and S7 keeps the information. "2 0" waits for two clients, and humans take the first seats: the server
 hosts no player (Q10), and R6 and R9 are defined on a fixed seat order.
 Defence: Each follows a decision of requirements section 8 or keeps information the original gave.
+
+**D18. The console screens (`docs/console-screens.md`, beyond the brief).** Four additions, none of them a
+rule of the game.
+
+- *Display memory.* `ConsolePlayer` keeps a `ConsoleMemory` of what it was shown, because a screen with a
+  map and a score sheet needs more than the one event that triggers it. It is display state of one console:
+  no other class reads it, and `History` stays the single place of score state (D5). The console learns the
+  cards of the edition through its constructor (`App.kt` passes `australia().cards`), reads regions, region
+  codes and symbol kinds from them, and so names no edition. A console that was never shown `GameStarted`
+  prints the plain texts of `describe`, as before.
+- *Names.* `GameStarted` carries `names`, by seat. `Game` takes them as a constructor argument, checks only
+  their number, and passes them on: it does not know what a bot is. "Player n" is written in three places,
+  each for another case: `defaultNames` in `game/IPlayer.kt` (nobody gave names: the default of `Game` and
+  of `GameStarted`), `playerNamesFor` in `App.kt` (humans are "Player n", bots "Bot n") and `playerName`
+  in `ConsolePlayer.kt` (a console that was told no name for a seat).
+- *Passing.* `RoundStarted` carries the `Passing` the rule answered for the round, so `Passing` is
+  `Serializable`. `Game` asks the rule before it shows the start of the round. The console names the
+  player a hand came from and the player the Catch card comes from. This closes review finding L7.
+- *Explanations.* `Score.explanation` is one short line of facts (which cards, which numbers), filled by the
+  five scoring classes that leave no choice. `ChosenSymbolCount` leaves it empty: its score names the
+  symbol, and the console counts the cards of the draft that carry it. Known cost: a sentence is now
+  written inside a scoring class, as `announcement` already is; rule 7 of section 2.3 names it as a
+  concession. Second cost: `SymbolSum` says "doubled" when the points are twice the sum, which it learns by
+  comparing the two numbers, since `toPoints` is a function it cannot read. The console decides where and
+  whether an explanation is printed.
+
+Rejected: the deck inside an event (it is the same on both sides and never changes), a name list in
+`net` (names are told like everything else, through `IPlayer`), and a structured explanation type (one
+line of text per score is all the console prints).
+Defence: The game still only asks and tells. What grew is what it tells (names, directions, a reason), and
+a console that remembers what it was told.
 
 ## 6. Design patterns
 
@@ -710,7 +787,7 @@ Considered and declined:
 | The rulebook's Catch direction | one `IPassingRule` class | `App.kt` |
 | **Another transport**, an answer time limit, earlier notice of a lost player (requirements 6.3) | `net/<New>Connection.kt` with its listener | `App.kt` |
 | A client that is not a console | a new `IPlayer`, handed to `ClientSession` | `App.kt` |
-| Console wording or layout | none | `players/ConsolePlayer.kt` only |
+| Console wording or layout | none | the console files of `players` only (`ConsoleScreens.kt`, `ConsoleLayout.kt`) |
 
 ### 7.2 Extensibility
 
@@ -761,7 +838,7 @@ The acceptance checks against the signatures of section 3 (described, not code t
 
 ## 8. Files, in the order to implement them
 
-All under `app/src/main/kotlin/boomerang/`, 22 files. Inside out: a file uses only files above it, except
+All under `app/src/main/kotlin/boomerang/`, 25 files. Inside out: a file uses only files above it, except
 that `IScoringCategory.kt` and `History.kt` refer to each other, and that `Draft` in `Cards.kt` and
 `Edition` read `Game.HAND_SIZE` (and `Game.PLAYERS`) from `Game.kt`. That second cycle inside the package
 is kept on purpose: the number 7 has one home. Contents are the blocks of section 3.
@@ -771,13 +848,14 @@ is kept on purpose: the number 7 has one home. Contents are the blocks of sectio
    `AlternatingPassingRule.kt`
 2. `scoring/` (3): `ThrowCatchDifference.kt`, `SiteCategories.kt`, `SymbolCategories.kt`
 3. `australia/` (1): `Australia.kt`
-4. `players/` (2): `BotPlayer.kt`, `ConsolePlayer.kt`
+4. `players/` (5): `BotPlayer.kt`, `ConsolePlayer.kt`, and for the console screens (D18)
+   `ConsoleLayout.kt`, `ConsoleMemory.kt`, `ConsoleScreens.kt`
 5. `net/` (4): `IConnection.kt`, `RemotePlayer.kt`, `ClientSession.kt`, `SocketConnection.kt`
 6. `App.kt` (1; exists as a stub and is replaced)
 
 What shares a file changes for the same reason, never across a dependency rule: `Draft` with the cards;
 events and requests with `IPlayer`; the categories by what they read (numbers, sites, symbols); symbols,
-cards and edition of Australia; the console layout with `ConsolePlayer`; the messages with `IConnection`;
+cards and edition of Australia; the plain texts with `ConsolePlayer`; the messages with `IConnection`;
 argument parsing with `main`. Kept apart on purpose: `DraftPhase`, `ScoringPhase` and `Game` (each tested
 alone); one file per seam interface; `RemotePlayer` and `ClientSession` (two different processes).
 
@@ -785,14 +863,17 @@ alone); one file per seam interface; `RemotePlayer` and `ClientSession` (two dif
 
 No question is open. Known limits, each stated where it is decided: a silent player makes the game wait,
 and a lost player is noticed when that seat is next awaited (D10, D8); `game` carries
-`java.io.Serializable` (D9); two `when`s on a sealed type, four checks of arriving objects and one check
+`java.io.Serializable` (D9); four `when`s on a sealed type, four checks of arriving objects and one check
 in `EndWatcher` remain (D15); "several scores means the player chooses" is a contract, not a type, and a
 choice is always a symbol (D4); `kind` and the display names are strings (D3). Limits stated only here:
 
 - **A stray connection can stall the lobby**: a peer that sends nothing holds `accept`, one that sends
   other bytes ends the server. It follows from having no time limit.
 - **The object stream is never reset** and has no input filter: both ends keep every message of a session.
-- **Players are not told the passing direction** of a round, nor that the alternating rule is on.
+- **The screens are 80 characters wide for the cards of Australia.** The columns of a card table grow with
+  the longest name and symbol of the cards given, so an edition with longer names needs a wider terminal
+  or a narrower table. In the revealed drafts the mark "Throw" or "Catch" takes the place of the region
+  code, because a line has room for one of the two.
 - **`GameAborted(-1)` is possible** if `PlayerLost` names an object that is not a seat; no class here does.
 - **Europe and USA card lists were not examined** (requirements 6.1). If a site there is not one character,
   `site` changes type, which touches `Card`, `CardRequest`, `CardAnswer` and `visitedSites`.

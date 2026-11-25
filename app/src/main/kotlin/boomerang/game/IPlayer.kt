@@ -13,13 +13,16 @@ data class ChoiceRequest(
     val category: String, val scores: List<Score>, val draft: Draft, val refused: Int? = null,
 ) : Serializable
 
+/** The names of players nobody has named, by seat: "Player 1", "Player 2" and so on (console-screens D4). */
+fun defaultNames(playerCount: Int): List<String> = List(playerCount) { "Player ${it + 1}" }
+
 /** Something a player is told. A closed family: the seven events below. */
 sealed interface GameEvent : Serializable
 /** The game begins: the receiver's own seat, the number of players, the name of the edition and the names
  *  of the players by seat (console-screens D4; without names given, "Player 1", "Player 2" and so on). */
 data class GameStarted(
     val seat: Int, val playerCount: Int, val edition: String,
-    val names: List<String> = List(playerCount) { "Player ${it + 1}" },
+    val names: List<String> = defaultNames(playerCount),
 ) : GameEvent
 /** A round begins: its number, the sites the receiver visited in earlier rounds and the directions of the
  *  round (console-screens D5; without a passing given, the standard one). */

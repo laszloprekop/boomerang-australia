@@ -2,18 +2,20 @@ package boomerang.game
 
 /** Rules 1, 3, 11 and 12: checks the player count, plays four rounds, keeps the History, names the winners.
  *  The constructor throws IllegalArgumentException naming PLAYERS if players.size is not in it (the one
- *  check of rule 1). */
+ *  check of rule 1), and if there is not one name per player. The names are only passed on (D4). */
 class Game(
     private val edition: Edition,
     private val players: List<IPlayer>,
     private val shuffler: IShuffler,
     private val passingRule: IPassingRule = StandardPassingRule,
-    // Stub for console-screens D4 (CS16): accepted, not yet checked and not yet sent to the players.
-    private val names: List<String> = List(players.size) { "Player ${it + 1}" },
+    private val names: List<String> = defaultNames(players.size),
 ) {
     init {
         require(players.size in PLAYERS) {
             "a game has ${PLAYERS.first} to ${PLAYERS.last} players, not ${players.size}"
+        }
+        require(names.size == players.size) {
+            "${players.size} players need ${players.size} names, not ${names.size}"
         }
     }
 
@@ -41,26 +43,27 @@ class Game(
 
     /** One round (R11): a fresh shuffle of all cards, the draft, the scoring, and the scores shown. */
     private fun playRound(round: Int, history: History): RoundRecord {
-        showRoundStart(round, history)
-        val deck = shuffler.shuffle(edition.cards)
         val passing = passingRule.passing(round, players.size)
+        showRoundStart(round, history, passing)
+        val deck = shuffler.shuffle(edition.cards)
         val drafts = DraftPhase(players).run(deck, passing)
         val record = ScoringPhase(edition.categories, players).run(drafts, history)
         showScores(round, record)
         return record
     }
 
-    /** Tells every player the own seat, the number of players and the edition. */
+    /** Tells every player the own seat, the number of players, the edition and the names of all players. */
     private fun showStart() {
         for (seat in players.indices) {
-            players[seat].show(GameStarted(seat, players.size, edition.name))
+            players[seat].show(GameStarted(seat, players.size, edition.name, names))
         }
     }
 
-    /** Tells every player the round number and the sites that player visited in earlier rounds. */
-    private fun showRoundStart(round: Int, history: History) {
+    /** Tells every player the round number, the sites that player visited in earlier rounds, and which
+     *  way the cards travel in this round. */
+    private fun showRoundStart(round: Int, history: History, passing: Passing) {
         for (seat in players.indices) {
-            players[seat].show(RoundStarted(round, history.visitedSites(seat)))
+            players[seat].show(RoundStarted(round, history.visitedSites(seat), passing))
         }
     }
 

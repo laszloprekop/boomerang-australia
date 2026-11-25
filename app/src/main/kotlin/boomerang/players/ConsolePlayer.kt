@@ -20,27 +20,36 @@ import boomerang.game.ScoreLine
 
 /** A human at a text console. Prints every event and question; repeats a question locally until a line can
  *  be read as an answer (one character; a number). A typed option number counts from 1; "0" is not an
- *  answer and the question is repeated locally. Throws PlayerLost when the input ends. */
+ *  answer and the question is repeated locally. Throws PlayerLost when the input ends.
+ *  `cards`: the cards of the edition, for the map (D2). `colour`: whether to print escape sequences (D3).
+ *  Once it has been shown GameStarted it prints the screens of docs/console-screens.md and remembers what
+ *  they need (D1); until then it prints the plain texts of `describe` (D9). */
 class ConsolePlayer(
     private val readLine: () -> String?, private val print: (String) -> Unit,
-    // Stubs for console-screens D2 and D3 (CS1 to CS15): accepted, not yet used.
-    private val cards: List<Card> = emptyList(), private val colour: Boolean = false,
+    cards: List<Card> = emptyList(), colour: Boolean = false,
 ) : IPlayer {
+    private val memory = ConsoleMemory()
+    private val screens = ConsoleScreens(cards, Paint(colour))
+
     /** Prints the question at once; the line is read when the game awaits the answer. */
     override fun selectCard(request: CardRequest): IAnswer<Char> {
-        print(describe(request))
+        print(if (memory.started) screens.cardQuestion(request, memory) else describe(request))
         return IAnswer { readSite() }
     }
 
     /** As selectCard. The person types 1 for the first option, and the game counts from 0. */
     override fun chooseScore(request: ChoiceRequest): IAnswer<Int> {
-        print(describe(request))
+        print(if (memory.started) screens.choiceQuestion(request) else describe(request))
         return IAnswer { readOptionNumber() - 1 }
     }
 
-    /** Prints the event. */
+    /** Remembers the event and prints its screen. GameStarted itself is still printed as `describe` gives
+     *  it: the game had not started when it arrived. An event with an empty screen prints nothing. */
     override fun show(event: GameEvent) {
-        print(describe(event))
+        val startedBefore = memory.started
+        memory.remember(event)
+        val text = if (startedBefore) screens.of(event, memory) else describe(event)
+        if (text.isNotEmpty()) print(text)
     }
 
     /** Reads lines until one is a single character. Whether it is a card of the hand is for the game to say. */
@@ -70,7 +79,8 @@ class ConsolePlayer(
     }
 }
 
-/** The only place that lays out text for a player. */
+/** The plain text of an event, from the event alone: what a console prints that has not been shown the
+ *  start of a game (D9). */
 internal fun describe(event: GameEvent): String = when (event) {
     is GameStarted -> "${event.edition}: you are player ${event.seat + 1} of ${event.playerCount}."
     is RoundStarted -> "Round ${event.round}. Sites you have visited: ${siteList(event.visitedSites)}"
@@ -108,8 +118,8 @@ internal fun describe(request: ChoiceRequest): String {
     return lines.joinToString("\n")
 }
 
-/** A seat as people count: seat 0 is player 1. */
-private fun playerName(seat: Int): String = "Player ${seat + 1}"
+/** A seat as people count: seat 0 is player 1. Also the name of a seat that GameStarted gave none (CS14). */
+internal fun playerName(seat: Int): String = "Player ${seat + 1}"
 
 /** Site characters in a fixed order with spaces between; "none" for an empty set. */
 private fun siteList(sites: Set<Char>): String =

@@ -67,13 +67,20 @@ private fun usage(): Usage = Usage(
 internal fun passingRuleFor(start: ServerStart): IPassingRule =
     if (start.alternate) AlternatingPassingRule else StandardPassingRule
 
-/** Console-screens CS20: colour is on only with a console and without NO_COLOR. Stub: the tests come first. */
-internal fun useColour(hasConsole: Boolean, noColor: String?): Boolean =
-    throw NotImplementedError("console-screens CS20: useColour($hasConsole, $noColor)")
+/** Console-screens CS20: colour is on only with a console and without NO_COLOR. `noColor` is the value of
+ *  that environment variable; null or empty counts as not set. */
+internal fun useColour(hasConsole: Boolean, noColor: String?): Boolean = hasConsole && noColor.isNullOrEmpty()
 
-/** Console-screens CS20, D4: the names by seat, humans "Player n" and bots "Bot n". Stub: the tests come first. */
+/** Console-screens CS20, D4: the names by seat, humans "Player n" and bots "Bot n". The humans have the
+ *  first seats, and n is the seat plus one. */
 internal fun playerNamesFor(start: ServerStart): List<String> =
-    throw NotImplementedError("console-screens CS20: playerNamesFor($start)")
+    List(start.humans + start.bots) { seat -> if (seat < start.humans) "Player ${seat + 1}" else "Bot ${seat + 1}" }
+
+/** A console for a person at this terminal: it knows the cards of the edition (D2) and whether to use colour (D3). */
+private fun consolePlayer(): ConsolePlayer = ConsolePlayer(
+    readLine = { readlnOrNull() }, print = { println(it) },
+    cards = australia().cards, colour = useColour(System.console() != null, System.getenv("NO_COLOR")),
+)
 
 /** The composition root; reports every failure in words (S2). */
 fun main(args: Array<String>) {
@@ -118,8 +125,9 @@ private fun runServer(start: ServerStart) {
         try {
             acceptHumans(listener, start.humans, remotes)
             val players: List<IPlayer> = remotes + List(start.bots) { BotPlayer(random) }
-            val result = Game(australia(), players, RandomShuffler(random), passingRuleFor(start)).play()
-            printResult(result)
+            val names = playerNamesFor(start)
+            val result = Game(australia(), players, RandomShuffler(random), passingRuleFor(start), names).play()
+            printResult(result, names)
         } finally {
             closeAll(remotes)
         }
@@ -136,13 +144,13 @@ private fun acceptHumans(listener: SocketListener, humans: Int, remotes: Mutable
 }
 
 /** What the server itself prints at the end: it hosts no player, so nobody else would see it there. */
-private fun printResult(result: GameResult) {
+private fun printResult(result: GameResult, names: List<String>) {
     println("The game is over.")
     for (seat in result.totals.indices) {
-        println("Player ${seat + 1} has ${result.totals[seat]} points.")
+        println("${names[seat]} has ${result.totals[seat]} points.")
     }
     for (seat in result.winners) {
-        println("Player ${seat + 1} wins.")
+        println("${names[seat]} wins.")
     }
 }
 
@@ -161,8 +169,7 @@ private fun closeAll(remotes: List<RemotePlayer>) {
 /** The client: one human at this console, played over the connection to the server. */
 private fun runClient(start: ClientStart) {
     SocketConnection.open(start.host, PORT).use { connection ->
-        val console = ConsolePlayer(readLine = { readlnOrNull() }, print = { println(it) })
-        val player = EndWatcher(console)
+        val player = EndWatcher(consolePlayer())
         try {
             ClientSession(connection, player).run()
         } catch (lost: PlayerLost) {
