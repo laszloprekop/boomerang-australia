@@ -43,9 +43,13 @@ class CardFanTest {
     }
 
     @Test
-    fun `D12 the blocks of a card take turns in shade`() {
+    fun `D12 the blocks of a card take turns in shade, its edges are never shaded`() {
         val lines = CardFan(cards, Paint(true)).lines(hand("HW"), width = 78)
-        val grounds = lines.map { Regex("48;2;[0-9;]+").find(it)!!.value }
+        val found = lines.map { line -> Regex("48;2;[0-9;]+").findAll(line).map { it.value }.toList() }
+        val grounds = found.map { it[1] }   // the first is the left edge, the second what is inside the card
+
+        assertEquals(1, found.map { it.first() }.toSet().size, "the left edge has one colour on every line")
+        assertEquals(1, found.map { it.last() }.toSet().size, "the right edge has one colour on every line")
 
         // top edge, region, name, three symbol kinds, bottom edge: the name and the second kind are shaded
         assertEquals(listOf(true, true, false, true, false, true, true), grounds.map { it == grounds.first() })
@@ -67,6 +71,22 @@ class CardFanTest {
 
         // two edges, the first line, a name of one line, and one line for each of the three symbol kinds
         assertEquals(7, lines.size, lines.joinToString("\n"))
+    }
+
+    @Test
+    fun `D12 no line of a screen with fans and a board is wider than a screen`() {
+        val printed = mutableListOf<String>()
+        val player = ConsolePlayer(
+            readLine = { null }, print = { printed += it }, cards = cards,
+            terminal = TerminalLook(cardFan = true, map = boomerang.australia.AUSTRALIA_MAP),
+        )
+        player.show(boomerang.game.GameStarted(edition = "Boomerang Australia", seat = 0, playerCount = 2))
+        player.show(boomerang.game.RoundStarted(round = 1, visitedSites = emptySet()))
+        player.selectCard(boomerang.game.CardRequest(hand("XJGQPZD"), boomerang.game.Draft()))
+        val lines = printed.last().split("\n")
+
+        assertTrue(lines.all { it.length <= WIDTH }, lines.filter { it.length > WIDTH }.joinToString("\n"))
+        assertTrue(lines.any { it.startsWith("╭─") } && lines.any { it.startsWith(" WA ") }, "fan and board start in the first column")
     }
 
     @Test

@@ -69,7 +69,7 @@ private val REGION_COLOURS = listOf(
 
 /** D10: the other colours of a screen, each as red;green;blue. */
 /** D12: how light a shaded block of a card is, in hundredths of the colour of its region. */
-private const val SHADE = 86
+private const val SHADE = 93
 
 private const val WHITE = "255;255;255"
 private const val GREY = "139;145;155"

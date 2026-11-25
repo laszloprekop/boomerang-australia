@@ -34,15 +34,20 @@ internal class CardFan(known: List<Card>, private val paint: Paint) {
     }
 
     /** What stands where on a card, for a legend under a fan. */
-    fun legend(): String = "number above / " + (listOf("region", "name") + kinds).joinToString(" / ") + " / what to type below"
+    fun legend(): String = (listOf("number", "region", "name") + kinds + "what to type").joinToString(" / ")
 
     /** One line of the fan: a piece per card, each in the colour of its region, and the right edge of the
      *  last card. */
     private fun row(
         cards: List<Card>, lastEdge: String, bold: Boolean = false, shaded: Boolean = false, piece: (Int) -> String,
     ): String {
-        val pieces = cards.indices.joinToString("") { paint.card(regions.indexOf(cards[it].region), piece(it), bold, shaded) }
-        return pieces + paint.card(regions.indexOf(cards.last().region), lastEdge, bold = false, shaded = shaded)
+        // the edge of a card is never shaded: the shades take turns only inside a card
+        val pieces = cards.indices.joinToString("") {
+            val region = regions.indexOf(cards[it].region)
+            val text = piece(it)
+            paint.card(region, text.take(1), bold = false) + paint.card(region, text.drop(1), bold, shaded)
+        }
+        return pieces + paint.card(regions.indexOf(cards.last().region), lastEdge, bold = false)
     }
 
     /** The top edge of a card: its number, and a word behind it if there is one. */

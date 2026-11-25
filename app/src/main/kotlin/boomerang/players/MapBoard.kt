@@ -16,9 +16,8 @@ internal class MapBoard(
     /** Whether the board can show these cards: there is a layout, and it has every region of the cards. */
     val usable: Boolean = layout.isNotEmpty() && layout.flatten().toSet().containsAll(regions)
 
-    /** The board over the width of a screen, set in as the other parts of a screen are. */
-    override fun lines(visited: Set<Char>, drafted: Set<Char>): List<String> =
-        lines(WIDTH - LEAD.length, visited, drafted).map { LEAD + it }
+    /** The board over the width of a screen, from the first column, as the header of a screen is. */
+    override fun lines(visited: Set<Char>, drafted: Set<Char>): List<String> = lines(WIDTH, visited, drafted)
 
     /** The lines of the board, `width` characters wide: two lines per row of the layout. */
     fun lines(width: Int, visited: Set<Char>, drafted: Set<Char>): List<String> {
@@ -70,6 +69,5 @@ internal class MapBoard(
     companion object {
         private const val CODE_WIDTH = 3
         private const val MARK_WIDTH = 3
-        private const val LEAD = "  "
     }
 }

@@ -57,11 +57,8 @@ internal class CardFanView(private val known: List<Card>, private val paint: Pai
     private fun fan(shown: List<Card>, marks: Map<Int, String>): List<String> {
         if (shown.isEmpty()) return emptyList()
         val cardFan = CardFan(known.ifEmpty { shown }, paint)
-        return cardFan.lines(shown, WIDTH - LEAD.length, marks).map { LEAD + it } + paint.dim(LEAD + cardFan.legend())
-    }
-
-    companion object {
-        private const val LEAD = "  "
+        // from the first column, as the header of a screen is: cards, map and header then start in one line
+        return cardFan.lines(shown, WIDTH, marks) + paint.dim(cardFan.legend())
     }
 }
 

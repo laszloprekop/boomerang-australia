@@ -788,7 +788,7 @@ Considered and declined:
 | The rulebook's Catch direction | one `IPassingRule` class | `App.kt` |
 | **Another transport**, an answer time limit, earlier notice of a lost player (requirements 6.3) | `net/<New>Connection.kt` with its listener | `App.kt` |
 | A client that is not a console | a new `IPlayer`, handed to `ClientSession` | `App.kt` |
-| Console wording or layout | none | the console files of `players` only (`ConsoleScreens.kt`, `ConsoleLayout.kt`, and for a real terminal `ConsoleViews.kt`, and for a real terminal `TerminalFrame.kt`, `TerminalLook.kt`, `CardFan.kt`, `MapBoard.kt`) |
+| Console wording or layout | none | the console files of `players` only (`ConsoleScreens.kt`, `ConsoleLayout.kt`, `ConsoleViews.kt`, and for a real terminal `TerminalFrame.kt`, `TerminalLook.kt`, `CardFan.kt`, `MapBoard.kt`) |
 
 ### 7.2 Extensibility
 
