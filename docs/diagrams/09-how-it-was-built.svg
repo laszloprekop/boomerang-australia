@@ -89,33 +89,41 @@
 <polyline points="1025.0,218 1025.0,234" fill="none" stroke="#7b1fa2" stroke-width="1.5"/>
 <polyline points="954,159.0 964,159.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
 <polygon points="964.0,159.0 955.8,155.3 955.8,162.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
-<text x="40" y="290" font-size="16" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">The test lock: four tags, tests only ever added</text>
-<rect x="40" y="306" width="243" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="40" y="290" font-size="16" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">The test lock: five tags, tests only ever added</text>
+<rect x="40" y="306" width="195" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
 <text x="52" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked-1</text>
 <text x="52" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">224 tests</text>
-<text x="52" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">rules 1 to 12, before any code</text>
-<rect x="300" y="306" width="243" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
-<text x="312" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked-2</text>
-<text x="312" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">225 tests</text>
-<text x="312" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">+1: a whole game with every message</text>
-<text x="312" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">serialized, for a bug the real run</text>
-<text x="312" y="400" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">found</text>
-<polyline points="283,358.0 300,358.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
-<polygon points="300.0,358.0 291.8,354.3 291.8,361.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
-<rect x="560" y="306" width="243" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
-<text x="572" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked-3</text>
-<text x="572" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">244 tests</text>
-<text x="572" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">+19: requirement 13, before its</text>
-<text x="572" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">code</text>
-<polyline points="543,358.0 560,358.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
-<polygon points="560.0,358.0 551.8,354.3 551.8,361.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
-<rect x="820" y="306" width="243" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
-<text x="832" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked</text>
-<text x="832" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">253 tests</text>
-<text x="832" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">+9: guards and start-up failures</text>
-<text x="832" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">found by the review</text>
-<polyline points="803,358.0 820,358.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
-<polygon points="820.0,358.0 811.8,354.3 811.8,361.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<text x="52" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">rules 1 to 12, before any</text>
+<text x="52" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">code</text>
+<rect x="252" y="306" width="195" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="264" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked-2</text>
+<text x="264" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">225 tests</text>
+<text x="264" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">+1: a whole game with every</text>
+<text x="264" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">message serialized, for a</text>
+<text x="264" y="400" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">bug the real run found</text>
+<polyline points="235,358.0 252,358.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="252.0,358.0 243.8,354.3 243.8,361.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="464" y="306" width="195" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="476" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked-3</text>
+<text x="476" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">244 tests</text>
+<text x="476" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">+19: requirement 13, before</text>
+<text x="476" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">its code</text>
+<polyline points="447,358.0 464,358.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="464.0,358.0 455.8,354.3 455.8,361.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="676" y="306" width="195" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="688" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked-4</text>
+<text x="688" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">253 tests</text>
+<text x="688" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">+9: guards and start-up</text>
+<text x="688" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">failures found by the review</text>
+<polyline points="659,358.0 676,358.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="676.0,358.0 667.8,354.3 667.8,361.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
+<rect x="888" y="306" width="195" height="104" rx="6" fill="#e6f4ea" stroke="#137333" stroke-width="1.8"/>
+<text x="900" y="328" font-size="15" font-weight="700" fill="#1a1a1a">tests-locked</text>
+<text x="900" y="350" font-size="14" fill="#1a1a1a" font-weight="700" text-anchor="start" xml:space="preserve">305 tests</text>
+<text x="900" y="370" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">+52: the console screens,</text>
+<text x="900" y="385" font-size="11.5" fill="#5f6368" text-anchor="start" xml:space="preserve">before their code</text>
+<polyline points="871,358.0 888,358.0" fill="none" stroke="#3c4043" stroke-width="1.5"/>
+<polygon points="888.0,358.0 879.8,354.3 879.8,361.7" fill="#3c4043" stroke="#3c4043" stroke-width="1.5"/>
 <rect x="40" y="424" width="1043" height="52" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
 <text x="52" y="445" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">git diff --name-only --diff-filter=MDR tests-locked-1 HEAD -- app/src/test</text>
 <text x="52" y="462" font-size="12" fill="#1a1a1a" font-family="Menlo, Consolas, monospace" xml:space="preserve">prints nothing: no test was changed, renamed or deleted after the first lock.</text>
@@ -135,7 +143,7 @@
 <text x="405" y="562" font-size="12" fill="#1a1a1a" xml:space="preserve">sent the architecture back twice</text>
 <text x="405" y="579" font-size="12" fill="#1a1a1a" xml:space="preserve">read every round's diff before the next</text>
 <text x="405" y="596" font-size="12" fill="#1a1a1a" xml:space="preserve">decided on each review finding</text>
-<text x="405" y="613" font-size="12" fill="#1a1a1a" xml:space="preserve">moved the lock, openly, three times</text>
+<text x="405" y="613" font-size="12" fill="#1a1a1a" xml:space="preserve">moved the lock, openly, four times</text>
 <rect x="746" y="488" width="337" height="190" rx="6" fill="#fce8e6" stroke="#b3261e" stroke-width="1.6"/>
 <text x="758" y="510" font-size="15" font-weight="700" fill="#1a1a1a">What only a real run found</text>
 <text x="758" y="528" font-size="12" fill="#1a1a1a" xml:space="preserve">A hand was a view into the deck and</text>
